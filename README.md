@@ -8,10 +8,17 @@ open folder in terminal
 
 run command,
 
+1. Install Dependencies
 ``` 
-1. npm install
+npm install
 ```
 
+2. Start Local server
 ```
-2. npm start
+npm start
+```
+
+3. If browser doesnt open automatically, open any browser and visit 
+```
+http://localhost:3000/
 ```
