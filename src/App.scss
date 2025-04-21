@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
+$pink:#EFD0D9;
+// $l-pink:#f3e8eb;
+$l-pink:$pink;
+$brown:#843131;
+$black: #1d1d1d;
+$white:#ffffff;
+$d-grey:#121a1c;
+$l-grey:#6c6c6c;
+
+
+
+* {
+  
+  margin: 0%;
+  padding: 0%;
+  box-sizing: border-box;
+  transition: all 250ms ease-in-out;
+  -webkit-tap-highlight-color: transparent;
+
+}
+
+html, body{
+  
+  width: 100dvw;
+  height: 100dvh;
+
+}
+
+body {
+
+  font-family: "poppins", 'Segoe UI', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+}
+
+.global-button{
+  background-color: $white;
+  border: 1px solid $pink;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  color: $brown;
+
+  .material-symbols-outlined {
+      font-size: 18px;
+
+  }
+}
+
+//overflow-y: scroll;
+//-ms-overflow-style: none;
+//scrollbar-width: none;
+
+// &::-webkit-scrollbar {
+//   display: none;
+// }
+
+// @import '../../App.scss';
+
+

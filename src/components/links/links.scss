@@ -1,0 +1,60 @@
+@import '../../App.scss';
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+
+  transition: background 0.25s ease, transform 0.25s ease;
+
+  &.selected {
+    background-color: #ffffff88;  // same as hover
+    transform: none;
+  }
+
+  &:hover {
+    background-color: #ffffff88;
+    transform: translateY(-2px);
+  }
+
+  .icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+  }
+
+  p {
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: capitalize;
+    color: $black;
+    margin: 0;
+  }
+
+  // phone padding tweak
+  @media (max-width: 500px) {
+    padding: 10px;
+  }
+}
+
+// hide all link text on very small screens…
+@media (max-width: 430px) {
+  .link {
+    p {
+      display: none;
+    }
+
+    &.selected {
+      p {
+        display: block;
+        @media (max-width: 310px) {
+            display: none;
+        }  // …except for the selected one
+      }
+    }
+  }
+}

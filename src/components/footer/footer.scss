@@ -1,0 +1,126 @@
+// src/components/footer/footer.scss
+@import '../../App.scss'; // make sure your global variables ($brown, $white, etc.) are available
+
+.footer {
+    background-color: $brown;
+    color: $white;
+    padding: 1.5rem 0rem;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    position: relative;
+
+    // Top area: logo, nav & social icons
+    .footer-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 0rem 2rem;
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+        position: relative;
+
+        .footer-logo h2 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        .footer-nav {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            flex: 1;
+            text-align: center;
+
+            ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                display: inline-flex;
+                gap: 1.5rem;
+
+                li {
+                    a {
+                        text-decoration: none;
+                        color: $white;
+                        font-size: 1rem;
+                        transition: color 0.3s ease;
+
+                        &:hover {
+                            color: lighten($white, 20%);
+                        }
+                    }
+                }
+            }
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+
+            a {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 25px;
+                height: 25px;
+                transition: background-color 0.3s ease;
+                overflow: hidden;
+
+                img {
+                    display: block;
+                    max-width: 100%;
+                    max-height: 100%;
+                }
+            }
+        }
+    }
+
+    // Bottom area: copyright & developer
+    .footer-bottom {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+
+        p {
+            margin: 0;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .developer {
+
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+
+            a{
+                color: $white;
+                text-decoration: underline;
+
+
+                .material-symbols-outlined {
+                    text-decoration: underline;
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+
+    // Responsive adjustments
+    @media (max-width: 1000px) {
+        .footer-top {
+            flex-direction: column;
+            text-align: center;
+            gap: 10px;
+
+            .footer-nav {
+                position: static;
+                transform: translate(0%, 0%);
+                margin: 0.5rem 0;
+            }
+        }
+    }
+}
