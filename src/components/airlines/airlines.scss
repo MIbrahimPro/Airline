@@ -1,0 +1,42 @@
+.airline-bar-wrapper {
+    background: #fff;
+    padding: 16px 0;
+    overflow: hidden;
+  }
+  
+  .airline-bar {
+    display: flex;
+    align-items: center;
+    gap: 40px;       /* constant minimum gap */
+    overflow-x: auto;
+    scroll-behavior: auto;
+    scrollbar-width: none; /* hide scrollbar on Firefox */
+    -ms-overflow-style: none; /* hide on IE/Edge */
+  }
+  .airline-bar::-webkit-scrollbar {
+    display: none; /* hide on WebKit */
+  }
+  
+  .airline-logo {
+    flex: 0 0 auto;
+    width: 120px;   /* fixed width */
+    img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+  }
+  
+  /* smaller screens: reduce gaps and logo size */
+  @media (max-width: 600px) {
+    .airline-bar-wrapper {
+      padding: 12px 0;
+    }
+    .airline-bar {
+      gap: 24px;
+    }
+    .airline-logo {
+      width: 80px;
+    }
+  }
+  

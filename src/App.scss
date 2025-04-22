@@ -2,16 +2,9 @@
 
 @import "~@fortawesome/fontawesome-free/css/all.css";
 
-$pink:#EFD0D9;
-// $l-pink:#f3e8eb;
-$l-pink:$pink;
-$brown:#843131;
-$black: #1d1d1d;
-$white:#ffffff;
-$d-grey:#121a1c;
-$l-grey:#6c6c6c;
-
-
+$d-blue:#002e5b;
+$m-blue: #004080; 
+$l-blue: rgb(65, 157, 187);
 
 * {
   
@@ -38,23 +31,6 @@ body {
 
 }
 
-.global-button{
-  background-color: $white;
-  border: 1px solid $pink;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  cursor: pointer;
-  font-size: 18px;
-  color: $brown;
-
-  .material-symbols-outlined {
-      font-size: 18px;
-
-  }
-}
-
 //overflow-y: scroll;
 //-ms-overflow-style: none;
 //scrollbar-width: none;
@@ -64,5 +40,4 @@ body {
 // }
 
 // @import '../../App.scss';
-
 

@@ -1,5 +1,24 @@
 @import '../../App.scss';
 
+
+.logo{
+    position: fixed;
+    top: 20px;
+    left: 60px;
+    height: 60px;
+    width: 100px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+    
+    @media (max-width: 600px) {
+        top: 5px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
 .navbar {
     display: flex;
     gap: 5px;
@@ -10,7 +29,7 @@
 
     background-color: #ffffff55;
     backdrop-filter: blur(10px);
-    color: $black;
+    color: #000000;
     overflow: hidden;
 
     width: fit-content;

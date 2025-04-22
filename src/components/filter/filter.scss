@@ -1,0 +1,241 @@
+
+
+@import '../../App.scss';
+
+/* Overlay */
+.sf-overlay {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(3px);
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 200;
+}
+
+/* Form container */
+.search-form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  max-width: 500px; // default for mobile & small desktops
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(7px);
+  border-radius: 16px;
+  transform: translate(-50%, -50%) translateY(50px);
+  opacity: 0;
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+
+  &.open {
+    transform: translate(-50%, -50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Header remains fixed */
+.sf-header {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  position: sticky;
+  top: 0;
+  background: inherit;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  z-index: 2;
+
+  .sf-tabs {
+    display: flex;
+    gap: 8px;
+
+    button {
+      background: rgba(0, 123, 255, 0.1);
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease-out;
+      color: #000;
+
+      &:hover {
+        background: $d-blue;
+        color: #fff;
+      }
+
+      &.active {
+        background: $m-blue;
+        color: #fff;
+      }
+    }
+  }
+
+  .sf-close {
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+}
+
+/* Body scroll area */
+.sf-body {
+  padding-top: 10px;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Fields wrapper */
+.sf-fields {
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Row grouping */
+.row {
+  display: flex;
+  flex-direction: column; // default stacking for mobile
+  gap: 12px;
+}
+
+/* Field modifiers */
+.field {
+  display: flex;
+  flex-direction: column;
+  label {
+    margin-bottom: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  input,
+  select {
+    padding: 10px 14px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    outline: none;
+    background: #fff;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+// Full width (row 1)
+.field.full {
+  width: 100%;
+}
+
+// For half and third width fields in desktop layout
+@media (min-width: 768px) {
+  .row {
+    flex-direction: row;
+    gap: 16px;
+  }
+  .field.half {
+    flex: 1;
+  }
+  .field.third {
+    flex: 1;
+  }
+}
+
+/* Custom radio buttons */
+.radio-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  .radio-button {
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+    user-select: none;
+    font-weight: 500;
+
+    input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+
+    .custom-radio {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 18px;
+      width: 18px;
+      border: 2px solid $m-blue;
+      border-radius: 50%;
+      transition: all 0.2s ease-out;
+    }
+
+    input:checked + .custom-radio {
+      background: #007bff;
+      transform: translateY(-50%) scale(1.2);
+    }
+  }
+}
+
+/* Submit button */
+.sf-submit {
+  width: 100%;
+  padding: 12px;
+  background: $m-blue;
+  border: none;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+
+  &:hover {
+    background: $l-blue;
+  }
+}
+
+/* Footer remains fixed */
+.sf-footer {
+  flex: 0 0 auto;
+  position: sticky;
+  bottom: 0;
+  background-color: #ffffff55;
+  backdrop-filter: blur(10px);
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  padding: 12px 16px;
+  margin-top: 16px;
+}
+
+/* Desktop: Increase overall form width for 2-column layout */
+@media (min-width: 768px) {
+  .search-form {
+    max-width: 700px;
+  }
+}
+
+/* Mobile adjustments for screens smaller than 600px: Vertical center */
+@media (max-width: 600px) {
+  .search-form {
+    width: calc(100% - 40px);
+    top: 50%;
+    bottom: auto;
+    transform: translate(-50%, -50%);
+  }
+  .search-form.open {
+    transform: translate(-50%, -50%);
+  }
+}

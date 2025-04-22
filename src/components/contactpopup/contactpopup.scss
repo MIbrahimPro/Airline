@@ -1,0 +1,100 @@
+@import '../../App.scss';
+
+.cp-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3px);
+  z-index: 300;
+}
+
+.contact-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  max-width: 500px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(7px);
+  border-radius: 16px;
+  transform: translate(-50%, -50%) translateY(50px);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+
+  &.open {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+
+  .cp-header {
+    padding: 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .cp-close {
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+  }
+
+  .cp-body {
+    padding: 16px;
+    max-height: 70vh;
+    overflow-y: auto;
+
+    .cp-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      .cp-field {
+        display: flex;
+        flex-direction: column;
+
+        label {
+          margin-bottom: 4px;
+          font-weight: 600;
+        }
+
+        input,
+        textarea {
+          padding: 10px 14px;
+          border: none;
+          border-radius: 8px;
+          font-size: 1rem;
+          background: #fff;
+          outline: none;
+        }
+      }
+    }
+
+    .cp-footer {
+      margin-top: 16px;
+
+      .cp-submit {
+        width: 100%;
+        padding: 12px;
+        background: $m-blue;
+        border: none;
+        border-radius: 25px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #fff;
+        cursor: pointer;
+        transition: background 0.2s ease;
+
+        &:hover {
+          background: $l-blue;
+        }
+      }
+    }
+  }
+}

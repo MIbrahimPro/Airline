@@ -1,4 +1,3 @@
-// src/components/navbar/Navbar.jsx
 import React from 'react';
 import './navbar.scss';
 
@@ -11,6 +10,10 @@ const Navbar = ({ selectedPage = null }) => {
 
   return (
 
+    <>
+    <div className='logo'>
+        <img src='../logob.svg' alt='Travel.' />
+    </div>
     <nav className="navbar">
         
       {navItems.map((item) => (
@@ -22,6 +25,7 @@ const Navbar = ({ selectedPage = null }) => {
       ))}
 
     </nav>
+    </>
 
   );
 

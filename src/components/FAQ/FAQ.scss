@@ -1,0 +1,112 @@
+@import '../../App.scss';
+
+
+
+/* FAQ.scss */
+.faqSection {
+    padding: 60px 20px;
+    background-color: #FFFFFF; /* Light gray background */
+    text-align: left;
+  
+    .faqTitle {
+      font-size: 2rem;
+      font-weight: bold;
+      color: $d-blue;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+  
+    .faqList {
+      list-style: none;
+      padding: 0;
+      margin: 0 auto;
+      max-width: 800px; /* Limit width for better readability */
+    }
+  
+    .faqItem {
+      margin-bottom: 15px;
+      border-bottom: 1px solid #eee;
+  
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  
+    .faqQuestionContainer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+      cursor: pointer;
+    }
+  
+    .faqQuestion {
+      font-size: 1rem;
+      color: #555;
+      margin: 0;
+      font-weight: 600;
+    }
+  
+    .faqToggleButton {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 5px;
+      outline: none;
+    }
+  
+    .toggleIcon {
+      width: 16px; /* Adjust size as needed */
+      height: 16px; /* Adjust size as needed */
+      display: block; /* Ensure proper sizing */
+    }
+  
+    .faqAnswer {
+      padding: 15px 0;
+      font-size: 0.9rem;
+      color: #777;
+      line-height: 1.6;
+    }
+  
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      padding: 40px 15px;
+  
+      .faqTitle {
+        font-size: 1.75rem;
+        margin-bottom: 25px;
+      }
+  
+      .faqQuestion {
+        font-size: 0.95rem;
+      }
+  
+      .faqAnswer {
+        font-size: 0.85rem;
+        padding: 10px 0;
+      }
+  
+      .toggleIcon {
+        width: 14px;
+        height: 14px;
+      }
+    }
+  
+    @media (max-width: 576px) {
+      padding: 30px 10px;
+  
+      .faqTitle {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+      }
+  
+      .faqQuestion {
+        font-size: 0.9rem;
+      }
+  
+      .toggleIcon {
+        width: 12px;
+        height: 12px;
+      }
+    }
+  }
