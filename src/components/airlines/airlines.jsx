@@ -5,7 +5,6 @@ const airlines = [
   'aegean-airlines',
   'air-albania',
   'air-canada',
-  'airbaltic',
   'british-airways',
   'qatar-airways',
   'riyadh-air',

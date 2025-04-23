@@ -1,0 +1,47 @@
+.results-page {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+  
+    .filter-sidebar {
+      flex: 0 0 280px;
+  
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+  
+    .results-main {
+      flex: 1;
+      position: relative;
+  
+      .mobile-filter-btn {
+        display: none;
+        position: sticky;
+        top: 20px;
+        margin-bottom: 20px;
+        padding: 10px 16px;
+        background: #00bfff;
+        color: #fff;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+  
+        @media (max-width: 768px) {
+          display: inline-block;
+        }
+      }
+  
+      .tickets-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        max-width: 970px;
+        background-color: #e4e7ec;
+        padding: 7px 7px;
+        border-radius: 10px;
+      }
+    }
+  }
+  
