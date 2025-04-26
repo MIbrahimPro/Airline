@@ -1,72 +1,209 @@
+@import '../../App.scss';
+
 .filter-sidebar-inner {
-    background: rgba(255,255,255,0.6);
-    backdrop-filter: blur(8px);
-    border-radius: 12px;
-    padding: 20px;
-  
-    .fs-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-  
-      h3 { margin: 0; }
-      .reset-btn {
-        background: none;
-        border: none;
-        color: #00bfff;
-        cursor: pointer;
-      }
-    }
-  
-    .fs-group {
-      margin-bottom: 24px;
-  
-      h4 {
-        margin-bottom: 8px;
-        color: #004080;
-      }
-  
-      .time-buttons {
-        display: grid;
-        grid-template-columns: repeat(2,1fr);
-        gap: 8px;
-  
-        button {
-          background: #fff;
-          border: 1px solid #ccc;
-          border-radius: 12px;
-          padding: 8px;
-          font-size: 0.9rem;
-          cursor: pointer;
-        }
-      }
-  
-      input[type="range"] {
-        width: 100%;
-        margin: 8px 0;
-      }
-  
-      .price-inputs {
-        display: flex;
-        gap: 8px;
-        input {
-          flex: 1;
-          padding: 6px 8px;
-          border: 1px solid #ccc;
-          border-radius: 12px;
-        }
-      }
-  
-      label {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        font-size: 0.9rem;
-        margin-bottom: 8px;
-  
-        input { margin: 0; }
-      }
-    }
-  }
-  
+	background: #fff;
+	border-radius: 12px;
+	padding: 20px;
+	width: 100%;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	max-height: calc(100vh - 140px);
+	overflow: scroll;
+
+
+	overflow-y: scroll;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+
+	.fs-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 16px;
+
+		h3 {
+			margin: 0;
+			font-size: 1.4rem;
+			font-weight: 700;
+		}
+
+		.reset-btn {
+			background: none;
+			border: none;
+			color: #00bfff;
+			cursor: pointer;
+			font-size: 0.9rem;
+			font-weight: 600;
+		}
+	}
+
+	.fs-group {
+		margin-bottom: 24px;
+
+		h4 {
+			margin-bottom: 8px;
+			color: #004080;
+			font-size: 1.1rem;
+			font-weight: 700;
+
+			small {
+				font-weight: 500;
+				font-size: 0.8rem;
+				color: #666;
+			}
+		}
+
+		.time-buttons,
+		.stops-buttons {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 8px;
+
+			button {
+				background: #fff;
+				border: 1px solid #ccc;
+				border-radius: 12px;
+				padding: 10px;
+				font-size: 0.9rem;
+				cursor: pointer;
+				text-align: center;
+				transition: background 0.2s ease, transform 0.2s ease, border 0.2s ease;
+				font-weight: 600;
+				line-height: 1.2;
+
+				small {
+					display: block;
+					font-size: 0.7rem;
+					font-weight: 500;
+					margin-top: 2px;
+				}
+
+				&:hover {
+					background: #f0f0f0;
+					transform: translateY(-2px);
+				}
+
+				&.selected {
+					border-color: $m-blue;
+					background: rgba($m-blue, 0.1);
+				}
+			}
+		}
+
+		.range-container {
+			position: relative;
+			margin: 8px 0;
+			height: 4px;
+
+			.range-input {
+				-webkit-appearance: none;
+				width: 100%;
+				height: 4px;
+				background: transparent;
+				position: absolute;
+				top: 0;
+				pointer-events: none;
+			}
+
+			.range-input::-webkit-slider-thumb {
+				-webkit-appearance: none;
+				width: 14px;
+				height: 14px;
+				background: $m-blue;
+				border-radius: 50%;
+				cursor: pointer;
+				pointer-events: auto;
+				border: 2px solid #fff;
+			}
+
+			.range-track {
+				position: relative;
+				height: 4px;
+				background: #ddd;
+				border-radius: 4px;
+			}
+
+			.range-active {
+				position: absolute;
+				height: 100%;
+				background: $m-blue;
+				border-radius: 4px;
+			}
+		}
+
+		.price-inputs {
+			display: flex;
+			gap: 8px;
+			margin-top: 8px;
+
+			input {
+				flex: 1;
+				padding: 6px 8px;
+				border: 1px solid #ccc;
+				border-radius: 12px;
+				font-size: 0.9rem;
+				font-weight: 600;
+			}
+		}
+
+		label {
+			display: flex;
+			align-items: center;
+			gap: 6px;
+			font-size: 0.9rem;
+			margin-bottom: 8px;
+			font-weight: 600;
+
+			input {
+				margin: 0;
+			}
+		}
+
+
+		.airlines-grid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 10px;
+
+			.airline-tile {
+				background: #fff;
+				border: 1px solid #ccc;
+				border-radius: 8px;
+				padding: 10px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				cursor: pointer;
+				transition: border 0.2s ease, background 0.2s ease, transform 0.2s ease;
+				box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+
+				img {
+					width: 40px;
+					height: 40px;
+					object-fit: contain;
+				}
+
+				&:hover {
+					transform: translateY(-2px);
+				}
+
+				&.selected {
+					border-color: $m-blue;
+					background: rgba($m-blue, 0.1);
+				}
+			}
+		}
+	}
+}
+
+
+@media (max-width: 600px) {
+	.filter-sidebar-inner {
+		width: 100%;
+		max-width: 335px;
+		margin: 0 auto;
+	}
+}

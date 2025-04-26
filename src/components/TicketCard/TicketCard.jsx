@@ -67,7 +67,7 @@ const FlightCard = ({
 
                     <div className="airline">
                         <img
-                            src={`../airlines/logo/${airlineLogo}.svg`}
+                            src={`../airlines/icons/${airlineLogo}.svg`}
                             alt={`${airlineName} logo`}
                             className="airline-logo"
                         />

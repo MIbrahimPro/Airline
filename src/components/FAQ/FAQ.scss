@@ -1,11 +1,9 @@
 @import '../../App.scss';
 
 
-
-/* FAQ.scss */
 .faqSection {
     padding: 60px 20px;
-    background-color: #FFFFFF; /* Light gray background */
+    background-color: #FFFFFF; 
     text-align: left;
   
     .faqTitle {
@@ -20,7 +18,7 @@
       list-style: none;
       padding: 0;
       margin: 0 auto;
-      max-width: 800px; /* Limit width for better readability */
+      max-width: 800px; 
     }
   
     .faqItem {
@@ -56,9 +54,9 @@
     }
   
     .toggleIcon {
-      width: 16px; /* Adjust size as needed */
-      height: 16px; /* Adjust size as needed */
-      display: block; /* Ensure proper sizing */
+      width: 16px; 
+      height: 16px;
+      display: block;
     }
   
     .faqAnswer {
@@ -68,7 +66,7 @@
       line-height: 1.6;
     }
   
-    /* Responsive Design */
+    
     @media (max-width: 768px) {
       padding: 40px 15px;
   

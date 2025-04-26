@@ -49,13 +49,12 @@ const popularDestinations = [
 ];
 
 export default function Home() {
-    const [showForm, setShowForm] = useState(false);         // mounted?
-    const [formVisible, setFormVisible] = useState(false);   // open (for animation)
+    const [showForm, setShowForm] = useState(false);        
+    const [formVisible, setFormVisible] = useState(false);  
     const [origin, setOrigin] = useState({ x: 0, y: 0 });
     const [activeDest, setActiveDest] = useState(null);
     const navigate = useNavigate();
 
-    // Deselect if click happens outside any .destination-item
     const handleHeroClick = (e) => {
         if (!e.target.closest('.destination-item')) {
             setActiveDest(null);
@@ -63,17 +62,13 @@ export default function Home() {
     };
 
     const openForm = () => {
-        // compute button center
        
         setShowForm(true);
-        // slight delay so CSS transition kicks in
         setTimeout(() => setFormVisible(true), 10);
     };
 
     const closeForm = () => {
-        // begin reverse animation
         setFormVisible(false);
-        // unmount after animation
         setTimeout(() => setShowForm(false), 300);
     };
 

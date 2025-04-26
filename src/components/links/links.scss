@@ -1,23 +1,25 @@
+
+
+
 @import '../../App.scss';
 
 .link {
   display: flex;
   align-items: center;
-  gap: 10px;
-
-  padding: 10px 15px;
+  gap: 6px;
+  padding: 10px 14px;
   border-radius: 20px;
   cursor: pointer;
+  transition: background 0.25s ease-out, transform 0.25s ease-out, opacity 0.2s ease-out;
 
-  transition: background 0.25s ease, transform 0.25s ease;
-
+  text-decoration: none;
+  
   &.selected {
-    background-color: #ffffff88;  // same as hover
-    transform: none;
+    background: #ffffff88;
   }
 
   &:hover {
-    background-color: #ffffff88;
+    background: #ffffffcc;
     transform: translateY(-2px);
   }
 
@@ -28,33 +30,17 @@
   }
 
   p {
-    font-size: 14px;
-    font-weight: 500;
-    text-transform: capitalize;
-    color: #000000;
     margin: 0;
+    font-size: 14px;
+    text-transform: capitalize;
+    color: #000;
   }
 
-  // phone padding tweak
-  @media (max-width: 500px) {
-    padding: 10px;
-  }
-}
-
-// hide all link text on very small screens…
-@media (max-width: 430px) {
-  .link {
-    p {
-      display: none;
-    }
-
-    &.selected {
-      p {
-        display: block;
-        @media (max-width: 310px) {
-            display: none;
-        }  // …except for the selected one
-      }
-    }
+  /* “smaller” pills: just padding and border, no scale */
+  &.smaller {
+    padding: 8px 12px;
+    p { font-size: 13px; }
+    border: 1px solid rgba(211, 211, 211, 0.7);
+    box-shadow: 0 0 5px #00000011;
   }
 }

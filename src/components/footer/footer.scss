@@ -1,11 +1,10 @@
 @import '../../App.scss';
 
 .footer {
-    background: $d-blue; // Use your predefined dark blue variable
+    background: $d-blue; 
     color: #fff;
     padding: 50px 20px;
     padding-bottom: 100px;
-    // Adjust letter spacing and line height for a neater look if desired
 
     a {
         color: lighten($d-blue, 40%);
@@ -14,7 +13,7 @@
         transition: color 0.2s ease;
 
         &:hover {
-            color: $l-blue; // lighter blue hover effect
+            color: $l-blue; 
         }
     }
 
@@ -109,7 +108,6 @@
     }
 }
 
-/* Responsive adjustments */
 @media (max-width: 600px) {
     .footer-top {
         flex-direction: column;

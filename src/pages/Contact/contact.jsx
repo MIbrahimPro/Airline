@@ -31,14 +31,9 @@ export default function ContactUs() {
             <div className="contact-main">
                 <h1>Contact Us</h1>
                 <p>
-                    We’d love to hear from you! Whether you have any questions about our services or just want to say hello,
+                    We'd love to hear from you! Whether you have any questions about our services or just want to say hello,
                     our team is here to help.
                 </p>
-                {/* <div className="contact-details">
-          <p><strong>Email:</strong> info@travel.com</p>
-          <p><strong>Phone:</strong> +92 319 7877750</p>
-          <p><strong>Address:</strong> Dhok-Kala-Khan Shamsabad, Rawalpindi, Pakistan</p>
-        </div> */}
 
                 <div className="contact-cards">
                     <div
