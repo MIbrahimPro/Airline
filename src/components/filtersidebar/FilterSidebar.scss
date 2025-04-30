@@ -56,47 +56,12 @@
 			}
 		}
 
-		.time-buttons,
-		.stops-buttons {
-			display: grid;
-			grid-template-columns: repeat(2, 1fr);
-			gap: 8px;
-
-			button {
-				background: #fff;
-				border: 1px solid #ccc;
-				border-radius: 12px;
-				padding: 10px;
-				font-size: 0.9rem;
-				cursor: pointer;
-				text-align: center;
-				transition: background 0.2s ease, transform 0.2s ease, border 0.2s ease;
-				font-weight: 600;
-				line-height: 1.2;
-
-				small {
-					display: block;
-					font-size: 0.7rem;
-					font-weight: 500;
-					margin-top: 2px;
-				}
-
-				&:hover {
-					background: #f0f0f0;
-					transform: translateY(-2px);
-				}
-
-				&.selected {
-					border-color: $m-blue;
-					background: rgba($m-blue, 0.1);
-				}
-			}
-		}
 
 		.range-container {
+
 			position: relative;
-			margin: 8px 0;
-			height: 4px;
+			margin: 20px 0;
+			height: 8px;
 
 			.range-input {
 				-webkit-appearance: none;

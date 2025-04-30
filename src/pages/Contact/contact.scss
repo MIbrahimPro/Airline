@@ -101,9 +101,11 @@
       margin-top: 40px;
       border-radius: 12px;
       overflow: hidden;
+      z-index: 01;
 
       iframe {
         border: none;
+        z-index: 01;
       }
     }
   }

@@ -58,3 +58,41 @@ body {
   from { transform: scale(1); }
   to   { transform: scale(1.05); }
 }
+
+
+
+
+.search-button-gbl {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 12px 24px;
+  background-color: #ffffff55;
+  backdrop-filter: blur(8px);
+  border-radius: 50px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease-out;
+
+
+  @media (min-width: 600px) {
+    min-width: 190px;
+  }
+
+  .btn-text {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #000;
+  }
+
+  .btn-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  &:hover {
+    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.9);
+  }
+}

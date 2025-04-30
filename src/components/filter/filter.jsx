@@ -6,6 +6,317 @@ import './filter.scss';
 
 
 
+// function SearchFormContent({ inline, tab, setTab, data, handleChange, handleSubmit, handleSearch }) {
+//     return (
+//         <div className={`sf-content ${inline ? 'inline' : ''}`}>
+//             <div className="sf-header">
+//                 <div className="sf-tabs">
+//                     <button
+//                         className={tab === 'standard' ? 'active' : ''}
+//                         onClick={() => setTab('standard')}
+//                         type="button"
+//                     >
+//                         Standard
+//                     </button>
+//                     <button
+//                         className={tab === 'advanced' ? 'active' : ''}
+//                         onClick={() => setTab('advanced')}
+//                         type="button"
+//                     >
+//                         Advanced
+//                     </button>
+//                 </div>
+                
+//                 {!inline && <div className="sf-close" onClick={handleSearch}>×</div>}
+//             </div>
+//             <form className="sf-body" onSubmit={handleSubmit}>
+//                 <div className="sf-fields">
+
+
+//                     {/* Row 1: Trip Type */}
+//                     <div className="row">
+//                         <div className="field full">
+//                             <label>Trip‑Type</label>
+//                             <div className="radio-group">
+//                                 <label className="radio-button">
+//                                     <input
+//                                         type="radio"
+//                                         name="tripType"
+//                                         value="return"
+//                                         checked={data.tripType === 'return'}
+//                                         onChange={handleChange}
+//                                     />
+//                                     <span className="custom-radio" />
+//                                     Round‑Trip
+//                                 </label>
+//                                 <label className="radio-button">
+//                                     <input
+//                                         type="radio"
+//                                         name="tripType"
+//                                         value="oneway"
+//                                         checked={data.tripType === 'oneway'}
+//                                         onChange={handleChange}
+//                                     />
+//                                     <span className="custom-radio" />
+//                                     One-way
+//                                 </label>
+//                             </div>
+//                         </div>
+//                     </div>
+
+
+//                     {/* Row 2: Leaving From & Going To */}
+//                     <div className="row">
+
+//                         <div className="field half">
+//                             <label>Leaving From</label>
+//                             <div className="input-icon-wrapper">
+//                                 <img src="../icons/takeoff_b.svg" alt="Takeoff" className="input-icon" />
+//                                 <input
+//                                     type="text"
+//                                     name="from"
+//                                     value={data.from}
+//                                     onChange={handleChange}
+//                                     required
+//                                 />
+//                             </div>
+//                         </div>
+
+//                         <div className="field half">
+//                             <label>Going To</label>
+//                             <div className="input-icon-wrapper">
+//                                 <img src="../icons/landing_b.svg" alt="Landing" className="input-icon" />
+//                                 <input
+//                                     type="text"
+//                                     name="to"
+//                                     value={data.to}
+//                                     onChange={handleChange}
+//                                     required
+//                                 />
+//                             </div>
+//                         </div>
+
+
+//                     </div>
+
+
+
+//                     {/* Row 3: Dates */}
+//                     <div className="row">
+//                         <div className="field half">
+//                             <label>Departure Date</label>
+//                             <input
+//                                 type="date"
+//                                 name="depart"
+//                                 value={data.depart}
+//                                 onChange={handleChange}
+//                                 required
+//                             />
+//                         </div>
+//                         {data.tripType === 'return' && (
+//                             <div className="field half">
+//                                 <label>Return Date</label>
+//                                 <input
+//                                     type="date"
+//                                     name="ret"
+//                                     value={data.ret}
+//                                     onChange={handleChange}
+//                                     required
+//                                 />
+//                             </div>
+//                         )}
+//                     </div>
+
+
+
+//                     {/* Row 4: Passengers */}
+//                     <div className="row">
+//                         <div className="field third">
+//                             <label>Adults</label>
+//                             <input
+//                                 type="number"
+//                                 name="adults"
+//                                 min="1"
+//                                 value={data.adults}
+//                                 onChange={handleChange}
+//                                 required
+//                             />
+//                         </div>
+//                         <div className="field third">
+//                             <label>Children (under 7)</label>
+//                             <input
+//                                 type="number"
+//                                 name="children"
+//                                 min="0"
+//                                 value={data.children}
+//                                 onChange={handleChange}
+//                             />
+//                         </div>
+//                         <div className="field third">
+//                             <label>Infants</label>
+//                             <input
+//                                 type="number"
+//                                 name="infant"
+//                                 min="0"
+//                                 value={data.infant}
+//                                 onChange={handleChange}
+//                             />
+//                         </div>
+//                     </div>
+
+
+
+//                     {/* Advanced fields */}
+//                     {tab === 'advanced' && (
+//                         <>
+//                             {/* Row 5: ± Days */}
+//                             <div className="row">
+//                                 <div className="field half advanced">
+//                                     <label>± Days Departure</label>
+//                                     <input
+//                                         type="number"
+//                                         name="flexDepart"
+//                                         min="0"
+//                                         value={data.flexDepart}
+//                                         onChange={handleChange}
+//                                     />
+//                                 </div>
+//                                 {data.tripType === 'return' && (
+//                                     <div className="field half advanced">
+//                                         <label>± Days Return</label>
+//                                         <input
+//                                             type="number"
+//                                             name="flexReturn"
+//                                             min="0"
+//                                             value={data.flexReturn}
+//                                             onChange={handleChange}
+//                                         />
+//                                     </div>
+//                                 )}
+//                             </div>
+//                             {/* Row 6: Class & Preferred Airline */}
+//                             <div className="row">
+//                                 {/* <div className="field half advanced">
+//                                     <label>Class</label>
+//                                     <select
+//                                         name="travelClass"
+//                                         value={data.travelClass}
+//                                         onChange={handleChange}
+//                                     >
+//                                         {['economy', 'premium economy', 'business', 'first'].map(c => (
+//                                             <option key={c} value={c}>
+//                                                 {c}
+//                                             </option>
+//                                         ))}
+//                                     </select>
+//                                 </div> */}
+//                                 <div className="field half advanced">
+//                                     <label>Preferred Airline</label>
+//                                     <input
+//                                         type="text"
+//                                         name="airline"
+//                                         value={data.airline}
+//                                         onChange={handleChange}
+//                                     />
+//                                 </div>
+//                             </div>
+//                         </>
+//                     )}
+
+
+
+
+//                 </div>
+
+//                 <div className="sf-footer">
+//                     <button type="submit" className="sf-submit">Search</button>
+//                 </div>
+
+
+//             </form>
+//         </div>
+//     );
+// }
+
+// export default function Filter({ visible, onClose, onSubmit, inline }) {
+
+
+//     const handleSearch = () => {
+//         if (!inline && onClose) {
+//             onClose();
+//         }
+//     };
+
+//     const [tab, setTab] = useState('standard');
+//     const [data, setData] = useState({
+//         tripType: 'return',
+//         from: '',
+//         to: '',
+//         depart: '',
+//         ret: '',
+//         adults: 1,
+//         children: 0,
+//         infant: 0,
+//         flexDepart: 0,
+//         flexReturn: 0,
+//         travelClass: 'economy',
+//         airline: ''
+//     });
+
+//     const handleChange = (e) => {
+//         const { name, value, type } = e.target;
+//         setData(prev => ({
+//             ...prev,
+//             [name]: type === 'number' ? Number(value) : value
+//         }));
+//     };
+
+//     const handleSubmit = (e) => {
+//         e.preventDefault();
+//         onSubmit(data);
+//     };
+
+    
+//     if (!inline) {
+//         return (
+//             <div className="sf-overlay" onClick={onClose}>
+//                 <div
+//                     className={`search-form${visible ? ' open' : ''}`}
+//                     onClick={(e) => e.stopPropagation()}
+//                 >
+//                     <SearchFormContent
+//                         inline={false}
+//                         tab={tab}
+//                         setTab={setTab}
+//                         data={data}
+//                         handleChange={handleChange}
+//                         handleSubmit={handleSubmit}
+//                         handleSearch={handleSearch}
+//                     />
+//                 </div>
+//             </div>
+//         );
+//     } else {
+//         return (
+//             <>
+//                 <SearchFormContent
+//                     inline={true}
+//                     tab={tab}
+//                     setTab={setTab}
+//                     data={data}
+//                     handleChange={handleChange}
+//                     handleSubmit={handleSubmit}
+//                     handleSearch={handleSearch}
+//                 />
+//             </>
+//         );
+//     }
+// }
+
+
+
+
+
 function SearchFormContent({ inline, tab, setTab, data, handleChange, handleSubmit, handleSearch }) {
     return (
         <div className={`sf-content ${inline ? 'inline' : ''}`}>
@@ -26,13 +337,10 @@ function SearchFormContent({ inline, tab, setTab, data, handleChange, handleSubm
                         Advanced
                     </button>
                 </div>
-                
                 {!inline && <div className="sf-close" onClick={handleSearch}>×</div>}
             </div>
-            <form className="sf-body" onSubmit={handleSubmit}>
+            <div className="sf-body">
                 <div className="sf-fields">
-
-
                     {/* Row 1: Trip Type */}
                     <div className="row">
                         <div className="field full">
@@ -64,10 +372,8 @@ function SearchFormContent({ inline, tab, setTab, data, handleChange, handleSubm
                         </div>
                     </div>
 
-
                     {/* Row 2: Leaving From & Going To */}
                     <div className="row">
-
                         <div className="field half">
                             <label>Leaving From</label>
                             <div className="input-icon-wrapper">
@@ -81,7 +387,6 @@ function SearchFormContent({ inline, tab, setTab, data, handleChange, handleSubm
                                 />
                             </div>
                         </div>
-
                         <div className="field half">
                             <label>Going To</label>
                             <div className="input-icon-wrapper">
@@ -95,11 +400,7 @@ function SearchFormContent({ inline, tab, setTab, data, handleChange, handleSubm
                                 />
                             </div>
                         </div>
-
-
                     </div>
-
-
 
                     {/* Row 3: Dates */}
                     <div className="row">
@@ -126,8 +427,6 @@ function SearchFormContent({ inline, tab, setTab, data, handleChange, handleSubm
                             </div>
                         )}
                     </div>
-
-
 
                     {/* Row 4: Passengers */}
                     <div className="row">
@@ -164,8 +463,6 @@ function SearchFormContent({ inline, tab, setTab, data, handleChange, handleSubm
                         </div>
                     </div>
 
-
-
                     {/* Advanced fields */}
                     {tab === 'advanced' && (
                         <>
@@ -194,22 +491,8 @@ function SearchFormContent({ inline, tab, setTab, data, handleChange, handleSubm
                                     </div>
                                 )}
                             </div>
-                            {/* Row 6: Class & Preferred Airline */}
+                            {/* Row 6: Preferred Airline */}
                             <div className="row">
-                                <div className="field half advanced">
-                                    <label>Class</label>
-                                    <select
-                                        name="travelClass"
-                                        value={data.travelClass}
-                                        onChange={handleChange}
-                                    >
-                                        {['economy', 'premium economy', 'business', 'first'].map(c => (
-                                            <option key={c} value={c}>
-                                                {c}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
                                 <div className="field half advanced">
                                     <label>Preferred Airline</label>
                                     <input
@@ -217,30 +500,23 @@ function SearchFormContent({ inline, tab, setTab, data, handleChange, handleSubm
                                         name="airline"
                                         value={data.airline}
                                         onChange={handleChange}
+                                        placeholder="e.g., UA,AA"
                                     />
                                 </div>
                             </div>
                         </>
                     )}
-
-
-
-
                 </div>
 
                 <div className="sf-footer">
-                    <button type="submit" className="sf-submit">Search</button>
+                    <button type="button" className="sf-submit" onClick={handleSubmit}>Search</button>
                 </div>
-
-
-            </form>
+            </div>
         </div>
     );
 }
 
 export default function Filter({ visible, onClose, onSubmit, inline }) {
-
-
     const handleSearch = () => {
         if (!inline && onClose) {
             onClose();
@@ -259,7 +535,6 @@ export default function Filter({ visible, onClose, onSubmit, inline }) {
         infant: 0,
         flexDepart: 0,
         flexReturn: 0,
-        travelClass: 'economy',
         airline: ''
     });
 
@@ -271,12 +546,10 @@ export default function Filter({ visible, onClose, onSubmit, inline }) {
         }));
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = () => {
         onSubmit(data);
     };
 
-    
     if (!inline) {
         return (
             <div className="sf-overlay" onClick={onClose}>
@@ -298,17 +571,15 @@ export default function Filter({ visible, onClose, onSubmit, inline }) {
         );
     } else {
         return (
-            <>
-                <SearchFormContent
-                    inline={true}
-                    tab={tab}
-                    setTab={setTab}
-                    data={data}
-                    handleChange={handleChange}
-                    handleSubmit={handleSubmit}
-                    handleSearch={handleSearch}
-                />
-            </>
+            <SearchFormContent
+                inline={true}
+                tab={tab}
+                setTab={setTab}
+                data={data}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+                handleSearch={handleSearch}
+            />
         );
     }
 }
