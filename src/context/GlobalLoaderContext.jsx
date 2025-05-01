@@ -12,8 +12,12 @@ export const GlobalStatusProvider = ({ children }) => {
   const location = useLocation();
 
   // Functions to control loading:
-  const startLoading = () => setLoadingCount((count) => count + 1);
-  const endLoading = () => setLoadingCount((count) => Math.max(count - 1, 0));
+  const startLoading = () => {
+    setLoadingCount((count) => count + 1)
+  };
+  const endLoading = () => {
+    setLoadingCount((count) => Math.max(count - 1, 0))
+  };
 
   // For setting error, store the current location as previous path and navigate to /error.
   const setGlobalError = (errorMsg) => {
@@ -24,29 +28,7 @@ export const GlobalStatusProvider = ({ children }) => {
 
   const clearError = () => setError(null);
 
-  // OPTIONAL: Set up axios interceptors to automatically manage loading and error state.
-  useEffect(() => {
-    const requestInterceptor = axios.interceptors.request.use((config) => {
-      startLoading();
-      return config;
-    });
-    const responseInterceptor = axios.interceptors.response.use(
-      (response) => {
-        endLoading();
-        return response;
-      },
-      (err) => {
-        endLoading();
-        setGlobalError(err.message || 'An error occurred. Please try again.');
-        return Promise.reject(err);
-      }
-    );
-    // Cleanup interceptors on unmount
-    return () => {
-      axios.interceptors.request.eject(requestInterceptor);
-      axios.interceptors.response.eject(responseInterceptor);
-    };
-  }, []);
+  
 
   return (
     <GlobalStatusContext.Provider

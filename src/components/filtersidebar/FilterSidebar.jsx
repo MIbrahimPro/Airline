@@ -2,211 +2,38 @@ import React, { useState, useEffect } from 'react';
 import './FilterSidebar.scss';
 import axios from 'axios';
 import { useGlobalStatus } from '../../context/GlobalLoaderContext';
-
- 
-// const airlines = [
-// 	'aegean-airlines',
-// 	'air-albania',
-// 	'air-canada',
-// 	'air-france',
-// 	'air-india',
-// 	'air-mauritius',
-// 	'air-new-zealand',
-// 	'air-serbia',
-// 	'air-transat',
-// 	'akasa-air',
-// 	'asiana-airlines',
-// 	'avianca',
-// 	'azerbaijan-airlines',
-// 	'british-airways',
-// 	'brussels-airlines',
-// 	'cathay-pacific',
-// 	'copa-airlines',
-// 	'eurowings',
-// 	'garuda-indonesia',
-// 	'kenya-airways',
-// 	'klm',
-// 	'lufthansa',
-// 	'malaysia-airlines',
-// 	'oman-air',
-// 	'philippine-airlines',
-// 	'qatar-airways',
-// 	'riyadh-air',
-// 	'ryanair',
-// 	'singapore-airlines',
-// 	'starlux-airlines',
-// 	'swiss',
-// 	'transavia',
-// 	'turkish-airlines',
-// 	'united-airlines',
-// 	'vietnam-airlines',
-// 	'virgin-atlantic',
-// 	'westjet'
-// ];
-
-// export default function FilterSidebar() {
-
-// 	const priceMinBound = 1;
-// 	const priceMaxBound = 1000;
-// 	const [priceMin, setPriceMin] = useState(100);
-// 	const [priceMax, setPriceMax] = useState(800);
-// 	const [airlines, setAirline] = useState([]);const { startLoading, endLoading, setGlobalError } = useGlobalStatus();
-
-// 	useEffect(() => {
-// 		startLoading();
-// 		axios
-// 			.get('/api/airline/')
-// 			.then((response) => {
-// 				if (Array.isArray(response.data)) {
-// 					setAirline(response.data);
-// 				} else {
-// 					setGlobalError('Invalid airline data received.');
-// 				}
-// 			})
-// 			.catch((err) => {
-// 				setGlobalError(
-// 					err.response?.data?.message || err.message || 'Error fetching airlines.'
-// 				);
-// 			})
-// 			.finally(() => {
-// 				endLoading();
-// 			});
-// 	}, []);
-
-// 	const [selectedAirlines, setSelectedAirlines] = useState([]);
-
-// 	const toggleAirline = (airline) => {
-// 		setSelectedAirlines((prev) =>
-// 			prev.includes(airline)
-// 				? prev.filter((v) => v !== airline)
-// 				: [...prev, airline]
-// 		);
-// 	};
-
-// 	const handleMinPriceChange = (e) => {
-// 		const value = Number(e.target.value);
-// 		if (value > priceMax) {
-// 			setPriceMin(priceMax);
-// 		} else {
-// 			setPriceMin(value);
-// 		}
-// 	};
-
-// 	const handleMaxPriceChange = (e) => {
-// 		const value = Number(e.target.value);
-// 		if (value < priceMin) {
-// 			setPriceMax(priceMin);
-// 		} else {
-// 			setPriceMax(value);
-// 		}
-// 	};
-
-// 	return (
-// 		<div className="filter-sidebar-inner">
-
-
-
-// 			<div className="fs-header">
-// 				<h3>Filter</h3>
-// 				<button className="reset-btn">Reset</button>
-// 			</div>
+import { useSearchParams, useNavigate } from 'react-router-dom';
 
 
 
 
-// 			{/* Price Selector */}
-// 			<div className="fs-group">
-// 				<h4>Price <small>(in k PKR)</small></h4>
-
-// 				<div className="range-container">
-// 					<input
-// 						type="range"
-// 						min={priceMinBound}
-// 						max={priceMaxBound}
-// 						value={priceMin}
-// 						onChange={handleMinPriceChange}
-// 						className="range-input min-range"
-// 					/>
-// 					<input
-// 						type="range"
-// 						min={priceMinBound}
-// 						max={priceMaxBound}
-// 						value={priceMax}
-// 						onChange={handleMaxPriceChange}
-// 						className="range-input max-range"
-// 					/>
-// 					<div className="range-track">
-// 						<div
-// 							className="range-active"
-// 							style={{
-// 								left:
-// 									((priceMin - priceMinBound) /
-// 										(priceMaxBound - priceMinBound)) *
-// 									100 +
-// 									'%',
-// 								right:
-// 									(100 -
-// 										((priceMax - priceMinBound) /
-// 											(priceMaxBound - priceMinBound)) *
-// 										100) +
-// 									'%',
-// 							}}
-// 						></div>
-// 					</div>
-// 				</div>
-
-// 				<div className="price-inputs">
-// 					<input
-// 						type="number"
-// 						placeholder="Min price (k)"
-// 						value={priceMin}
-// 						onChange={handleMinPriceChange}
-// 						min={priceMinBound}
-// 						max={priceMaxBound}
-// 					/>
-// 					<input
-// 						type="number"
-// 						placeholder="Max price (k)"
-// 						value={priceMax}
-// 						onChange={handleMaxPriceChange}
-// 						min={priceMinBound}
-// 						max={priceMaxBound}
-// 					/>
-// 				</div>
-// 			</div>
 
 
 
-// 			{/* Airlines */}
-// 			<div className="fs-group">
-// 				<h4>Airlines</h4>
-// 				<div className="airlines-grid">
-// 					{airlines.map((a) => (
-// 						<div
-// 							key={a}
-// 							className={`airline-tile ${selectedAirlines.includes(a) ? 'selected' : ''}`}
-// 							onClick={() => toggleAirline(a)}
-// 						>
-// 							<img src={a.monogramPicture} alt={a.shortName} />
-// 						</div>
-// 					))}
-// 				</div>
-// 			</div>
+export default function FilterSidebar() {
 
 
-			
-// 		</div>
-// 	);
-// }
+    const [searchParams, setSearchParams] = useSearchParams();
+    const navigate = useNavigate();
 
-
-
-
-export default function FilterSidebar({ minPrice, setMinPrice, maxPrice, setMaxPrice, selectedAirlines, setSelectedAirlines }) {
     const priceMinBound = 1;
-    const priceMaxBound = 1000;
-    const [airlines, setAirlines] = useState([]);
+    const priceMaxBound = 100000;
+    const [minPrice, setMinPrice] = useState(null);
+    const [maxPrice, setMaxPrice] = useState(null);
+    const [minEnabled, setMinEnabled] = useState(false);
+    const [maxEnabled, setMaxEnabled] = useState(false);
+
+    const [airlines, setAirline] = useState([]);
+    const [selectedAirlines, setSelectedAirlines] = useState([]);
+
+    const [shouldUpdateURL, setShouldUpdateURL] = useState(false);
+
     const { startLoading, endLoading, setGlobalError } = useGlobalStatus();
+
+
+
+
+
 
     useEffect(() => {
         startLoading();
@@ -214,7 +41,7 @@ export default function FilterSidebar({ minPrice, setMinPrice, maxPrice, setMaxP
             .get('/api/airline/')
             .then((response) => {
                 if (Array.isArray(response.data)) {
-                    setAirlines(response.data);
+                    setAirline(response.data);
                 } else {
                     setGlobalError('Invalid airline data received.');
                 }
@@ -229,88 +56,184 @@ export default function FilterSidebar({ minPrice, setMinPrice, maxPrice, setMaxP
             });
     }, []);
 
-    const handleMinPriceChange = (e) => {
-        const value = Number(e.target.value);
-        if (value > (maxPrice || priceMaxBound)) {
-            setMinPrice(maxPrice || priceMaxBound);
-        } else {
-            setMinPrice(value || null);
-        }
-    };
 
-    const handleMaxPriceChange = (e) => {
-        const value = Number(e.target.value);
-        if (value < (minPrice || priceMinBound)) {
-            setMaxPrice(minPrice || priceMinBound);
-        } else {
-            setMaxPrice(value || null);
+    useEffect(() => {
+        if (shouldUpdateURL) {
+            const urlParams = new URLSearchParams(window.location.search);
+
+            if (minPrice !== null) {
+                urlParams.set('minPrice', minPrice.toString());
+            }
+            if (maxPrice !== null) {
+                urlParams.set('maxPrice', maxPrice.toString());
+            }
+            urlParams.delete('airlines_id');
+            selectedAirlines.forEach(airlineId => {
+                urlParams.append('airlines_id', airlineId);
+            });
+
+            const currentURL = new URL(window.location.href);
+            const newURL = `${currentURL.pathname}?${urlParams.toString()}`;
+
+            navigate(newURL);
+
+            setShouldUpdateURL(false);
         }
-    };
+    }, [minPrice, maxPrice, selectedAirlines, shouldUpdateURL, navigate]);
+
+
+    useEffect(() => {
+        const minPriceParam = searchParams.get('minPrice');
+        const maxPriceParam = searchParams.get('maxPrice');
+        const airlinesIdParams = searchParams.getAll('airlines_id');
+
+        setMinPrice(minPriceParam ? parseInt(minPriceParam, 10) : null);
+        setMaxPrice(maxPriceParam ? parseInt(maxPriceParam, 10) : null);
+        setSelectedAirlines(airlinesIdParams);
+    }, [searchParams]);
+
+
+
+
+
 
     const toggleAirline = (airline) => {
+
         setSelectedAirlines((prev) =>
             prev.includes(airline)
                 ? prev.filter((v) => v !== airline)
                 : [...prev, airline]
         );
+
+        setShouldUpdateURL(true);
+
     };
+
+
+    const handleMinPriceChange = (e) => {
+        let value = e.target.value === '' ? null : Number(e.target.value);
+        setMinPrice(value);
+    };
+
+
+    const handleMaxPriceChange = (e) => {
+        let value = e.target.value === '' ? null : Number(e.target.value);
+        setMaxPrice(value);
+    };
+
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            event.target.blur();
+        }
+    };
+
+
+    const handleBlur = () => {
+
+        if (minPrice !== null) {
+            if (minPrice < priceMinBound) {
+                setMinPrice(priceMinBound);
+            } else if (minPrice > priceMaxBound) {
+                setMinPrice(priceMaxBound);
+            }
+        }
+        if (maxPrice !== null) {
+            if (maxPrice < priceMinBound) {
+                setMaxPrice(priceMinBound);
+            } else if (maxPrice > priceMaxBound) {
+                setMaxPrice(priceMaxBound);
+            }
+        }
+        if (maxPrice !== null && minPrice !== null) {
+            if (maxPrice < minPrice) {
+                setMinPrice(Math.max(maxPrice - 1, priceMinBound));
+            }
+        }
+
+        setShouldUpdateURL(true);
+
+    };
+
+
+    const handleReset = () => {
+        setMaxPrice(null);
+        setMinPrice(null);
+        setSelectedAirlines([]);
+        setShouldUpdateURL(true);
+    }
+
+
+
+
+
+
+
+
 
     return (
         <div className="filter-sidebar-inner">
+
+
+
             <div className="fs-header">
                 <h3>Filter</h3>
-                <button className="reset-btn">Reset</button>
+                <button className="reset-btn" onClick={() => handleReset()}>Reset</button>
             </div>
+
+
+
 
             {/* Price Selector */}
             <div className="fs-group">
-                <h4>Price <small>(in k PKR)</small></h4>
-                <div className="range-container">
-                    <input
-                        type="range"
-                        min={priceMinBound}
-                        max={priceMaxBound}
-                        value={minPrice || priceMinBound}
-                        onChange={handleMinPriceChange}
-                        className="range-input min-range"
-                    />
-                    <input
-                        type="range"
-                        min={priceMinBound}
-                        max={priceMaxBound}
-                        value={maxPrice || priceMaxBound}
-                        onChange={handleMaxPriceChange}
-                        className="range-input max-range"
-                    />
-                    <div className="range-track">
-                        <div
-                            className="range-active"
-                            style={{
-                                left: ((minPrice || priceMinBound) / priceMaxBound) * 100 + '%',
-                                right: (1 - ((maxPrice || priceMaxBound) / priceMaxBound)) * 100 + '%',
-                            }}
-                        ></div>
+                <h4>Price <small>(in $)</small></h4>
+
+
+                <div className="price-inputs">
+                    <div className="price-field">
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={minEnabled}
+                                onChange={(e) => setMinEnabled(e.target.checked ? true : false)}
+                            />
+                            Min Price
+                        </label>
+                        <input
+                            type="number"
+                            placeholder="Min price"
+                            value={minPrice !== null ? minPrice : ''}
+                            onChange={handleMinPriceChange}
+                            onKeyDown={handleKeyDown}
+                            onBlur={handleBlur}
+                            disabled={!minEnabled}
+                        />
+                    </div>
+                    <div className="price-field">
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={maxEnabled}
+                                onChange={(e) => setMaxEnabled(e.target.checked ? true : false)}
+                            />
+                            Max Price
+                        </label>
+                        <input
+                            type="number"
+                            placeholder="Max price"
+                            value={maxPrice !== null ? maxPrice : ''}
+                            onChange={handleMaxPriceChange}
+                            onKeyDown={handleKeyDown}
+                            onBlur={handleBlur}
+                            disabled={!maxEnabled}
+                        />
                     </div>
                 </div>
-                <div className="price-inputs">
-                    <input
-                        type="number"
-                        placeholder="Min price (k)"
-                        value={minPrice || ''}
-                        onChange={handleMinPriceChange}
-                        min={priceMinBound}
-                        max={priceMaxBound}
-                    />
-                    <input
-                        type="number"
-                        placeholder="Max price (k)"
-                        value={maxPrice || ''}
-                        onChange={handleMaxPriceChange}
-                        min={priceMinBound}
-                        max={priceMaxBound}
-                    />
-                </div>
+
+
             </div>
+
+
 
             {/* Airlines */}
             <div className="fs-group">
@@ -318,15 +241,18 @@ export default function FilterSidebar({ minPrice, setMinPrice, maxPrice, setMaxP
                 <div className="airlines-grid">
                     {airlines.map((a) => (
                         <div
-                            key={a.shortName}
-                            className={`airline-tile ${selectedAirlines.includes(a.shortName) ? 'selected' : ''}`}
-                            onClick={() => toggleAirline(a.shortName)}
+                            key={a._id}
+                            className={`airline-tile ${selectedAirlines.includes(a._id) ? 'selected' : ''}`}
+                            onClick={() => toggleAirline(a._id)}
                         >
                             <img src={a.monogramPicture} alt={a.shortName} />
                         </div>
                     ))}
                 </div>
             </div>
+
+
+
         </div>
     );
 }

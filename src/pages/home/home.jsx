@@ -162,6 +162,7 @@ export default function Home() {
                             airlines: data.airline ? data.airline.split(',').map(a => a.trim()).join(',') : '',
                         };
                         const queryString = new URLSearchParams(params).toString();
+                        console.log(`/search-results?${queryString}`)
                         navigate(`/search-results?${queryString}`);
                     }}
                 />
