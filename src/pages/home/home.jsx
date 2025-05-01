@@ -4,6 +4,7 @@ import Why from "../../components/why/why";
 import Airlines from "../../components/airlines/airlines";
 import FAQ from "../../components/FAQ/FAQ";
 import Footer from "../../components/footer/footer";
+import Imager from "../../components/imager/imager";
 
 import { useGlobalStatus } from '../../context/GlobalLoaderContext';
 
@@ -77,57 +78,14 @@ export default function Home() {
 
                 <div className="destinations">
                     <div className="spacer" />
-                    {/* {popularDestinations.map((dest) => (
-                        <div
-                            key={dest.id}
-                            className={`destination-item${activeDest === dest.id ? ' active' : ''}`}
-                            onClick={() =>
-                                setActiveDest(activeDest === dest.id ? null : dest.id)
-                            }
-                        >
-                            <img className="dest-image" src={dest.img} alt={dest.name} />
-                            <p className="name">{dest.name}</p>
-
-                            <div className="overlay">
-                                <p className="description">{dest.description}</p>
-                                <div
-                                    className="dest-icon"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        navigate(`/${dest.id}`);
-                                    }}
-                                >
-                                    <img src="../icons/fly.svg" alt="open" />
-                                </div>
-                            </div>
-                        </div>
-                    ))} */}
 
                     {popularDestinations.map((dest) => (
-                        <div
-                            key={dest._id}
-                            className={`destination-item${activeDest === dest._id ? ' active' : ''
-                                }`}
-                            onClick={() =>
-                                setActiveDest(activeDest === dest._id ? null : dest._id)
-                            }
-                        >
-                            <img className="dest-image" src={dest.image} alt={dest.name} />
-                            <p className="name">{dest.name}</p>
-
-                            <div className="overlay">
-                                <p className="description">{dest.description}</p>
-                                <div
-                                    className="dest-icon"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        navigate(`/${dest._id}`);
-                                    }}
-                                >
-                                    <img src="../icons/fly.svg" alt="Fly Icon" />
-                                </div>
-                            </div>
-                        </div>
+                        <Imager
+                        key={dest._id}
+                        dest={dest}
+                        activeDest={activeDest}
+                        setActiveDest={setActiveDest}
+                      />
                     ))}
                     <div className="spacer" />
                 </div>
@@ -142,12 +100,6 @@ export default function Home() {
             <Footer />
 
             {showForm && (
-                // <Filter
-                //     origin={origin}
-                //     visible={formVisible}
-                //     onClose={closeForm}
-                //     onSubmit={() => navigate('/search-results')}
-                // />
 
                 <Filter
                     origin={origin}

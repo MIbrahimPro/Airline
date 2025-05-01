@@ -1,0 +1,143 @@
+.destination-item {
+    flex: none;
+    width: 210px;
+    height: 315px;
+    border-radius: 105px; // pill shape
+    position: relative;
+    background-color: #ffffff55;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    transition: all 0.4s ease;
+
+    .dest-image {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: calc(100% - 20px);
+        height: calc(100% - 20px);
+        border-radius: 95px;
+        object-fit: cover;
+        transition: filter 0.4s ease;
+    }
+
+    p {
+        position: relative;
+        color: #fff;
+        font-weight: bold;
+        margin-top: 32px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    // Overlay that appears on hover/tap
+    .overlay {
+        position: absolute;
+        bottom: 32px;
+        left: 50%;
+        width: 100%;
+        padding: 0 20px;
+        text-align: center;
+        transform: translate(-50%, 0%) translateY(40px);
+        opacity: 0;
+        transition: all 0.4s ease-out;
+
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .description {
+            margin: 0;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #fff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            margin-bottom: 12px;
+        }
+
+        .dest-icon {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto;
+            background-color: #ffffff55;
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+
+            img {
+                width: 20px;
+                height: 20px;
+                object-fit: contain;
+            }
+        }
+    }
+
+    // Hover or active/tap
+    // &:hover,
+    &:hover,
+    &.active {
+        .dest-image {
+            filter: blur(10px);
+        }
+
+        .overlay {
+            opacity: 1;
+            transform: translate(-50%, 0%) translateY(0);
+            gap: 0px;
+
+            .dest-icon {
+                opacity: 1;
+                transform: translateY(0);
+
+                &:hover {
+                    background-color: #ffffffcc;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 880px) {
+        width: 145px;
+        height: 217.5px;
+        border-radius: 65px;
+
+        .dest-image {
+            width: calc(100% - 10px);
+            height: calc(100% - 10px);
+            border-radius: 60px;
+        }
+
+        p {
+            margin-top: 20px;
+        }
+
+        .overlay {
+            bottom: 15px;
+            padding: 0px 10px;
+
+            .description {
+                font-size: 0.8rem;
+                line-height: 1.2;
+                font-weight: 500;
+            }
+
+            .dest-icon {
+                width: 30px;
+                height: 30px;
+
+                img {
+                    width: 18px;
+                    height: 18px;
+                }
+            }
+        }
+
+    }
+}

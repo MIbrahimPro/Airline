@@ -21,7 +21,7 @@ const hotDeals = [
 ];
 
 export default function LocationsPage() {
-  const navigate = useNavigate();
+const navigate = useNavigate();
 
   const handleContinentClick = (id) => {
     navigate(`/${id}`);
@@ -54,23 +54,7 @@ export default function LocationsPage() {
         </section>
 
         {/* Hot Deals Section */}
-        <section className="hot-deals-section">
-          <h1>Hot Deals</h1>
-          <div className="hot-deals-grid">
-            {hotDeals.map((deal) => (
-              <div key={deal.id} className="hot-deal-card" onClick={() => handleHotDealClick(deal.id)}>
-                <div className="deal-image">
-                  <img src={deal.image} alt={deal.name} />
-                </div>
-                <div className="deal-info">
-                  <h2>{deal.name}</h2>
-                  <p>From {deal.price}</p>
-                  <button className="deal-btn">Fly {deal.name}</button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+        
       </div>
       <Footer />
     </div>

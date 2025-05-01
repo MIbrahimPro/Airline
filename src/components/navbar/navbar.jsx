@@ -39,25 +39,53 @@ export default function Navbar({ selectedPage = null }) {
 
 	}, []);
 
-	useEffect(() => {
-		startLoading();
-		axios
-			.get('/api/location/popular')
-			.then((response) => {
-				if (response.data) {
-					setpopular(response.data);
-				} else {
-					setGlobalError('Invalid response format.');
-				}
-			})
-			.catch((err) => {
-				console.error(err);
-				setGlobalError(err.message || 'Error fetching data');
-			})
-			.finally(() => {
-				endLoading();
-			});
 
+	useEffect(() => {
+		const fetchData = async () => {
+			startLoading();
+
+			try {
+				const popularResponse = await axios.get('/api/location/popular');
+
+				if (!popularResponse.data) {
+					throw new Error('Invalid response from /api/location/popular');
+				}
+
+				const processedPopular = await Promise.all(
+					popularResponse.data.map(async (location) => {
+						try {
+							const airportIdsResponse = await axios.get(
+								`/api/airport/by-location/${location._id}/ids`
+							);
+							const airportIds = airportIdsResponse.data;
+							const airport_id = airportIds.length > 0 ? airportIds[0] : null;
+							return {
+								name: location.name,
+								id: location._id,
+								airport_id: airport_id,
+							};
+						} catch (error) {
+							console.error(
+								`Error fetching airport IDs for location ${location._id}:`,
+								error
+							);
+							return {
+								name: location.name,
+								id: location._id,
+								airport_id: null,
+							};
+						}
+					})
+				);
+				setpopular(processedPopular);
+			} catch (error) {
+				setGlobalError(error.message || 'Error fetching data');
+			} finally {
+				endLoading();
+			}
+		};
+
+		fetchData();
 	}, []);
 
 
@@ -121,7 +149,7 @@ export default function Navbar({ selectedPage = null }) {
 								<h5><FaStar className="heading-icon" /> Popular Destinations</h5>
 								<div className="pill-row">
 									{popular.map((p, i) => (
-										<Links key={i} name={p.name} smaller as={Link} to={"/location/" + p._id} />
+										<Links key={i} name={p.name} smaller as={Link} to={"/search?to_id=" + p.airport_id} />
 									))}
 								</div>
 							</div>

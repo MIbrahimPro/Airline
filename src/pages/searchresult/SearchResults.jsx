@@ -811,6 +811,9 @@ export default function SearchResultsPage() {
     const [error, setError] = useState(null);
     const departRaw = searchParams.get('depart');
     const retRaw = searchParams.get('ret');
+    const adults = searchParams.get('adults');
+    const children = searchParams.get('children');
+    const infant = searchParams.get('infant');
 
 
 
@@ -827,45 +830,6 @@ export default function SearchResultsPage() {
     };
 
 
-
-
-    // useEffect(() => {
-    //     const params = {};
-    //     ['type', 'from', 'to', 'depart', 'ret'].forEach(key => {
-    //         const v = searchParams.get(key);
-    //         if (v) params[key] = v;
-    //     });
-    //     ['minPrice', 'maxPrice', 'page'].forEach(key => {
-    //         const v = searchParams.get(key);
-    //         if (v !== null) params[key] = Number(v);
-    //     });
-    //     const from_id = searchParams.get('from_id');
-    //     if (from_id) params.from_id = from_id;
-    //     const to_id = searchParams.get('to_id');
-    //     if (to_id) params.to_id = to_id;
-    //     const airlines = searchParams.getAll('airlines_id');
-    //     if (airlines.length) {
-    //         params.airlines_id = airlines.join(',');
-    //     }
-
-    //     setLoading(true);
-    //     setError(null);
-
-    //     console.log(params);
-    //     axios.get('/api/flight/filter', { params })
-    //         .then(res => {
-    //             setFlights(res.data.results || []);
-    //         })
-    //         .catch(err => {
-    //             console.error(err);
-    //             setError('Failed to fetch flights.');
-    //         })
-    //         .finally(() => {
-    //             setLoading(false);
-    //         });
-    // }, [searchParams]);
-
-
     useEffect(() => {
         const params = {};
 
@@ -879,7 +843,6 @@ export default function SearchResultsPage() {
         if (date) {
             params.date = date;
         }
-
         const minPrice = searchParams.get('minPrice');
         if (minPrice) {
             params.minPrice = parseInt(minPrice, 10);
@@ -914,11 +877,7 @@ export default function SearchResultsPage() {
         if (to) {
             params.to = to;
         }
-        // Handle airlines_id and airlines parameters.  Prioritize airlines_id
         const airlines_id = searchParams.getAll('airlines_id');
-        // if (airlines_id.length) {
-        //     params.airlines_id = airlines_id.join(','); // Join with commas, as per API docs
-        // }
         const airlines = searchParams.get('airlines');
         if (airlines) {
             params.airlines = airlines;
@@ -927,16 +886,14 @@ export default function SearchResultsPage() {
         setLoading(true);
         setError(null);
 
-        // Construct the URL.  Important:  Start with the base URL.
-        let apiUrl = '/api/flight/filter';  //  No '/api/flight'
-        const queryParams = new URLSearchParams(params).toString();  // Use URLSearchParams
+        let apiUrl = '/api/flight/filter';  
+        const queryParams = new URLSearchParams(params).toString();  
         if (queryParams) {
             apiUrl += `?${queryParams}`;
         }
 
-        axios.get(apiUrl) // Use the constructed URL
+        axios.get(apiUrl) 
             .then(response => {
-                // API returns data in 'results' property
                 setFlights(response.data.results || []);
             })
             .catch(error => {
@@ -1014,6 +971,9 @@ export default function SearchResultsPage() {
                                         original={f.originalPrice}
                                         saving={f.discount}
                                         price={f.finalPrice}
+                                        adults={adults}
+                                        children={children}
+                                        infants={infant}
                                     />
                                 ))
                             ))
