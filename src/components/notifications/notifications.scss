@@ -1,0 +1,23 @@
+@import '../../App.scss';
+
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  opacity: 0.95;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  z-index: 1000;
+
+  &.success {
+    background-color: #59e73c; // medium blue from your theme
+  }
+
+  &.error {
+    background-color: #e74c3c; // red; adjust if you have a variable like $error-red
+  }
+}

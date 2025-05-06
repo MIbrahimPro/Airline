@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import './contactpopup.scss';
 
 export default function ContactPopup({ visible, onClose, onSubmit }) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const [data, setData] = useState({
     name: '',
     email: '',
     phone: '',
     message: ''
   });
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -72,7 +76,10 @@ export default function ContactPopup({ visible, onClose, onSubmit }) {
             </div>
           </div>
           <div className="cp-footer">
-            <button type="submit" className="cp-submit">Send Message</button>
+          <button type="submit" className="cp-submit-btn">Send Message</button>
+          <a href='https://wa.me/923403787504' className="cp-submit-wa">Whatsaap
+            {/* <img src='/icons/wa.svg' alt='Whatsaap' /> */}
+          </a>
           </div>
         </form>
       </div>

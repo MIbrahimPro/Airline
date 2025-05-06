@@ -56,7 +56,7 @@ function AirlineMultiSelect({ data, updateData }) {
         return () => source.cancel();
     }, [query, showDropdown]);
 
-    
+
     useEffect(() => {
         function onClickOutside(e) {
             if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
@@ -74,7 +74,7 @@ function AirlineMultiSelect({ data, updateData }) {
     const handleFocus = () => setShowDropdown(true);
 
     const handleSelect = (airline) => {
-        
+
         if (!data.airlines_id.includes(airline._id)) {
             updateData(prev => ({
                 ...prev,
@@ -94,10 +94,10 @@ function AirlineMultiSelect({ data, updateData }) {
         setSelected(s => s.filter(a => a._id !== _id));
     };
 
- 
- 
- 
- 
+
+
+
+
     return (
         <div className="field half advanced airline-select" ref={wrapperRef}>
             <label>Preferred Airlines</label>
@@ -227,6 +227,7 @@ function AirportInput({
                     onChange={onChange}
                     onFocus={handleFocus}
                     autoComplete="off"
+                    required
                 />
             </div>
 
@@ -357,6 +358,7 @@ function SearchFormContent({ inline, tab, setTab, data, setData, handleChange, h
                                 name="depart"
                                 value={data.depart}
                                 onChange={handleChange}
+                                required
                             />
                         </div>
                         {data.tripType === 'round-trip' && (
@@ -367,6 +369,7 @@ function SearchFormContent({ inline, tab, setTab, data, setData, handleChange, h
                                     name="ret"
                                     value={data.ret}
                                     onChange={handleChange}
+                                    required
                                 />
                             </div>
                         )}
@@ -445,12 +448,12 @@ function SearchFormContent({ inline, tab, setTab, data, setData, handleChange, h
                             </div>
                             {/* Row 6: Class & Preferred Airline */}
                             <div className="row">
-                                
+
                                 <AirlineMultiSelect
                                     data={data}
                                     updateData={setData}
                                 />
-                                
+
                             </div>
                         </>
                     )}
@@ -488,13 +491,6 @@ export default function Filter({ visible, onClose, onSubmit, inline }) {
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
 
-
-    // const handleSearch = () => {
-    //     if (!inline && onClose) {
-    //         onClose();
-    //     }
-    // };
-
     const [tab, setTab] = useState('standard');
     const [data, setData] = useState({
         tripType: 'round-trip',
@@ -511,14 +507,6 @@ export default function Filter({ visible, onClose, onSubmit, inline }) {
         flexReturn: 0,
         airlines_id: []
     });
-
-    // const handleChange = (e) => {
-    //     const { name, value, type } = e.target;
-    //     setData(prev => ({
-    //         ...prev,
-    //         [name]: type === 'number' ? Number(value) : value
-    //     }));
-    // };
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -584,9 +572,7 @@ export default function Filter({ visible, onClose, onSubmit, inline }) {
 
             // Array field
             const airlines = searchParams.getAll('airlines_id');
-            if (airlines.length > 0) {
-                next.airlines_id = airlines;
-            }
+            next.airlines_id = airlines;
             return next;
         });
     }, [searchParams]);
@@ -614,3 +600,235 @@ export default function Filter({ visible, onClose, onSubmit, inline }) {
         );
     }
 }
+
+
+
+// import { useState, useEffect,useRef } from 'react';
+// import { useSearchParams, useNavigate } from 'react-router-dom';
+// import axios from 'axios';
+// import './filter.scss';
+
+// function AirlineMultiSelect({ data, updateData }) {
+//     const [query, setQuery] = useState('');
+//     const [options, setOptions] = useState([]);
+//     const [showDropdown, setShowDropdown] = useState(false);
+//     const [selected, setSelected] = useState([]);
+//     const wrapperRef = useRef(null);
+
+//     useEffect(() => {
+//         if (!data.airlines_id || data.airlines_id.length === 0) {
+//             setSelected([]);
+//             return;
+//         }
+//         Promise.all(
+//             data.airlines_id.map(id => axios.get(`/api/airline/${id}`)
+//                 .then(res => res.data)
+//                 .catch(() => null)
+//             )
+//         ).then(list => setSelected(list.filter(Boolean)));
+//     }, [data.airlines_id]);
+
+//     useEffect(() => {
+//         if (!showDropdown || !query) {
+//             setOptions([]);
+//             return;
+//         }
+//         const source = axios.CancelToken.source();
+//         axios.get('/api/airline/search', { params: { q: query }, cancelToken: source.token })
+//             .then(res => setOptions(res.data))
+//             .catch(err => { if (!axios.isCancel(err)) console.error(err); });
+//         return () => source.cancel();
+//     }, [query, showDropdown]);
+
+//     useEffect(() => {
+//         function handleOutside(e) {
+//             if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
+//                 setShowDropdown(false);
+//             }
+//         }
+//         document.addEventListener('mousedown', handleOutside);
+//         return () => document.removeEventListener('mousedown', handleOutside);
+//     }, []);
+
+//     const selectAirline = airline => {
+//         updateData(prev => ({
+//             ...prev,
+//             airlines_id: [...(prev.airlines_id || []), airline._id],
+//             airlines: [...(prev.airlines || []), airline.shortName]
+//         }));
+//         setSelected(s => [...s, airline]);
+//         setQuery('');
+//         setShowDropdown(false);
+//     };
+
+//     const removeAirline = id => {
+//         updateData(prev => ({
+//             ...prev,
+//             airlines_id: prev.airlines_id.filter(i => i !== id),
+//             airlines: prev.airlines.filter(name => {
+//                 const idx = prev.airlines_id.indexOf(id);
+//                 return prev.airlines[prev.airlines_id.indexOf(id)] !== name;
+//             })
+//         }));
+//         setSelected(s => s.filter(a => a._id !== id));
+//     };
+
+//     return (
+//         <div className="field half advanced airline-select" ref={wrapperRef}>
+//             <label>Preferred Airlines</label>
+//             <input
+//                 type="text"
+//                 placeholder="Type to search…"
+//                 value={query}
+//                 onChange={e => setQuery(e.target.value)}
+//                 onFocus={() => setShowDropdown(true)}
+//                 autoComplete="off"
+//             />
+//             {showDropdown && options.length > 0 && (
+//                 <div className="airline-dropdown">
+//                     {options.map(a => (
+//                         <div key={a._id} className="airline-option" onMouseDown={() => selectAirline(a)}>
+//                             <img src={a.monogramPicture || a.logoPicture} alt={a.shortName} className="option-icon" />
+//                             <span className="option-text">{a.shortName}</span>
+//                         </div>
+//                     ))}
+//                 </div>
+//             )}
+//             <div className="airline-pills">
+//                 {(!selected || selected.length === 0)
+//                     ? <span className="any-airline">Any airline</span>
+//                     : selected.map(a => (
+//                         <span key={a._id} className="airline-pill">
+//                             <img src={a.monogramPicture || a.logoPicture} alt={a.shortName} className="pill-icon" />
+//                             {a.shortName}
+//                             <button type="button" className="pill-remove" onClick={() => removeAirline(a._id)}>×</button>
+//                         </span>
+//                     ))}
+//             </div>
+//         </div>
+//     );
+// }
+
+// function AirportInput({ name, value, onChange, updateData }) {
+//     const [options, setOptions] = useState([]);
+//     const [showDropdown, setShowDropdown] = useState(false);
+//     const wrapperRef = useRef(null);
+
+//     useEffect(() => {
+//         if (!showDropdown || !value) { setOptions([]); return; }
+//         const source = axios.CancelToken.source();
+//         axios.get('/api/airport/search-advanced', { params: { q: value }, cancelToken: source.token })
+//             .then(res => setOptions(res.data))
+//             .catch(err => { if (!axios.isCancel(err)) console.error(err); });
+//         return () => source.cancel();
+//     }, [value, showDropdown]);
+
+//     useEffect(() => {
+//         const handleOutside = e => {
+//             if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
+//                 setShowDropdown(false);
+//             }
+//         };
+//         document.addEventListener('mousedown', handleOutside);
+//         return () => document.removeEventListener('mousedown', handleOutside);
+//     }, []);
+
+//     const handleFocus = () => {
+//         updateData(prev => ({ ...prev, [`${name}_id`]: null }));
+//         setShowDropdown(true);
+//     };
+
+//     const choose = airport => {
+//         const display = `${airport.airportName}(${airport.airportCode}), ${airport.locationName}, ${airport.countryName}, ${airport.regionName}`;
+//         onChange({ target: { name, value: display, type: 'text' } });
+//         updateData(prev => ({ ...prev, [`${name}_id`]: airport.airportId }));
+//         setShowDropdown(false);
+//     };
+
+//     return (
+//         <div className={`field half airport-input`} ref={wrapperRef}>
+//             <label>{name === 'from' ? 'Leaving From' : 'Going To'}</label>
+//             <div className="input-icon-wrapper">
+//                 <img src={name === 'from' ? "../icons/takeoff_b.svg" : "../icons/landing_b.svg"} alt="" className="input-icon" />
+//                 <input type="text" name={name} value={value} onChange={onChange} onFocus={handleFocus} autoComplete="off" />
+//             </div>
+//             {showDropdown && options.length > 0 && (
+//                 <div className="dropdwn">
+//                     {options.map(a => {
+//                         const id = a.airportId;
+//                         const display = `${a.airportName}(${a.airportCode}), ${a.locationName}, ${a.countryName}, ${a.regionName}`;
+//                         return <div key={id} className="dropdwn-item" onMouseDown={() => choose(a)}>{display}</div>;
+//                     })}
+//                 </div>
+//             )}
+//         </div>
+//     );
+// }
+
+// function SearchFormContent({ inline, tab, setTab, data, setData, handleChange, handleSubmit, handleSearch }) {
+//     return (
+//         <div className={`sf-content ${inline ? 'inline' : ''}`}>...</div> // unchanged content omitted for brevity
+//     );
+// }
+
+// export default function Filter({ visible, onClose, inline }) {
+//     const [searchParams] = useSearchParams();
+//     const navigate = useNavigate();
+//     const [tab, setTab] = useState('standard');
+//     const [data, setData] = useState({
+//         tripType: 'round-trip',
+//         from: null,
+//         to: null,
+//         from_id: null,
+//         to_id: null,
+//         depart: null,
+//         ret: null,
+//         adults: null,
+//         children: null,
+//         infant: null,
+//         flexDepart: null,
+//         flexReturn: null,
+//         airlines_id: null,
+//         airlines: null
+//     });
+
+//     useEffect(() => {
+//         const next = { ...data };
+//         ['tripType','from','from_id','to','to_id','depart','ret','adults','children','infant','flexDepart','flexReturn']
+//             .forEach(key => {
+//                 if (searchParams.has(key)) {
+//                     const raw = searchParams.get(key);
+//                     if (['adults','children','infant','flexDepart','flexReturn'].includes(key)) {
+//                         next[key] = Number(raw);
+//                     } else {
+//                         next[key] = raw;
+//                     }
+//                 }
+//             });
+//         const ids = searchParams.getAll('airlines_id');
+//         const names = searchParams.getAll('airlines');
+//         if (ids.length) next.airlines_id = ids;
+//         else next.airlines_id = null;
+//         if (names.length) next.airlines = names;
+//         else next.airlines = null;
+//         setData(next);
+//     }, [searchParams]);
+
+//     const handleSubmit = e => {
+//         e.preventDefault();
+//         const params = new URLSearchParams();
+//         Object.entries(data).forEach(([k,v]) => {
+//             if (v == null || v === '' || (Array.isArray(v) && v.length === 0)) return;
+//             if (Array.isArray(v)) v.forEach(item => params.append(k, item));
+//             else params.set(k, String(v));
+//         });
+//         navigate({ pathname: '/search', search: params.toString() });
+//     };
+
+//     const formProps = { inline, tab, setTab, data, setData, handleChange: e => { const { name, value, type } = e.target; setData(prev => ({ ...prev, [name]: type==='number'?Number(value):value })); }, handleSubmit, handleSearch: onClose };
+
+//     if (!inline) {
+//         return (<div className="sf-overlay" onClick={onClose}><div className={`search-form${visible?' open':''}`} onClick={e=>e.stopPropagation()}><SearchFormContent {...formProps} /></div></div>);
+//     }
+//     return <SearchFormContent {...formProps} />;
+// }

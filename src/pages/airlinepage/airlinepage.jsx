@@ -54,7 +54,7 @@ export default function AirlinesPage() {
                                     <h2>{airline.name}</h2>
                                     <p>{airline.overview}</p>
                                 </div>
-                                <button className="fly-btn" onClick={() => window.location.href = `/airline/${airline._id}`}>
+                                <button className="fly-btn" onClick={() => window.location.href = `/flight/${airline._id}`}>
                                     <img src="../icons/takeoff_w.svg" alt="Takeoff" className="btn-icon" />
                                     Fly <span className="btn-text-long">{airline.shortName}</span>
                                 </button>
