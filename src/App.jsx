@@ -7,7 +7,6 @@ import PrivacyPolicy from './pages/privacy/privacy';
 import SearchResultsPage from './pages/searchresult/SearchResults';
 import AirlinesPage from './pages/airlinepage/airlinepage';
 import DealsPage from './pages/Deals/deals';
-import LocationsPage from './pages/locations/locations';
 import CountriesPage from './pages/countries/countries';
 import React from 'react';
 import ErrorPage from './pages/error/error';
@@ -34,6 +33,7 @@ import AirlineDetail from './pages/airlinedetail/airlinedetail';
 import QuotesPage from './admin/pages/quote/quote';
 import PrivacyPolicyEditor from './admin/pages/privacy/privacyadmin';
 import FAQEditor from './admin/pages/FAQ/FAQadmin';
+import BookingAdmin from './admin/pages/booking-admin/booking-admin';
 
 function App() {
 	return (
@@ -54,7 +54,6 @@ function App() {
 						<Route path="/flight" element={<AirlinesPage />} />
 						<Route path="/flight/:id" element={<AirlineDetail />} />
 						<Route path="/deals" element={<DealsPage />} />
-						<Route path="/location" element={<LocationsPage />} />
 						<Route path="/countries/:regionId" element={<CountriesPage />} />
 						<Route path="/about" element={<AboutPage />} />
 						<Route path="/error" element={<ErrorPage />} />
@@ -63,6 +62,7 @@ function App() {
 							<Route path="regions" element={<RegionsPage />} />
 							<Route path="country" element={<CountryPage />} />
 							<Route path="dashboard" element={<Dashboard />} />
+							<Route path="bookings" element={<BookingAdmin />} />
 							<Route path="locations" element={<AdminLocationsPage />} />
 							<Route path="airline" element={<AdminAirlinesPage />} />
 							<Route path="siteinfo" element={<SiteInfoPage />} />

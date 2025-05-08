@@ -96,6 +96,7 @@ export default function Footer() {
                     <div className="payment-logos">
                         <img src="../icons/visa.svg" alt="Visa" />
                         <img src="../icons/mastercard.svg" alt="MasterCard" />
+                        <img src="../icons/express.svg" alt="American Express" />
                     </div>
                 </div>
 

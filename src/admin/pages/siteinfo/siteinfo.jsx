@@ -35,6 +35,7 @@ const SiteInfoPage = () => {
   };
 
   const save = async () => {
+    console.log( JSON.stringify(form))
     await fetch("/api/siteinfo", {
       method: "PUT",
       headers: {
@@ -59,6 +60,9 @@ const SiteInfoPage = () => {
           </label>
           <label>Contact Phone
             <input name="contactPhone" value={form.contactPhone} onChange={handle} disabled={!editing} />
+          </label>
+          <label>Whatsaap Phone
+            <input name="contactWA" value={form.contactWA} onChange={handle} disabled={!editing} />
           </label>
           <label>Address Text
             <textarea name="addressText" value={form.addressText} onChange={handle} disabled={!editing} />

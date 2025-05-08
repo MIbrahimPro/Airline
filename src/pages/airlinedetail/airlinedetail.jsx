@@ -55,16 +55,30 @@ function YouMayAlsoLike({ suggestions }) {
         <div className="you-may-also-like">
             <h3>You May Also Like</h3>
             <div className="suggestions-grid">
-                {suggestions.map((item) => (
-                    <div
-                        key={item._id}
-                        className="suggestion-card"
-                        onClick={() => navigate(`/flight/${item._id}`)}
-                    >
-                        <img src={item.logoPicture} alt={item.shortName} />
-                        <span>{item.shortName}</span>
+                {suggestions.map((airline) => (
+
+                    <div key={airline._id} className="airline-card"  onClick={() => window.location.href = `/flight/${airline._id}`}>
+                        <div className="airline-logo">
+                            <img src={airline.logoPicture} alt={airline.shortName} />
+                        </div>
+                        <div className="airline-info">
+                            <h2>{airline.name}</h2>
+                            <p>{airline.overview}</p>
+                        </div>
+                        <button className="fly-btn">
+                            <img src="../icons/takeoff_w.svg" alt="Takeoff" className="btn-icon" />
+                            Fly <span className="btn-text-long">{airline.shortName}</span>
+                        </button>
                     </div>
+
+
                 ))}
+
+
+
+
+
+
             </div>
         </div>
     );

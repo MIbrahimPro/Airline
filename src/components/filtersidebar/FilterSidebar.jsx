@@ -61,12 +61,17 @@ export default function FilterSidebar() {
         if (shouldUpdateURL) {
             const urlParams = new URLSearchParams(window.location.search);
 
-            if (minPrice !== null) {
+            
+            urlParams.delete('minPrice');
+            if (minPrice !== null && minEnabled) {
                 urlParams.set('minPrice', minPrice.toString());
             }
-            if (maxPrice !== null) {
+            
+            urlParams.delete('maxPrice');
+            if (maxPrice !== null && maxEnabled) {
                 urlParams.set('maxPrice', maxPrice.toString());
             }
+
             urlParams.delete('airlines_id');
             selectedAirlines.forEach(airlineId => {
                 urlParams.append('airlines_id', airlineId);
@@ -79,7 +84,7 @@ export default function FilterSidebar() {
 
             setShouldUpdateURL(false);
         }
-    }, [minPrice, maxPrice, selectedAirlines, shouldUpdateURL, navigate]);
+    }, [minPrice, maxPrice, selectedAirlines, shouldUpdateURL, minEnabled, maxEnabled, navigate,]);
 
 
     useEffect(() => {
@@ -89,6 +94,8 @@ export default function FilterSidebar() {
 
         setMinPrice(minPriceParam ? parseInt(minPriceParam, 10) : null);
         setMaxPrice(maxPriceParam ? parseInt(maxPriceParam, 10) : null);
+        setMinEnabled(minPriceParam !== null); // set the checkbox state
+        setMaxEnabled(maxPriceParam !== null); // set the checkbox state
         setSelectedAirlines(airlinesIdParams);
     }, [searchParams]);
 
@@ -159,12 +166,31 @@ export default function FilterSidebar() {
     const handleReset = () => {
         setMaxPrice(null);
         setMinPrice(null);
+        setMinEnabled(false); // Also reset checkboxes
+        setMaxEnabled(false);
         setSelectedAirlines([]);
         setShouldUpdateURL(true);
     }
 
 
 
+    const handleMinEnableChange = (e) => {
+        const checked = e.target.checked;
+        setMinEnabled(checked);
+        if (!checked) {
+            setMinPrice(null); // Clear the price when checkbox is unchecked
+            setShouldUpdateURL(true); // Trigger URL update immediately
+        }
+    };
+
+    const handleMaxEnableChange = (e) => {
+        const checked = e.target.checked;
+        setMaxEnabled(checked);
+        if (!checked) {
+            setMaxPrice(null); // Clear price when checkbox is unchecked
+            setShouldUpdateURL(true); // Trigger URL update immediately
+        }
+    };
 
 
 
@@ -195,7 +221,9 @@ export default function FilterSidebar() {
                             <input
                                 type="checkbox"
                                 checked={minEnabled}
-                                onChange={(e) => setMinEnabled(e.target.checked ? true : false)}
+                                // onChange={(e) => setMinEnabled(e.target.checked ? true : false)}
+                                
+                                onChange={handleMinEnableChange}
                             />
                             Min Price
                         </label>
@@ -214,7 +242,8 @@ export default function FilterSidebar() {
                             <input
                                 type="checkbox"
                                 checked={maxEnabled}
-                                onChange={(e) => setMaxEnabled(e.target.checked ? true : false)}
+                                // onChange={(e) => setMaxEnabled(e.target.checked ? true : false)}
+                                onChange={handleMaxEnableChange}
                             />
                             Max Price
                         </label>

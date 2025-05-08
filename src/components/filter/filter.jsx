@@ -254,7 +254,26 @@ function AirportInput({
 
 
 
-function SearchFormContent({ inline, tab, setTab, data, setData, handleChange, handleSubmit, handleSearch }) {
+function SearchFormContent({ inline, tab, setTab, data, setData, dateError, setDateError, handleChange, handleSubmit, handleSearch }) {
+
+
+    // for showing validation messages
+
+
+    // compute “tomorrow” in YYYY-MM-DD
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const minDepart = tomorrow.toISOString().slice(0, 10);
+
+    // // compute min return based on selected depart
+    // const minReturn = data.depart
+    //     ? (() => {
+    //         const d = new Date(data.depart);
+    //         d.setDate(d.getDate() + 1);
+    //         return d.toISOString().slice(0, 10);
+    //     })()
+    //     : minDepart;
 
 
 
@@ -356,10 +375,21 @@ function SearchFormContent({ inline, tab, setTab, data, setData, handleChange, h
                             <input
                                 type="date"
                                 name="depart"
+                                min={minDepart}
                                 value={data.depart}
-                                onChange={handleChange}
+                                onChange={e => {
+                                    if (data.ret && e.target.value >= data.ret) {
+                                        setData(prev => ({ ...prev, ret: '' }));
+                                    }
+                                    handleChange(e);
+                                }}
                                 required
                             />
+                            {dateError && (
+                                <div className="error-message">
+                                    {dateError}
+                                </div>
+                            )}
                         </div>
                         {data.tripType === 'round-trip' && (
                             <div className="field half">
@@ -367,12 +397,17 @@ function SearchFormContent({ inline, tab, setTab, data, setData, handleChange, h
                                 <input
                                     type="date"
                                     name="ret"
+                                    min={data.depart}
                                     value={data.ret}
                                     onChange={handleChange}
-                                    required
+                                    required={data.tripType === 'round-trip'}
                                 />
                             </div>
                         )}
+
+
+
+
                     </div>
 
 
@@ -391,7 +426,7 @@ function SearchFormContent({ inline, tab, setTab, data, setData, handleChange, h
                             />
                         </div>
                         <div className="field third">
-                            <label>Children (under 7)</label>
+                            <label>Children (under 12)</label>
                             <input
                                 type="number"
                                 name="children"
@@ -401,7 +436,7 @@ function SearchFormContent({ inline, tab, setTab, data, setData, handleChange, h
                             />
                         </div>
                         <div className="field third">
-                            <label>Infants</label>
+                            <label>Infants (under 2)</label>
                             <input
                                 type="number"
                                 name="infant"
@@ -417,8 +452,11 @@ function SearchFormContent({ inline, tab, setTab, data, setData, handleChange, h
                     {/* Advanced fields */}
                     {tab === 'advanced' && (
                         <>
+
+
                             {/* Row 5: ± Days */}
-                            <div className="row">
+
+                            {/* <div className="row">
                                 <div className="field half advanced">
                                     <label>± Days Departure</label>
                                     <input
@@ -445,7 +483,9 @@ function SearchFormContent({ inline, tab, setTab, data, setData, handleChange, h
                                         />
                                     </div>
                                 )}
-                            </div>
+                            </div> */}
+
+
                             {/* Row 6: Class & Preferred Airline */}
                             <div className="row">
 
@@ -491,6 +531,8 @@ export default function Filter({ visible, onClose, onSubmit, inline }) {
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
 
+    const [dateError, setDateError] = useState('');
+
     const [tab, setTab] = useState('standard');
     const [data, setData] = useState({
         tripType: 'round-trip',
@@ -510,7 +552,28 @@ export default function Filter({ visible, onClose, onSubmit, inline }) {
 
     const handleSubmit = e => {
         e.preventDefault();
+        setDateError('');
 
+        const depDate = new Date(data.depart);
+        const today0 = new Date();
+        today0.setHours(0, 0, 0, 0);
+
+        // 1) depart must be ≥ tomorrow
+        if (depDate <= today0) {
+            setDateError('Departure must be tomorrow or later.');
+            return;
+        }
+
+        // 2) if round-trip, return must be > depart
+        if (data.tripType === 'round-trip') {
+            const retDate = new Date(data.ret);
+            if (!data.ret || retDate <= depDate) {
+                setDateError('Return date must be after departure.');
+                return;
+            }
+        }
+
+        // all good → proceed
         const newParams = new URLSearchParams(searchParams);
 
         const ownKeys = Object.keys(data);
@@ -527,8 +590,11 @@ export default function Filter({ visible, onClose, onSubmit, inline }) {
             }
         });
 
+
         navigate({ pathname: '/search', search: newParams.toString() });
     };
+
+
 
 
     const formProps = {
@@ -537,6 +603,8 @@ export default function Filter({ visible, onClose, onSubmit, inline }) {
         setTab,
         data,
         setData,
+        dateError,
+        setDateError,
         handleChange: e => {
             const { name, value, type } = e.target;
             setData(prev => ({

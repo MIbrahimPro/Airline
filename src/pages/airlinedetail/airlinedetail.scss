@@ -1,304 +1,364 @@
 @import '../../App.scss';
 
 .airline-detail-page {
-  padding-top: 100px;
-  padding-bottom: 50px;
-  max-width: 1000px;
-  margin: 0 auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  font-family: 'Inter', sans-serif;
-  color: #333;
+    padding-top: 100px;
+    padding-bottom: 50px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-family: 'Inter', sans-serif;
+    color: #333;
 
-  /* Hero Section */
-  .airline-hero {
-    position: relative;
-    height: 250px;
-    border-radius: 16px;
-    overflow: hidden;
-    margin-bottom: 2rem;
+    /* Hero Section */
+    .airline-hero {
+        position: relative;
+        height: 250px;
+        border-radius: 16px;
+        overflow: hidden;
+        margin-bottom: 2rem;
 
-    .hero-bg {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: brightness(0.75);
-    }
 
-    .hero-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: flex-start;
-      gap: 1rem;
-      padding: 1rem;
-      background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, transparent 70%);
-
-      .logo-container {
-        background: #fff;
-        height: 50px;
-        width: max-content;
-        padding: 0.5rem 1rem;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-
-        img {
-          width: 90%;
-          max-width: 90%;
-          max-height: 550%;
-          display: block;
+        .hero-bg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.75);
         }
-      }
 
-      .airline-name {
-        font-size: 2rem;
-        font-weight: 700;
-        color: #fff;
-        margin-top: 10px;
-      }
-    }
-  }
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, transparent 70%);
 
-  /* Main Content */
-  .airline-content {
-    section {
-      margin-bottom: 2rem;
+            .logo-container {
+                background: #fff;
+                height: 50px;
+                width: max-content;
+                padding: 0.5rem 1rem;
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 
-      h2 {
-        font-size: 1.8rem;
-        font-weight: 700;
-        color: $d-blue;
-        border-bottom: 2px solid $m-blue;
-        padding-bottom: 0.5rem;
-        margin-bottom: 1rem;
-      }
+                img {
+                    width: 90%;
+                    max-width: 90%;
+                    max-height: 550%;
+                    display: block;
+                }
+            }
 
-      p {
-        font-size: 1rem;
-        line-height: 1.6;
-        color: #555;
-      }
-    }
-  }
-
-  /* Baggage Section (internal tabs) */
-  .baggage-section {
-    margin-bottom: 2rem;
-
-    h2 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: $d-blue;
-      border-bottom: 2px solid $m-blue;
-      padding-bottom: 0.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .baggage-tabs {
-      display: flex;
-      justify-content: flex-start;
-      align-items: flex-start;
-      width: 100%;
-      gap: 20px;
-
-
-      @media (max-width: 768px) {
-        flex-direction: column;
-      }
-
-
-      .baggage-tab-headers {
-        width: 25%;
-        min-width: 150px;
-        
-
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        margin-bottom: 1rem;
-
-        @media (max-width: 768px) {
-          flex-direction: row;
-          min-width: none;
-          width: 100%;
+            .airline-name {
+                font-size: 2rem;
+                font-weight: 700;
+                color: #fff;
+                margin-top: 10px;
+            }
         }
+    }
+
+    /* Main Content */
+    .airline-content {
+        section {
+            margin-bottom: 2rem;
+
+            h2 {
+                font-size: 1.8rem;
+                font-weight: 700;
+                color: $d-blue;
+                border-bottom: 2px solid $m-blue;
+                padding-bottom: 0.5rem;
+                margin-bottom: 1rem;
+            }
+
+            p {
+                font-size: 1rem;
+                line-height: 1.6;
+                color: #555;
+            }
+        }
+    }
+
+    /* Baggage Section (internal tabs) */
+    .baggage-section {
+        margin-bottom: 2rem;
+
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: $d-blue;
+            border-bottom: 2px solid $m-blue;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .baggage-tabs {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            width: 100%;
+            gap: 20px;
+
+
+            @media (max-width: 768px) {
+                flex-direction: column;
+            }
+
+
+            .baggage-tab-headers {
+                width: 25%;
+                min-width: 150px;
+
+
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                margin-bottom: 1rem;
+
+                @media (max-width: 768px) {
+                    flex-direction: row;
+                    min-width: none;
+                    width: 100%;
+                }
+
+                button {
+
+                    height: 40px;
+                    flex: 1;
+                    padding: 0.5rem 1rem;
+                    background: #f3f3f3;
+                    border: 1px solid transparent;
+                    border-radius: 4px;
+                    font-weight: 600;
+                    color: $d-blue;
+                    cursor: pointer;
+                    transition: background 0.2s ease, transform 0.2s ease;
+
+                    &:hover {
+                        background: #eaeaea;
+                    }
+
+                    &.active {
+                        background: $m-blue;
+                        color: #fff;
+                        border-color: $m-blue;
+                    }
+                }
+            }
+
+            .baggage-tab-content {
+                flex: 1;
+                width: 100%;
+                height: calc(120px + 1rem);
+                min-height: 100%;
+                background: #fafafa;
+                padding: 1rem;
+                border-radius: 8px;
+
+                p {
+                    margin: 0;
+                    color: #555;
+                }
+            }
+        }
+
+        .single-baggage {
+            h3 {
+                font-size: 1.3rem;
+                font-weight: 600;
+                margin-bottom: 0.5rem;
+                color: $d-blue;
+            }
+
+            p {
+                margin: 0;
+                color: #555;
+            }
+        }
+    }
+
+    /* Details Section */
+    .details-section {
+        margin-bottom: 2rem;
+
+        .detail-item {
+            margin-bottom: 1.5rem;
+
+            h3 {
+                font-size: 1.3rem;
+                font-weight: 600;
+                margin-bottom: 0.5rem;
+                color: $d-blue;
+            }
+
+            p {
+                font-size: 1rem;
+                color: #555;
+                line-height: 1.6;
+            }
+        }
+    }
+
+    /* Action Button */
+    .airline-action {
+        text-align: center;
+        margin-bottom: 2rem;
+
         button {
-
-          height: 40px;
-          flex: 1;
-          padding: 0.5rem 1rem;
-          background: #f3f3f3;
-          border: 1px solid transparent;
-          border-radius: 4px;
-          font-weight: 600;
-          color: $d-blue;
-          cursor: pointer;
-          transition: background 0.2s ease, transform 0.2s ease;
-
-          &:hover {
-            background: #eaeaea;
-          }
-
-          &.active {
+            padding: 0.75rem 2rem;
             background: $m-blue;
             color: #fff;
-            border-color: $m-blue;
-          }
-        }
-      }
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.3s ease;
 
-      .baggage-tab-content {
-        flex: 1;
-        width: 100%;
-        height: calc(120px + 1rem);
-        min-height: 100%;
-        background: #fafafa;
+            &:hover {
+                background: $l-blue;
+            }
+        }
+    }
+
+    /* You May Also Like Section */
+    .you-may-also-like {
+        margin-top: 3rem;
+
+        h3 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: $d-blue;
+        }
+
+        .suggestions-grid {
+            
+            display: grid;
+            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            align-items: stretch;
+
+            .airline-card {
+                background: #fff;
+                border-radius: 12px;
+                border: 1px solid rgba(0, 0, 0, 0.05);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+                padding: 25px 20px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+                &:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                }
+
+                .airline-logo {
+                    max-width: 220px; 
+                    margin-bottom: 20px;
+
+                    img {
+                        width: 100%;
+                        height: auto;
+                        object-fit: contain;
+                    }
+                }
+
+                .airline-info {
+                    margin-bottom: 20px;
+
+                    h2 {
+                        font-size: 1.5rem;
+                        margin-bottom: 10px;
+                        color: #222;
+                        font-weight: 700;
+                    }
+
+                    p {
+                        font-size: 1rem;
+                        color: #555;
+                        margin: 0;
+                        line-height: 1.4;
+                        padding: 0 10px;
+                    }
+                }
+
+
+                .fly-btn {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    margin-top: auto;
+                    padding: 10px 16px;
+                    background: $m-blue;
+                    color: #fff;
+                    border: none;
+                    border-radius: 25px;
+                    font-size: 1rem;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: background 0.2s ease;
+
+                    &:hover {
+                        background: $l-blue;
+                    }
+
+                    .btn-icon {
+                        width: 20px;
+                        height: auto;
+                    }
+
+                    .btn-text-long {
+                        display: inline;
+                    }
+                }
+
+            }
+
+
+
+        }
+    }
+
+
+
+
+    @media (max-width: 768px) {
         padding: 1rem;
-        border-radius: 8px;
 
-        p {
-          margin: 0;
-          color: #555;
+        .airline-hero {
+            height: 200px;
+
+            .hero-overlay {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+
+                .logo-container {
+                    margin-bottom: 0.5rem;
+                }
+
+                .airline-name {
+                    font-size: 1.6rem;
+                }
+            }
         }
-      }
     }
 
-    .single-baggage {
-      h3 {
-        font-size: 1.3rem;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-        color: $d-blue;
-      }
 
-      p {
-        margin: 0;
-        color: #555;
-      }
-    }
-  }
-
-  /* Details Section */
-  .details-section {
-    margin-bottom: 2rem;
-
-    .detail-item {
-      margin-bottom: 1.5rem;
-
-      h3 {
-        font-size: 1.3rem;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-        color: $d-blue;
-      }
-
-      p {
-        font-size: 1rem;
-        color: #555;
-        line-height: 1.6;
-      }
-    }
-  }
-
-  /* Action Button */
-  .airline-action {
-    text-align: center;
-    margin-bottom: 2rem;
-
-    button {
-      padding: 0.75rem 2rem;
-      background: $m-blue;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      font-size: 1.1rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.3s ease;
-
-      &:hover {
-        background: $l-blue;
-      }
-    }
-  }
-
-  /* You May Also Like Section */
-  .you-may-also-like {
-    margin-top: 3rem;
-
-    h3 {
-      font-size: 1.6rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      color: $d-blue;
-    }
-
-    .suggestions-grid {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
-
-      .suggestion-card {
-        background: #fff;
-        border: 1px solid #eee;
-        border-radius: 10px;
-        padding: 1rem;
-        width: 140px;
-        text-align: center;
-        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
-        cursor: pointer;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-        &:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        img {
-          max-width: 100%;
-          margin-bottom: 0.5rem;
-        }
-
-        span {
-          font-weight: 500;
-          font-size: 0.95rem;
-          color: #333;
-        }
-      }
-    }
-  }
 }
 
 /* Responsive Adjustments */
-@media (max-width: 768px) {
-  .airline-hero {
-    height: 200px;
-
-    .hero-overlay {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-
-      .logo-container {
-        margin-bottom: 0.5rem;
-      }
-
-      .airline-name {
-        font-size: 1.6rem;
-      }
-    }
-  }
-
-  .airline-detail-page {
-    padding: 1rem;
-  }
-}

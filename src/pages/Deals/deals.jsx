@@ -2,14 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useGlobalStatus } from '../../context/GlobalLoaderContext';
-import { motion } from 'framer-motion';
-
-
 import Navbar from "../../components/navbar/navbar";
 import SearchForm from '../../components/filter/filter';
 import Imager from "../../components/imager/imager";
 import Footer from "../../components/footer/footer";
-
 import './deals.scss';
 
 export default function DealsPage() {
@@ -22,14 +18,18 @@ export default function DealsPage() {
     const { startLoading, endLoading, setGlobalError } = useGlobalStatus();
     const [showSearchPopup, setShowSearchPopup] = useState(false);
 
-
-
     useEffect(() => {
         const fetchDeals = async () => {
             startLoading();
             try {
-                const { data } = await axios.get('/api/location/deals');
-                setLastMinutes(data.lastMinutes || []);
+                let { data } = await axios.get('/api/location/deals');
+                console.log(data);
+                setLastMinutes(
+                    (data.lastMinutes || []).map((item) => ({
+                        ...item,
+                        description: item.dealingsDescription !== undefined ? item.dealingsDescription : item.description,
+                    }))
+                );
                 setTopDestinations(data.topDestinations || []);
                 setHotDeals(data.hotDeals || []);
             } catch (err) {
@@ -55,21 +55,11 @@ export default function DealsPage() {
         }
     };
 
-    const sectionVariant = {
-        hidden: { opacity: 0, y: 20 },
-        visible: delay => ({ opacity: 1, y: 0, transition: { delay } })
-    };
-
     return (
         <>
-
-
             <Navbar selectedPage="deals" />
 
-
-
             <div className="deals-page">
-
 
                 <div className="desktop-search-form">
                     <SearchForm inline />
@@ -83,15 +73,30 @@ export default function DealsPage() {
                     <img className="btn-icon" src="../icons/search.svg" alt="search" />
                 </div>
 
-
                 <div className="dealing">
-                    <motion.section
-                        className="deals-section last-minutes"
-                        initial="hidden"
-                        animate="visible"
-                        custom={0.1}
-                        variants={sectionVariant}
-                    >
+
+
+                    <section className="deals-section top-destinations">
+                        <h2>Top Destinations</h2>
+                        <div className="cards-grid">
+                            {topDestinations.map(deal => (
+                                <div
+                                    key={deal._id}
+                                    className="card"
+                                    onClick={() => handleDealClick(deal)}
+                                >
+                                    <img src={deal.image} alt={deal.name} />
+                                    <div className="info">
+                                        <h3>{deal.name}</h3>
+                                        <p className="deal-desc">{deal.dealingsDescription}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+
+                    <section className="deals-section last-minutes">
                         <h2>Last-Minute Deals</h2>
                         <div className="cards-row">
                             {lastMinutes.map(deal => (
@@ -103,71 +108,38 @@ export default function DealsPage() {
                                 />
                             ))}
                         </div>
-                    </motion.section>
+                    </section>
 
-                    <motion.section
-                        className="deals-section top-destinations"
-                        initial="hidden"
-                        animate="visible"
-                        custom={0.3}
-                        variants={sectionVariant}
-                    >
-                        <h2>Top Destinations</h2>
-                        <div className="cards-grid masonry">
-                            {topDestinations.map(deal => (
-                                <motion.div
-                                    key={deal._id}
-                                    className="card"
-                                    whileHover={{ scale: 1.03 }}
-                                    onClick={() => handleDealClick(deal)}
-                                >
-                                    <img src={deal.image} alt={deal.name} />
-                                    <div className="info">
-                                        <h3>{deal.name}</h3>
-                                    </div>
-                                </motion.div>
-                            ))}
-                        </div>
-                    </motion.section>
 
-                    <motion.section
-                        className="deals-section hot-deals"
-                        initial="hidden"
-                        animate="visible"
-                        custom={0.5}
-                        variants={sectionVariant}
-                    >
+                    <section className="deals-section hot-deals">
                         <h2>Hot Deals</h2>
-                        <div className="cards-grid standard">
+                        <div className="cards-grid">
                             {hotDeals.map(deal => (
-                                <motion.div
+                                <div
                                     key={deal._id}
-                                    className="card"
-                                    whileHover={{ scale: 1.04 }}
+                                    className="card hot-deal-card"
                                     onClick={() => handleDealClick(deal)}
                                 >
-                                    <div className="image-wrapper">
+                                    <div className="image-container">
                                         <img src={deal.image} alt={deal.name} />
+                                        <div className="badge">Hot Deal</div>
                                     </div>
                                     <div className="info">
                                         <h3>{deal.name}</h3>
-                                        <button className="btn">Fly {deal.name}</button>
+                                        <p className="deal-desc">{deal.dealingsDescription}</p>
+                                        <button className="fly-btn">Fly Now</button>
                                     </div>
-                                </motion.div>
+                                </div>
                             ))}
                         </div>
-                    </motion.section>
+                    </section>
+
+
                 </div>
-
-
 
             </div>
 
-
-
             <Footer />
-
-
 
             {showSearchPopup && (
                 <SearchForm

@@ -24,15 +24,16 @@ export default function SearchResultsPage() {
     const [popupVisible, setPopupVisible] = useState(false);
     const [showFilterModal, setShowFilterModal] = useState(false);
     const [showSearchPopup, setShowSearchPopup] = useState(false);
-    const [searchParams] = useSearchParams();
+    // const [searchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
     const [flights, setFlights] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const departRaw = searchParams.get('depart');
-    const retRaw = searchParams.get('ret');
     const adults = searchParams.get('adults');
     const children = searchParams.get('children');
     const infant = searchParams.get('infant');
+    const [currentPage, setCurrentPage] = useState(1); // Initialize currentPage
+    const [totalPages, setTotalPages] = useState(0);     // Initialize totalPages
 
     const openPopup = () => {
         setNotification(null)
@@ -52,6 +53,17 @@ export default function SearchResultsPage() {
     };
 
 
+    const handlePageChange = (page) => {
+        // Update the 'page' parameter in the URL
+        setSearchParams(prevParams => {
+            const newParams = new URLSearchParams(prevParams);
+            newParams.set('page', page.toString());
+            return newParams;
+        });
+        setCurrentPage(page); // Update local state as well, for consistency
+    };
+
+
     const formatDate = (iso) => {
         if (!iso) return '';
         const [year, month, day] = iso.split('-');
@@ -65,12 +77,16 @@ export default function SearchResultsPage() {
 
 
     useEffect(() => {
+
+
+        setLoading(true);
+        setError(null);
+
         const params = {};
 
-        // Map searchParams to API parameters
         const tripType = searchParams.get('tripType');
         if (tripType) {
-            params.type = tripType; // API uses 'type' not 'tripType'
+            params.type = tripType;
         }
 
         const minPrice = searchParams.get('minPrice');
@@ -83,10 +99,8 @@ export default function SearchResultsPage() {
             params.maxPrice = parseInt(maxPrice, 10);
         }
 
-        const page = searchParams.get('page');
-        if (page) {
-            params.page = parseInt(page, 10);
-        }
+        params.page = currentPage;
+
 
         const from_id = searchParams.get('from_id');
         if (from_id) {
@@ -96,6 +110,16 @@ export default function SearchResultsPage() {
         const to_id = searchParams.get('to_id');
         if (to_id) {
             params.to_id = to_id;
+        }
+
+        const depDateStr = searchParams.get('depart')
+        if (depDateStr) {
+            params.depDateStr = depDateStr;
+        }
+
+        const arrDateStr = searchParams.get('ret')
+        if (arrDateStr) {
+            params.arrDateStr = arrDateStr;
         }
 
         const from = searchParams.get('from');
@@ -118,8 +142,8 @@ export default function SearchResultsPage() {
             params.airlines = airlines;
         }
 
-        setLoading(true);
-        setError(null);
+        console.log(params);
+
 
         let apiUrl = '/api/flight/filter';
         const queryParams = new URLSearchParams(params).toString();
@@ -130,15 +154,18 @@ export default function SearchResultsPage() {
         axios.get(apiUrl)
             .then(response => {
                 setFlights(response.data.results || []);
+                setTotalPages(response.data.totalPages || 0); // Extract totalPages from response
+                console.log(response.data.results);
             })
-            .catch(error => {
+            .catch(() => {
                 console.error('Error fetching flights:', error);
-                setError(error.message || 'Failed to fetch flights');
+                setError(error || 'Failed to fetch flights');
             })
             .finally(() => {
-                setTimeout(() => setLoading(false), 5000);
+                setLoading(false)
+                // setTimeout(() => setLoading(false), 5000);
             });
-    }, [searchParams]);
+    }, [searchParams, currentPage]);
 
 
 
@@ -177,54 +204,52 @@ export default function SearchResultsPage() {
 
                     <div className="tickets-list">
                         {loading ? (
-                            flights.map((ticket) => (
-                                <FlightCard
-                                    loading={true}
-                                />
+                            Array.from({ length: 25 }).map((_, index) => (
+                                <FlightCard key={index} loading={true} />
                             ))
                         ) : (
 
                             flights.length === 0 ? (
-                                <>
+                                <div className='no-flights'>
                                     <h2>No flights found.</h2>
                                     <button className="quote-btn" onClick={openPopup}>
                                         Get in Touch
                                     </button>
-                                </>
+                                </div>
                             ) : (
 
-                                flights.map((ticket) => (
-                                    flights.map(f => (
-                                        <FlightCard
-                                            
-                                            key={f.flightId}
-                                            id={f.flightId}
-                                            recommended={f.recommended}
-                                            type={searchParams.get('type') || 'round-trip'}
-                                            
-                                            airlineLogo={f.airlineMono}
-                                            airlineName={f.airlineName}
+                                flights.map(f => (
+                                    <FlightCard
 
-                                            deptPort={f.depAirportCode}
-                                            deptPortFull={f.depAirportName}
-                                            
-                                            flightTime={f.flightTime}
+                                        key={f.flightId}
+                                        id={f.flightId}
+                                        recommended={f.recommended}
+                                        type={searchParams.get('tripType') || 'round-trip'}
 
-                                            arrivalPort={f.arrAirportCode}
-                                            arrivalPortFull={f.arrAirportName}
+                                        airlineLogo={f.airlineMono}
+                                        airlineName={f.airlineName}
 
-                                            original={f.originalPrice}
-                                            saving={f.discount}
-                                            price={f.finalPrice}
+                                        deptPort={f.depAirportCode}
+                                        deptPortFull={f.depAirportName}
 
-                                            adults={adults}
-                                            children={children}
-                                            infants={infant}
-                                            
-                                            depart={f.departureDate.year + "-" + f.departureDate.month + "-" + f.departureDate.day}
-                                            ret={f.arrivalDate.year + "-" + f.arrivalDate.month + "-" + f.arrivalDate.day}
-                                        />
-                                    ))
+                                        flightTime={f.fromDuration}
+                                        returnTime={f.toDuration || "0"}
+
+                                        arrivalPort={f.arrAirportCode}
+                                        arrivalPortFull={f.arrAirportName}
+
+                                        original={f.originalPrice}
+                                        saving={f.discount}
+                                        price={f.finalPrice}
+
+                                        adults={adults}
+                                        children={children}
+                                        infants={infant}
+
+                                        depart={f.departureDate.year + "-" + f.departureDate.month + "-" + f.departureDate.day}
+                                        ret={f.arrivalDate.year + "-" + f.arrivalDate.month + "-" + f.arrivalDate.day}
+
+                                    />
                                 ))
                             )
 
@@ -233,6 +258,26 @@ export default function SearchResultsPage() {
 
                         }
                     </div>
+
+
+                    {totalPages > 1 && !loading && flights.length > 0 && (
+                        <div className="pagination">
+                            {currentPage > 1 && (
+                                <button onClick={() => handlePageChange(currentPage - 1)}>
+                                    Previous
+                                </button>
+                            )}
+                            <span>Page {currentPage} of {totalPages}</span>
+                            {currentPage < totalPages && (
+                                <button onClick={() => handlePageChange(currentPage + 1)}>
+                                    Next
+                                </button>
+                            )}
+                        </div>
+                    )}
+
+
+
                 </main>
             </div>
             <Footer />

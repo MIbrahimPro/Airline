@@ -15,13 +15,17 @@ import './home.scss';
 
 
 export default function Home() {
+    
     const [showForm, setShowForm] = useState(false);
     const [formVisible, setFormVisible] = useState(false);
-    const [origin, setOrigin] = useState({ x: 0, y: 0 });
+    const origin = { x: 0, y: 0 };
     const [activeDest, setActiveDest] = useState(null);
-    const navigate = useNavigate();
+
     const [popularDestinations, setPopularDestinations] = useState([]);
+
+    const navigate = useNavigate();
     const { startLoading, endLoading, setGlobalError } = useGlobalStatus();
+
 
     const handleHeroClick = (e) => {
         if (!e.target.closest('.destination-item')) {
@@ -30,7 +34,6 @@ export default function Home() {
     };
 
     const openForm = () => {
-
         setShowForm(true);
         setTimeout(() => setFormVisible(true), 10);
     };
@@ -56,6 +59,13 @@ export default function Home() {
             })
             .finally(() => {
                 endLoading();
+                endLoading();
+
+                const formjump = setTimeout(() => {
+                    openForm();
+                }, 3500);
+
+                return () => clearTimeout(formjump);
             });
     }, []);
 
@@ -81,11 +91,11 @@ export default function Home() {
 
                     {popularDestinations.map((dest) => (
                         <Imager
-                        key={dest._id}
-                        dest={dest}
-                        activeDest={activeDest}
-                        setActiveDest={setActiveDest}
-                      />
+                            key={dest._id}
+                            dest={dest}
+                            activeDest={activeDest}
+                            setActiveDest={setActiveDest}
+                        />
                     ))}
                     <div className="spacer" />
                 </div>
@@ -114,7 +124,6 @@ export default function Home() {
                             airlines: data.airline ? data.airline.split(',').map(a => a.trim()).join(',') : '',
                         };
                         const queryString = new URLSearchParams(params).toString();
-                        console.log(`/search-results?${queryString}`)
                         navigate(`/search-results?${queryString}`);
                     }}
                 />

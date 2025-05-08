@@ -5,24 +5,24 @@ import './why.scss';
 
 const features = [
     {
-        id: 'itineraries',
-        title: 'Custom Itineraries',
-        description: 'Tailor-made plans for unforgettable travel experiences.',
+        id: 'confidences',
+        title: 'Book with Confidences',
+        description: 'All of your bookings will be covered by ATOL. You will be ATOL protected.',
     },
     {
-        id: 'best-deals',
-        title: 'Best Flight Deals',
-        description: 'Lowest fares and exclusive offers to maximize your budget.',
+        id: 'book now pay later',
+        title: 'Book now and pay in Installments',
+        description: 'You can book and you can easily pay as per your convenience upto 6 easy installments.',
     },
     {
         id: 'support',
-        title: '24/7 Support',
+        title: '24/7 suppport',
         description: 'Dedicated experts providing real-time assistance anytime.',
     },
     {
-        id: 'secure',
-        title: 'Secure Bookings',
-        description: 'Advanced encryption protects your data and payments.',
+        id: 'lowest',
+        title: 'lowest price guarantee',
+        description: 'Flyva UK guarantees the lowest and unbeatable price. You will not get on any other website.',
     },
 ];
 

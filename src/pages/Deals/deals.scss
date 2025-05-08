@@ -1,324 +1,340 @@
 @import '../../App.scss';
 
+
 .deals-page {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	width: 100%;
-	padding: 20px;
-	gap: 20px;
-	padding-top: 120px;
-	background-color: #e4e7ec;
-
-	@media (max-width: 1020px) {
-		padding-top: 30px;
-	}
-
-
-	.desktop-search-form {
-
-		max-width: 1020px;
-		margin: auto;
-
-		@media (max-width: 900px) {
-			display: none;
-		}
-
-	}
-
-	.mobile-search-btn {
-
-		width: 100%;
-
-		display: none;
-		align-items: center;
-		justify-content: space-between;
-		gap: 8px;
-
-		padding: 12px 24px;
-		border-radius: 8px;
-		margin-bottom: 20px;
-
-		background-color: white;
-		cursor: pointer;
-		overflow: hidden;
-		transition: all 0.3s ease-out;
-
-
-		@media (max-width: 900px) {
-			display: flex;
-
-			@media (max-width: 800px) {
-				width: fit-content;
-
-				border-radius: 50px;
-				margin-left: auto;
-
-				background-color: #ffffff55;
-				backdrop-filter: blur(8px);
-
-
-				@media (max-width: 600px) {
-					min-width: 190px;
-
-					@media (max-width: 350px) {
-						margin-left: unset;
-					}
-				}
-			}
-		}
-
-		.btn-text {
-			font-size: 1rem;
-			font-weight: 500;
-			color: #000;
-		}
-
-		.btn-icon {
-			width: 18px;
-			height: 18px;
-		}
-
-		&:hover {
-			transform: scale(1.05);
-			background: rgba(255, 255, 255, 0.9);
-		}
-	}
-
-	// DealsPage.scss
-
-	.dealing {
-		padding: 2rem 1rem;
-		max-width: 1280px;
-		margin: auto;
-		display: flex;
-		flex-direction: column;
-		gap: 4rem;
-
-		h2 {
-			position: relative;
-			font-size: 2rem;
-			color: #2d3748;
-			text-align: center;
-			margin-bottom: 1.5rem;
-
-			&::after {
-				content: '';
-				display: block;
-				width: 4rem;
-				height: 0.25rem;
-				background: #5a67d8;
-				margin: 0.5rem auto 0;
-				border-radius: 4px;
-			}
-		}
-
-		.deals-section {
-			display: flex;
-			flex-direction: column;
-			gap: 1rem;
-
-			.card {
-				background: white;
-				border-radius: 12px;
-				overflow: hidden;
-				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-				cursor: pointer;
-				transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-				&:hover {
-					transform: translateY(-6px);
-					box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-				}
-
-				img {
-					width: 100%;
-					height: auto;
-					display: block;
-				}
-
-				.info {
-					padding: 1rem;
-
-					h3 {
-						margin: 0;
-						font-size: 1.125rem;
-						color: #2d3748;
-					}
-
-					p {
-						margin: 0.5rem 0 0;
-						font-size: 0.875rem;
-						color: #718096;
-					}
-
-					.btn {
-						margin-top: 1rem;
-						padding: 0.5rem 1rem;
-						background: #5a67d8;
-						color: #fff;
-						border: none;
-						border-radius: 6px;
-						font-weight: 600;
-						transition: background 0.3s ease;
-
-						&:hover {
-							background: darken(#5a67d8, 10%);
-						}
-					}
-				}
-			}
-
-			&.last-minutes {
-				.cards-row {
-					display: flex;
-					justify-content: flex-start;
-					align-items: center;
-					gap: .5rem;
-					overflow-x: auto;
-					scroll-snap-type: x mandatory;
-					height: 400px;
-
-					overflow-y: scroll;
-					-ms-overflow-style: none;
-					scrollbar-width: none;
-	
-					&::-webkit-scrollbar {
-						display: none;
-					}
-
-					.destination-item{
-						height: 100%;
-						width: 260px;
-						border-radius: 205px;
-					}
-				}
-
-
-			}
-
-			&.top-destinations {
-				.masonry {
-					display: grid;
-					grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-					gap: 1.5rem;
-
-					.card {
-						display: flex;
-						flex-direction: column;
-						height: 100%;
-
-						img {
-							height: 160px;
-							object-fit: cover;
-						}
-
-						.info {
-							display: flex;
-							align-items: center;
-							justify-content: center;
-							flex-grow: 1;
-						}
-					}
-				}
-			}
-
-			&.hot-deals {
-				.standard {
-					display: grid;
-					grid-template-columns: auto auto auto auto;
-					gap: 2rem;
-
-					.card {
-						position: relative;
-
-						.image-wrapper {
-							overflow: hidden;
-
-							img {
-								width: 100%;
-								height: 300px;
-								object-fit: cover;
-								transition: transform 0.4s ease;
-							}
-
-							&:hover img {
-								transform: scale(1.1);
-							}
-						}
-
-						.info {
-							padding: 1rem;
-							background: #edf2f7;
-							text-align: center;
-							position: relative;
-							top: -1rem;
-							margin: 0 1rem;
-							border-radius: 8px;
-
-							h3 {
-								margin: 0;
-								font-size: 1.125rem;
-								color: #2d3748;
-							}
-
-							.btn {
-								margin-top: 0.75rem;
-								padding: 0.5rem 1rem;
-								background: $l-blue;
-								color: #fff;
-								border: none;
-								border-radius: 6px;
-								font-weight: 600;
-								transition: background 0.3s ease;
-
-								&:hover {
-									background: darken($l-blue, 8%);
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
-	// Section fade-in animation
-	@keyframes fadeInUp {
-		0% {
-			opacity: 0;
-			transform: translateY(30px);
-		}
-
-		100% {
-			opacity: 1;
-			transform: translateY(0);
-		}
-	}
-
-	deals-section {
-		animation: fadeInUp 0.6s ease both;
-	}
-
-	@media (max-width: 768px) {
-		.dealing {
-			h2 {
-				font-size: 1.75rem;
-			}
-
-			.deals-section {
-
-				.cards-row,
-				.standard,
-				.masonry {
-					grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-				}
-			}
-		}
-	}
-
-
-
-
-
+    padding: 40px 20px;
+    background-color: #f9fafb;
+    min-height: 100vh;
+    padding-top: 120px;
+
+    @media (max-width: 1020px) {
+        padding-top: 30px;
+    }
+
+
+    .desktop-search-form {
+        max-width: 1020px;
+        margin: 0 auto 40px;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+        @media (max-width: 900px) {
+            display: none;
+        }
+    }
+
+    .mobile-search-btn {
+
+        width: 100%;
+
+        display: none;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+
+        padding: 12px 24px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+
+        background-color: white;
+        cursor: pointer;
+        overflow: hidden;
+        transition: all 0.3s ease-out;
+
+
+        @media (max-width: 900px) {
+            display: flex;
+
+            @media (max-width: 800px) {
+                width: fit-content;
+
+                border-radius: 50px;
+                margin-left: auto;
+
+                background-color: #ffffff55;
+                backdrop-filter: blur(8px);
+
+
+                @media (max-width: 600px) {
+                    min-width: 190px;
+
+                    @media (max-width: 350px) {
+                        margin-left: unset;
+                    }
+                }
+            }
+        }
+
+        .btn-text {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #000;
+        }
+
+        .btn-icon {
+            width: 18px;
+            height: 18px;
+        }
+
+        &:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.9);
+        }
+    }
+
+    .deals-section {
+        margin-bottom: 60px;
+        padding: 40px 30px;
+        border-radius: 15px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 1020px;
+        margin: auto;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 40px;
+
+        h2 {
+            font-size: 32px;
+            font-weight: 700;
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            letter-spacing: 0.5px;
+        }
+    }
+
+    .cards-row {
+        display: flex;
+        overflow-x: auto;
+        gap: 20px;
+        padding-bottom: 20px;
+        scroll-behavior: smooth;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .card {
+        position: relative;
+        height: 350px;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+
+        &:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        &:hover img {
+            transform: scale(1.05);
+        }
+
+        .info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            h3 {
+                font-size: 20px;
+                font-weight: 600;
+                margin: 0;
+                text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            }
+
+            .deal-desc {
+                font-size: 14px;
+                line-height: 1.4;
+                margin: 0;
+                opacity: 0.9;
+            }
+
+            .fly-btn {
+                background: #4a90e2;
+                color: #fff;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 20px;
+                font-size: 14px;
+                font-weight: 500;
+                cursor: pointer;
+                transition: background 0.3s ease;
+                align-self: flex-start;
+
+                &:hover {
+                    background: #357abd;
+                }
+            }
+        }
+    }
+
+    .hot-deal-card {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        min-height: 400px;
+
+        .image-container {
+            position: relative;
+            height: 280px;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .badge {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                background: $m-blue;
+                color: #fff;
+                padding: 5px 10px;
+                border-radius: 20px;
+                font-size: 12px;
+                font-weight: 600;
+            }
+        }
+
+        .info {
+            position: static;
+            background: none;
+            color: #333;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            h3 {
+                font-size: 22px;
+                font-weight: 700;
+                text-shadow: none;
+            }
+
+            .deal-desc {
+                font-size: 14px;
+                line-height: 1.5;
+                opacity: 0.8;
+            }
+
+            .fly-btn {
+                background: $m-blue;
+                align-self: flex-start;
+
+                &:hover {
+                    background: $d-blue;
+                }
+            }
+        }
+    }
+
+    /* Mobile-specific styles */
+    @media (max-width: 768px) {
+        padding: 20px 10px;
+
+
+        .search-section {
+            margin-bottom: 30px;
+            padding: 15px;
+        }
+
+        .deals-section {
+            padding: 30px 15px;
+
+            h2 {
+                font-size: 28px;
+            }
+        }
+
+        .cards-grid {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            height: 300px;
+
+            .info {
+                padding: 15px;
+
+                h3 {
+                    font-size: 18px;
+                }
+
+                .deal-desc {
+                    font-size: 12px;
+                }
+
+                .fly-btn {
+                    padding: 6px 12px;
+                    font-size: 12px;
+                }
+            }
+        }
+
+        .hot-deal-card {
+            min-height: 350px;
+
+            .image-container {
+                height: 150px;
+            }
+
+            .info {
+                padding: 15px;
+
+                h3 {
+                    font-size: 20px;
+                }
+
+                .deal-desc {
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 480px) {
+        .cards-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .card {
+            height: 250px;
+        }
+
+        .hot-deal-card {
+            min-height: 300px;
+        }
+    }
 }

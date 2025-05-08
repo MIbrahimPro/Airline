@@ -1,66 +1,241 @@
-/* src/admin/pages/countries.scss */
+// /* src/admin/pages/countries.scss */
+// .countries-page {
+//     max-width: 800px;
+//     margin: 2rem auto;
+//     padding: 0 1rem;
+//     h1 {
+//       color: #003366;
+//       text-align: center;
+//       margin-bottom: 1rem;
+//     }
+  
+//     .add-form {
+//       display: flex;
+//       gap: 0.5rem;
+//       margin-bottom: 1.5rem;
+//       input, select {
+//         padding: 0.5rem;
+//         border: 1px solid #ccc;
+//         border-radius: 4px;
+//       }
+//       button {
+//         padding: 0 1rem;
+//         background: #007bff;
+//         color: white;
+//         border: none;
+//         border-radius: 4px;
+//         cursor: pointer;
+//         font-weight: bold;
+//         &:hover { background: #0056b3; }
+//       }
+//     }
+  
+//     .countries-table {
+//       width: 100%;
+//       border-collapse: collapse;
+//       th, td {
+//         padding: 0.75rem;
+//         border-bottom: 1px solid #ddd;
+//         text-align: left;
+//       }
+//       th {
+//         background: #e6f7ff;
+//         color: #003366;
+//       }
+//       tr:hover { background: #f5faff; }
+//       button {
+//         margin-right: 0.5rem;
+//         padding: 0.25rem 0.5rem;
+//         border: none;
+//         border-radius: 4px;
+//         cursor: pointer;
+//         &.edit { background: #17a2b8; color: white; }
+//         &.delete { background: #dc3545; color: white; }
+//         &.save { background: #28a745; color: white; }
+//         &.cancel { background: #6c757d; color: white; }
+//         &:hover { opacity: 0.9; }
+//       }
+//       input, select {
+//         width: 100%;
+//         padding: 0.4rem;
+//         border: 1px solid #bbb;
+//         border-radius: 4px;
+//       }
+//     }
+//   }
+  
+
+
 .countries-page {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  
     h1 {
-      color: #003366;
-      text-align: center;
-      margin-bottom: 1rem;
+      margin-bottom: 20px;
+      color: #333;
+      font-size: 1.8rem;
     }
   
-    .add-form {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 1.5rem;
-      input, select {
-        padding: 0.5rem;
-        border: 1px solid #ccc;
-        border-radius: 4px;
+    .filter-section {
+      margin-bottom: 20px;
+  
+      label {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        max-width: 300px;
+  
+        select {
+          padding: 8px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          font-size: 14px;
+          background: #fff;
+          cursor: pointer;
+  
+          &:focus {
+            outline: none;
+            border-color: #007bff;
+          }
+        }
       }
-      button {
-        padding: 0 1rem;
+    }
+  
+    .edit-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 30px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
+      label {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        flex: 1;
+        min-width: 200px;
+  
+        input,
+        select {
+          padding: 8px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          font-size: 14px;
+  
+          &:focus {
+            outline: none;
+            border-color: #007bff;
+          }
+        }
+      }
+  
+      .confirm-btn {
+        padding: 8px 15px;
         background: #007bff;
         color: white;
         border: none;
         border-radius: 4px;
         cursor: pointer;
-        font-weight: bold;
-        &:hover { background: #0056b3; }
+        transition: background 0.2s ease;
+        align-self: flex-end;
+  
+        &:hover {
+          background: #0056b3;
+        }
       }
     }
   
     .countries-table {
       width: 100%;
       border-collapse: collapse;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+  
       th, td {
-        padding: 0.75rem;
-        border-bottom: 1px solid #ddd;
+        padding: 12px;
         text-align: left;
+        border-bottom: 1px solid #ddd;
       }
+  
       th {
-        background: #e6f7ff;
-        color: #003366;
+        background: #f8f9fa;
+        color: #333;
+        font-weight: 600;
       }
-      tr:hover { background: #f5faff; }
-      button {
-        margin-right: 0.5rem;
-        padding: 0.25rem 0.5rem;
+  
+      td {
+        input, select {
+          padding: 6px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          width: 100%;
+          box-sizing: border-box;
+  
+          &:focus {
+            outline: none;
+            border-color: #007bff;
+          }
+        }
+      }
+  
+      .edit-btn, .view-btn, .delete-btn, .confirm-btn, .cancel-btn {
+        padding: 6px 12px;
         border: none;
         border-radius: 4px;
         cursor: pointer;
-        &.edit { background: #17a2b8; color: white; }
-        &.delete { background: #dc3545; color: white; }
-        &.save { background: #28a745; color: white; }
-        &.cancel { background: #6c757d; color: white; }
-        &:hover { opacity: 0.9; }
+        margin-right: 5px;
+        transition: background 0.2s ease;
       }
-      input, select {
-        width: 100%;
-        padding: 0.4rem;
-        border: 1px solid #bbb;
-        border-radius: 4px;
+  
+      .edit-btn {
+        background: #3498db;
+        color: white;
+  
+        &:hover {
+          background: #2980b9;
+        }
+      }
+  
+      .view-btn {
+        background: #2ecc71;
+        color: white;
+  
+        &:hover {
+          background: #27ae60;
+        }
+      }
+  
+      .delete-btn {
+        background: #e74c3c;
+        color: white;
+  
+        &:hover {
+          background: #c0392b;
+        }
+      }
+  
+      .confirm-btn {
+        background: #007bff;
+        color: white;
+  
+        &:hover {
+          background: #0056b3;
+        }
+      }
+  
+      .cancel-btn {
+        background: #ccc;
+        color: #333;
+  
+        &:hover {
+          background: #bbb;
+        }
       }
     }
   }
-  

@@ -1,15 +1,24 @@
 @import '../../App.scss';
 
 .privacy-page {
-    background: #fff;
+    // background: #fff;
+    background-image: url('../../../public/hero.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    padding-top: 130px;
 
+    @media (max-width: 1024px) {
+        padding-top: 5%;
+    }
 
     .privacy-content {
         max-width: 900px;
         margin: 0 auto;
-        margin-top: 100px;
         margin-bottom: 50px;
-        background: #fff;
+        backdrop-filter: blur(10px);
+        background: #ffffff99;
         padding: 40px;
         border-radius: 16px;
         box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
