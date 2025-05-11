@@ -1,211 +1,3 @@
-// .region-locations-page {
-//   h1 {
-//     text-align: center;
-//     margin: 20px 0;
-//     font-size: 2.5rem;
-//     color: #333;
-//     text-transform: uppercase;
-//     letter-spacing: 2px;
-//   }
-
-//   .horizontal-scroll-gallery {
-//     display: grid;
-//     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-//     grid-auto-rows: 15rem; // Fixed height for cards
-//     overflow-x: auto; // Enables horizontal scroll
-//     gap: 15px; // Space between cards
-//     padding: 10px;
-
-//     &::-webkit-scrollbar {
-//       display: none; // Hides scrollbar for a cleaner look
-//     }
-
-//     -ms-overflow-style: none; // For Internet Explorer and Edge
-//     scrollbar-width: none; // For Firefox
-//   }
-
-//   .location-card {
-//     display: flex;
-//     flex-direction: column;
-//     border-radius: 10px;
-//     overflow: hidden;
-//     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-//     transition: transform 0.3s ease;
-//     position: relative;
-
-//     &:hover {
-//       transform: scale(1.05);
-//     }
-
-//     .location-image {
-//       width: 100%;
-//       height: 100%;
-//       object-fit: cover;
-//       transition: opacity 0.3s ease;
-//     }
-
-//     .location-name {
-//       position: absolute;
-//       top: 10px;
-//       left: 10px;
-//       right: 10px;
-//       background: rgba(255, 255, 255, 0.85);
-//       color: #333;
-//       padding: 10px;
-//       text-align: center;
-//       font-size: 1.3rem;
-//       font-weight: bold;
-//       border-radius: 5px;
-//       z-index: 1; // Ensures text is on top of the image
-//     }
-
-//     .overlay {
-//       position: absolute;
-//       top: 0;
-//       left: 0;
-//       right: 0;
-//       bottom: 0;
-//       background: rgba(0, 0, 0, 0.7);
-//       color: white;
-//       display: flex;
-//       flex-direction: column;
-//       justify-content: center;
-//       align-items: center;
-//       opacity: 0;
-//       transition: opacity 0.3s ease;
-
-//       p {
-//         margin: 0;
-//       }
-//     }
-
-//     &:hover .overlay {
-//       opacity: 1;
-//     }
-
-//     &:hover .location-image {
-//       opacity: 0.8; // Dim image on hover
-//     }
-//   }
-// }
-
-
-// /* countries.scss */
-
-// .region-locations-page {
-//     padding: 2rem;
-//     padding-top: 100px;
-//     h1 {
-//       text-align: center;
-//       font-size: 2rem;
-//       margin-bottom: 1.5rem;
-//       color: #2d3748;
-//     }
-
-//     .horizontal-scroll-gallery {
-//       display: flex;
-//       gap: 1rem;
-//       flex-wrap: wrap;
-//       justify-content: center;
-//     //   overflow-x: auto;
-//       padding-bottom: 0.5rem;
-//       scroll-snap-type: x mandatory;
-
-//       .location-card {
-//         position: relative;
-//         flex: 0 0 280px;
-//         scroll-snap-align: start;
-//         border-radius: 8px;
-//         overflow: hidden;
-//         box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-//         cursor: pointer;
-//         transition: transform 0.3s ease;
-//         background: #fff;
-
-//         &:hover {
-//           transform: translateY(-4px);
-//         }
-
-//         .location-image {
-//           width: 100%;
-//           height: 180px;
-//           object-fit: cover;
-//         }
-
-//         .location-name {
-//           padding: 0.75rem;
-//           font-size: 1.125rem;
-//           font-weight: 600;
-//           color: #2d3748;
-//         }
-
-//         .overlay {
-//           position: absolute;
-//           top: 0;
-//           left: 0;
-//           right: 0;
-//           bottom: 0;
-//           background: rgba(0,0,0,0.6);
-//           color: #fff;
-//           display: flex;
-//           flex-direction: column;
-//           justify-content: center;
-//           align-items: center;
-//           opacity: 0;
-//           transition: opacity 0.3s ease;
-//           padding: 1rem;
-//           text-align: center;
-
-//           p {
-//             margin: 0.25rem 0;
-//             font-size: 0.875rem;
-//           }
-
-//           .fly-btn {
-//             margin-top: 1rem;
-//             padding: 0.5rem 1rem;
-//             background: #5a67d8;
-//             border: none;
-//             border-radius: 6px;
-//             color: #fff;
-//             font-weight: 600;
-//             cursor: pointer;
-//             transition: background 0.3s ease;
-//           }
-
-//           .fly-btn:hover {
-//             background: #434190;
-//           }
-//         }
-
-//         &:hover .overlay {
-//           opacity: 1;
-//         }
-//       }
-
-//       /* custom scrollbar */
-//       &::-webkit-scrollbar {
-//         height: 8px;
-//       }
-//       &::-webkit-scrollbar-thumb {
-//         background: #cbd5e1;
-//         border-radius: 4px;
-//       }
-//     }
-//   }
-
-//   /* responsive */
-//   @media (max-width: 768px) {
-//     .horizontal-scroll-gallery .location-card {
-//       flex: 0 0 200px;
-//     }
-//   }
-
-
-
-// Assuming variables are defined in app.scss
-// @import 'app'; // Uncomment if needed
-
 @import '../../App.scss';
 
 .region-locations-page {
@@ -235,7 +27,7 @@
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         overflow: hidden;
-        transition: transform 0.3s ease-in-out; 
+        transition: transform 0.3s ease-in-out;
 
         &:hover {
             transform: translateY(-5px);
@@ -243,7 +35,7 @@
 
         .image-wrapper {
             position: relative;
-            padding-top: 75%; 
+            padding-top: 75%;
 
             .image {
                 position: absolute;
@@ -307,5 +99,43 @@
         font-size: 18px;
         color: #666;
         margin-top: 50px;
+    }
+
+
+
+
+
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        align-items: center;
+        margin-top: 20px;
+
+        button {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+
+            &:hover:not(:disabled) {
+                background: #f0f0f0;
+            }
+
+            &:disabled {
+                background: #f5f5f5;
+                cursor: not-allowed;
+                color: #999;
+            }
+
+            &.active {
+                background: #3498db;
+                color: white;
+                border-color: #3498db;
+            }
+        }
     }
 }

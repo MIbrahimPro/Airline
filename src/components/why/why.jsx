@@ -10,7 +10,7 @@ const features = [
         description: 'All of your bookings will be covered by ATOL. You will be ATOL protected.',
     },
     {
-        id: 'book now pay later',
+        id: 'booking',
         title: 'Book now and pay in Installments',
         description: 'You can book and you can easily pay as per your convenience upto 6 easy installments.',
     },
