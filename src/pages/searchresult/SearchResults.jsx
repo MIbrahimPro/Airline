@@ -63,13 +63,6 @@ export default function SearchResultsPage() {
         setCurrentPage(page); // Update local state as well, for consistency
     };
 
-
-    const formatDate = (iso) => {
-        if (!iso) return '';
-        const [year, month, day] = iso.split('-');
-        return `${day}-${month}-${year}`;
-    };
-
     const handleSubmit = () => {
         setNotification({ type: 'success', message: 'Message sent successfully!' });
         closePopup();
@@ -165,7 +158,7 @@ export default function SearchResultsPage() {
                 setLoading(false)
                 // setTimeout(() => setLoading(false), 5000);
             });
-    }, [searchParams, currentPage]);
+    }, [searchParams, currentPage, error]);
 
 
 

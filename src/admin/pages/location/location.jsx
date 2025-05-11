@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback  } from "react";
 import Navbar from "../../components/navbar/adminnavbar";
 import { getToken } from "../../utils/auth";
 import axios from 'axios';
@@ -470,11 +470,10 @@ const LocationPage = () => {
 
     useEffect(() => {
 
-        if (selectedCountryId != null && selectedCountryId != '') {
+        if (selectedCountryId !== null && selectedCountryId !== '') {
             setLoading(true);
             const fetchcountryname = async () => {
                 try {
-                    const token = getToken();
                     const response = await axios.get(`/api/country/${selectedCountryId}`);
                     setCountryName(response.data.name);
                     setLoading(false);
@@ -529,7 +528,37 @@ const LocationPage = () => {
     const pageSize = 20;
 
 
-    const fetchLocations = async () => {
+    // const fetchLocations = async () => {
+    //     try {
+    //         const response = await axios.get('/api/location/search', {
+    //             params: {
+    //                 q: searchName,
+    //                 countryId: selectedCountryId,
+    //                 page: currentPage,
+    //                 size: pageSize,
+    //                 detail: true
+    //             },
+    //         });
+
+    //         // setCurrentPage(response.data.currentPage);
+    //         setTotalPages(response.data.totalPages);
+    //         setResults(response.data.results);
+    //     } catch (error) {
+    //         console.error('Error fetching locations:', error);
+    //         setResults([]);
+    //         // setCurrentPage(1);
+    //         setTotalPages(1);
+    //     }
+    // };
+
+    // useEffect(() => {
+
+    //     fetchLocations();
+
+    // }, [currentPage, selectedCountryId, searchName])
+
+
+    const fetchLocations = useCallback(async () => {
         try {
             const response = await axios.get('/api/location/search', {
                 params: {
@@ -541,22 +570,19 @@ const LocationPage = () => {
                 },
             });
 
-            // setCurrentPage(response.data.currentPage);
             setTotalPages(response.data.totalPages);
             setResults(response.data.results);
         } catch (error) {
             console.error('Error fetching locations:', error);
             setResults([]);
-            // setCurrentPage(1);
             setTotalPages(1);
         }
-    };
+    }, [searchName, selectedCountryId, currentPage, pageSize]);
 
     useEffect(() => {
-
         fetchLocations();
+    }, [fetchLocations]);
 
-    }, [currentPage, selectedCountryId, searchName])
 
 
 

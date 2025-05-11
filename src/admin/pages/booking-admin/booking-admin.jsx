@@ -1,5 +1,5 @@
 import Navbar from "../../components/navbar/adminnavbar";
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import axios from 'axios';
 import { getToken } from '../../utils/auth';
 import './booking-admin.scss';
@@ -436,7 +436,7 @@ function AirlineMultiSelect({ data, updateData }) {
     );
 }
 
-const Form = ({ onFormSubmit }) => {
+const Form = () => {
 
 
     const [searchParams] = useSearchParams(); // ADDED
@@ -504,12 +504,10 @@ const Form = ({ onFormSubmit }) => {
         const params = new URLSearchParams();
 
         data.airlines_id.forEach(id => params.append('airline', id));
-        // if (data.airlines_id.length) params.set('airline', data.airlines_id.join(','));
         if (data.from_id) params.set('departureAirport', data.from_id);
         if (data.to_id) params.set('arrivalAirport', data.to_id);
         if (data.state) params.set('state', data.state);
         navigate({ search: params.toString() });
-        onFormSubmit(data);
     };
 
     return (
@@ -569,29 +567,54 @@ const BookingAdmin = () => {
     const [expandedBookingId, setExpandedBookingId] = useState(null);
     const [bookingToDelete, setBookingToDelete] = useState(null);
     const [bookingToEdit, setBookingToEdit] = useState(null);
-    const [form, setForm] = useState({
-        airline: [],
-        departureAirport: '',
-        arrivalAirport: '',
-        state: '',
-    });
     const [searchParams] = useSearchParams();
 
     const limit = 10;
 
-    useEffect(() => {
-        fetchBookings(currentPage);
-    }, [currentPage, searchParams]);
+    // useEffect(() => {
+    //     fetchBookings(currentPage);
+    // }, [currentPage, searchParams]);
 
-    const handleFormSubmit = (formData) => {
-        setForm(formData);
-    }
+    // const fetchBookings = async (page) => {
+    //     setLoading(true);
+    //     try {
+    //         const token = getToken();
+    //         const airlineParams = searchParams.getAll('airline');    // [] if none
+    //         const departureAirport = searchParams.get('departureAirport') || '';
+    //         const arrivalAirport = searchParams.get('arrivalAirport') || '';
+    //         const state = searchParams.get('state') || '';
 
-    const fetchBookings = async (page) => {
+    //         const qs = new URLSearchParams();
+    //         airlineParams.forEach(id => qs.append('airline', id));
+    //         if (departureAirport) qs.set('departureAirport', departureAirport);
+    //         if (arrivalAirport) qs.set('arrivalAirport', arrivalAirport);
+    //         if (state) qs.set('state', state);
+    //         qs.set('page', page);
+    //         qs.set('limit', limit);
+
+
+
+    //         const response = await axios.get(
+    //             `/api/booking/filter?${qs.toString()}`,
+    //             { headers: { Authorization: `Bearer ${token}` } }
+    //         );
+
+    //         setBookings(response.data.results);
+    //         setCurrentPage(response.data.currentPage);
+    //         setTotalPages(response.data.totalPages);
+    //         setLoading(false);
+    //     } catch (err) {
+    //         setError('Failed to fetch bookings');
+    //         setLoading(false);
+    //     }
+    // };
+
+
+    const fetchBookings = useCallback(async (page) => {
         setLoading(true);
         try {
             const token = getToken();
-            const airlineParams = searchParams.getAll('airline');    // [] if none
+            const airlineParams = searchParams.getAll('airline');
             const departureAirport = searchParams.get('departureAirport') || '';
             const arrivalAirport = searchParams.get('arrivalAirport') || '';
             const state = searchParams.get('state') || '';
@@ -604,8 +627,6 @@ const BookingAdmin = () => {
             qs.set('page', page);
             qs.set('limit', limit);
 
-
-
             const response = await axios.get(
                 `/api/booking/filter?${qs.toString()}`,
                 { headers: { Authorization: `Bearer ${token}` } }
@@ -614,12 +635,18 @@ const BookingAdmin = () => {
             setBookings(response.data.results);
             setCurrentPage(response.data.currentPage);
             setTotalPages(response.data.totalPages);
-            setLoading(false);
         } catch (err) {
             setError('Failed to fetch bookings');
+        } finally {
             setLoading(false);
         }
-    };
+    }, [searchParams, limit]);
+
+    useEffect(() => {
+        fetchBookings(currentPage);
+    }, [fetchBookings, currentPage]);
+
+
 
     const handleExpand = (bookingId) => {
         setExpandedBookingId(expandedBookingId === bookingId ? null : bookingId);
@@ -649,11 +676,13 @@ const BookingAdmin = () => {
     const handleUpdate = async (updatedBooking) => {
         try {
             const token = getToken();
-            const response = await axios.put(`/api/booking/${bookingToEdit._id}`, updatedBooking, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            await axios.put(
+                `/api/booking/${bookingToEdit._id}`,
+                updatedBooking,
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
 
-            fetchBookings(currentPage);
+            await fetchBookings(currentPage);
             setBookingToEdit(null);
         } catch (err) {
             setError('Failed to update booking');
@@ -669,7 +698,7 @@ const BookingAdmin = () => {
             <div className="booking-admin">
                 <h2>Booking Management</h2>
 
-                <Form onFormSubmit={handleFormSubmit} />
+                <Form />
 
                 <div className="booking-list">
                     {bookings.map(booking => (

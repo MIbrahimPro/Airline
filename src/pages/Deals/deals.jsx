@@ -40,7 +40,7 @@ export default function DealsPage() {
             }
         };
         fetchDeals();
-    }, []);
+    }, [startLoading, endLoading, setGlobalError]);
 
     const handleDealClick = async (deal) => {
         try {

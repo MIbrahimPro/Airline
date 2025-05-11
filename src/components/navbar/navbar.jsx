@@ -37,7 +37,7 @@ export default function Navbar({ selectedPage = null }) {
 				endLoading();
 			});
 
-	}, []);
+	}, [startLoading, endLoading, setGlobalError]);
 
 
 	useEffect(() => {
@@ -86,7 +86,7 @@ export default function Navbar({ selectedPage = null }) {
 		};
 
 		fetchData();
-	}, []);
+	}, [startLoading, endLoading, setGlobalError]);
 
 
 	useEffect(() => {

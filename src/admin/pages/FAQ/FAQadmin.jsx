@@ -10,21 +10,23 @@ const FAQAdmin = () => {
     const [draft, setDraft] = useState({ question: '', answer: '' });
     const navigate = useNavigate();
     const token = getToken();
-    const hdr = { headers: { Authorization: `Bearer ${token}` } };
 
     useEffect(() => {
+
+        const hdr = { headers: { Authorization: `Bearer ${token}` } };
         axios
             .get('/api/siteinfo/admin/all', hdr)
             .then(res => setFaqs(res.data.faq || []))
             .catch(console.error);
-    }, []);
+    });
 
-    const saveAll = updated =>
+    const saveAll = updated => {
+        const hdr = { headers: { Authorization: `Bearer ${token}` } };
         axios
             .put('/api/siteinfo', { faq: updated }, hdr)
             .then(() => setFaqs(updated))
             .catch(console.error);
-
+    }
     const onEdit = i => {
         setEditingIndex(i);
         setDraft({ ...faqs[i] });

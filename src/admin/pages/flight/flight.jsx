@@ -64,7 +64,7 @@ const FlightCard = ({
     useEffect(() => {
 
         console.log("booking check for ", id, "loading", loading);
-        if (!loading && id != undefined) {
+        if (!loading && id !== undefined) {
             console.log("checking")
             console.log("booking check for ", id);
             const fetchHasBookings = async () => {

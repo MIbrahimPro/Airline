@@ -30,7 +30,7 @@ export default function PrivacyPolicy() {
       .finally(() => {
         endLoading();
       });
-  }, []);
+  }, [startLoading, endLoading, setGlobalError]);
 
   return (
     <div className="privacy-page">

@@ -18,7 +18,7 @@ const ChangeEmailPage = () => {
     })
       .then(r=>r.json())
       .then(j=> setOldEmail(j.adminEmail || ""));
-  }, []);
+  }, [token]);
 
   const handleSubmit = async e => {
     e.preventDefault();

@@ -7,7 +7,6 @@ import Footer from '../../components/footer/footer';
 import './airlinedetail.scss';
 
 function ExpandableDetail({ heading, description }) {
-    //   const [open, setOpen] = useState(open);
     return (
         <div className="expandable-detail">
             <div className="detail-header" >
@@ -50,7 +49,6 @@ function BaggageSection({ baggageArray }) {
 }
 
 function YouMayAlsoLike({ suggestions }) {
-    const navigate = useNavigate();
     return (
         <div className="you-may-also-like">
             <h3>You May Also Like</h3>
@@ -101,9 +99,9 @@ export default function AirlineDetail() {
                 setGlobalError(err.response?.data?.message || 'Failed to load airline data.');
             })
             .finally(() => endLoading());
-    }, [id]);
+    }, [id, startLoading, endLoading, setGlobalError]);
 
-    // Fetch all airlines for suggestions; pick 3 random (excluding the current airline)
+    
     useEffect(() => {
         axios
             .get('/api/airline/')

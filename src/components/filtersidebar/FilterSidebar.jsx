@@ -13,7 +13,8 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 export default function FilterSidebar() {
 
 
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
+
     const navigate = useNavigate();
 
     const priceMinBound = 1;
@@ -54,19 +55,19 @@ export default function FilterSidebar() {
             .finally(() => {
                 endLoading();
             });
-    }, []);
+    }, [startLoading, endLoading, setGlobalError]);
 
 
     useEffect(() => {
         if (shouldUpdateURL) {
             const urlParams = new URLSearchParams(window.location.search);
 
-            
+
             urlParams.delete('minPrice');
             if (minPrice !== null && minEnabled) {
                 urlParams.set('minPrice', minPrice.toString());
             }
-            
+
             urlParams.delete('maxPrice');
             if (maxPrice !== null && maxEnabled) {
                 urlParams.set('maxPrice', maxPrice.toString());
@@ -222,7 +223,7 @@ export default function FilterSidebar() {
                                 type="checkbox"
                                 checked={minEnabled}
                                 // onChange={(e) => setMinEnabled(e.target.checked ? true : false)}
-                                
+
                                 onChange={handleMinEnableChange}
                             />
                             Min Price

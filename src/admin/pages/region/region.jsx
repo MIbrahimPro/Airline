@@ -75,7 +75,7 @@ const RegionsPage = () => {
 
             body: JSON.stringify({ name: editingName }),
         });
-        const updated = await res.json();
+        await res.json();
         load();
         cancelEdit();
     };

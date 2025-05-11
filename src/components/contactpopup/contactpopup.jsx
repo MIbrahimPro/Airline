@@ -2,9 +2,6 @@ import React, { useState } from 'react';
 import './contactpopup.scss';
 
 export default function ContactPopup({ visible, onClose, onSubmit }) {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
   const [data, setData] = useState({
     name: '',
     email: '',

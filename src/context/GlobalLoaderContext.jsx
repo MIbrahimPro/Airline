@@ -1,7 +1,6 @@
 // src/contexts/GlobalLoaderContext.jsx
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import axios from 'axios';
 
 const GlobalStatusContext = createContext();
 

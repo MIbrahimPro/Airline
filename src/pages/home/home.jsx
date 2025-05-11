@@ -67,7 +67,7 @@ export default function Home() {
 
                 return () => clearTimeout(formjump);
             });
-    }, []);
+    }, [startLoading, endLoading, setGlobalError]);
 
     return (
         <div className="home">

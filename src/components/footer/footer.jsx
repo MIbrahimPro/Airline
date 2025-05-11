@@ -45,7 +45,7 @@ export default function Footer() {
             .finally(() => {
                 endLoading();
             });
-    }, []);
+    }, [startLoading, endLoading, setGlobalError]);
 
 
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import './countries.scss';
@@ -52,7 +52,38 @@ const RegionLocationsPage = () => {
 
 
 
-    const fetchLocations = async (page = 1) => {
+    // const fetchLocations = async (page = 1) => {
+    //     setLoading(true);
+    //     try {
+    //         const response = await axios.get(`/api/location/region/${regionId}`, {
+    //             params: {
+    //                 page,
+    //                 size: pageSize
+    //             }
+    //         });
+
+    //         const { results, currentPage, totalPages } = response.data;
+
+    //         // Sort the results if needed (although backend pagination already handles a set)
+    //         const sortedLocations = results.sort((a, b) => a.name.localeCompare(b.name));
+
+    //         setLocations(sortedLocations);
+    //         setCurrentPage(currentPage);
+    //         setTotalPages(totalPages);
+    //     } catch (err) {
+    //         console.error('Error fetching locations:', err);
+    //         setError('Error fetching locations');
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
+
+    // useEffect(() => {
+    //     fetchLocations();
+    // }, [regionId, currentPage]);
+
+
+    const fetchLocations = useCallback(async (page = 1) => {
         setLoading(true);
         try {
             const response = await axios.get(`/api/location/region/${regionId}`, {
@@ -63,8 +94,6 @@ const RegionLocationsPage = () => {
             });
 
             const { results, currentPage, totalPages } = response.data;
-
-            // Sort the results if needed (although backend pagination already handles a set)
             const sortedLocations = results.sort((a, b) => a.name.localeCompare(b.name));
 
             setLocations(sortedLocations);
@@ -76,11 +105,13 @@ const RegionLocationsPage = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [regionId, pageSize]);
 
     useEffect(() => {
-        fetchLocations();
-    }, [regionId, currentPage]);
+        fetchLocations(currentPage);
+    }, [fetchLocations, currentPage]);
+
+
 
     const handleFlyClick = async (e, locationId) => {
         e.stopPropagation();

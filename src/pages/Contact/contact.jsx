@@ -76,7 +76,7 @@ export default function ContactUs() {
             .finally(() => {
                 endLoading();
             });
-    }, []);
+    }, [startLoading, endLoading, setGlobalError]);
 
 
 

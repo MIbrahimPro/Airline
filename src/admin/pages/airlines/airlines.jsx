@@ -1,229 +1,8 @@
-// import React, { useState, useEffect } from 'react';
-// import Navbar from '../../components/navbar/adminnavbar';
-// import { getToken } from '../../utils/auth';
-// import './airlines.scss';
-
-// const AirlinesPage = () => {
-//   const [airlines, setAirlines] = useState([]);
-//   const [loading, setLoading] = useState(true);
-//   const [form, setForm] = useState({
-//     shortName: '',
-//     logoPicture: '',
-//     monogramPicture: '',
-//     overview: '',
-//     baggage: false,
-//     details: [{ heading: '', description: '' }],
-//     baggageArray: [{ heading: '', description: '' }]
-//   });
-//   const [editingId, setEditingId] = useState(null);
-//   const token = getToken();
-
-//   useEffect(() => {
-//     fetch('/api/airline')
-//       .then(r => r.json())
-//       .then(data => { setAirlines(data); setLoading(false); });
-//   }, []);
-
-//   const handleFormChange = e => {
-//     const { name, value, type, checked } = e.target;
-//     setForm(f => ({ ...f, [name]: type === 'checkbox' ? checked : value }));
-//   };
-
-//   const handleDetailChange = (idx, field, value, arrName = 'details') => {
-//     setForm(f => {
-//       const arr = [...f[arrName]];
-//       arr[idx] = { ...arr[idx], [field]: value };
-//       return { ...f, [arrName]: arr };
-//     });
-//   };
-
-//   const addDetailRow = arrName => {
-//     setForm(f => ({ ...f, [arrName]: [...f[arrName], { heading: '', description: '' }] }));
-//   };
-
-//   // Upload single image and set URL
-//   const uploadImage = async (file, fieldName) => {
-//     const fd = new FormData();
-//     fd.append('image', file);
-//     const res = await fetch('/api/upload', {
-//       method: 'POST',
-//       headers: { Authorization: `Bearer ${token}` },
-//       body: fd
-//     });
-//     if (!res.ok) throw new Error('Upload failed');
-//     const { imageUrl } = await res.json();
-//     setForm(f => ({ ...f, [fieldName]: imageUrl }));
-//   };
-
-//   const handleSubmit = async (method, url) => {
-//     const res = await fetch(url, {
-//       method,
-//       headers: {
-//         'Content-Type': 'application/json',
-//         Authorization: `Bearer ${token}`
-//       },
-//       body: JSON.stringify(form)
-//     });
-//     return res.json();
-//   };
-
-//   const handleAdd = async e => {
-//     e.preventDefault();
-//     const a = await handleSubmit('POST', '/api/airline');
-//     setAirlines([a, ...airlines]);
-//     setForm({ shortName: '', logoPicture: '', monogramPicture: '', overview: '', baggage: false, details: [{ heading: '', description: '' }], baggageArray: [{ heading: '', description: '' }] });
-//   };
-
-//   const startEdit = a => {
-//     setEditingId(a._id);
-//     setForm({ ...a });
-//   };
-
-//   const saveEdit = async () => {
-//     const updated = await handleSubmit('PUT', `/api/airline/${editingId}`);
-//     setAirlines(airlines.map(a => a._id === editingId ? updated : a));
-//     setEditingId(null);
-//   };
-
-//   const handleDelete = async id => {
-//     if (!window.confirm('Delete this airline?')) return;
-//     await fetch(`/api/airline/${id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } });
-//     setAirlines(airlines.filter(a => a._id !== id));
-//   };
-
-//   if (loading) return <div className="airlines-page">Loading…</div>;
-
-//   return (
-//     <>
-//       <Navbar />
-//       <div className="airlines-page-admin">
-//         <h1>Manage Airlines</h1>
-
-//         <form className="airline-form" onSubmit={handleAdd}>
-//           {/* Short Name */}
-//           <input name="shortName" placeholder="Short Name" value={form.shortName} onChange={handleFormChange} required />
-
-//           {/* Logo Upload */}
-//           <div className="file-input">
-//             <label>Logo Image<input type="file" accept="image/*" onChange={e => e.target.files[0] && uploadImage(e.target.files[0], 'logoPicture')} /></label>
-//             {form.logoPicture && <img src={form.logoPicture} alt="Logo preview" className="preview" />}
-//           </div>
-
-//           {/* Monogram Upload */}
-//           <div className="file-input">
-//             <label>Monogram Image<input type="file" accept="image/*" onChange={e => e.target.files[0] && uploadImage(e.target.files[0], 'monogramPicture')} /></label>
-//             {form.monogramPicture && <img src={form.monogramPicture} alt="Monogram preview" className="preview" />}
-//           </div>
-
-//           {/* Overview */}
-//           <textarea name="overview" placeholder="Overview" value={form.overview} onChange={handleFormChange} required />
-
-//           {/* Baggage Toggle */}
-//           <label><input type="checkbox" name="baggage" checked={form.baggage} onChange={handleFormChange} /> Baggage?</label>
-
-//           {/* Details */}
-//           <div className="details-block">
-//             <h4>Details</h4>
-//             {form.details.map((d, i) => (
-//               <div key={i} className="subitem">
-//                 <input placeholder="Heading" value={d.heading} onChange={e => handleDetailChange(i, 'heading', e.target.value)} required />
-//                 <input placeholder="Description" value={d.description} onChange={e => handleDetailChange(i, 'description', e.target.value)} required />
-//               </div>
-//             ))}
-//             <button type="button" onClick={() => addDetailRow('details')}>+ Detail</button>
-//           </div>
-
-//           {/* Baggage Array */}
-//           {form.baggage && (
-//             <div className="details-block">
-//               <h4>Baggage Array</h4> 
-//                        {form.baggageArray.map((d, i) => (
-//                 <div key={i} className="subitem">
-//                   <input placeholder="Heading" value={d.heading} onChange={e => handleDetailChange(i, 'heading', e.target.value, 'baggageArray')} required />
-//                   <input placeholder="Description" value={d.description} onChange={e => handleDetailChange(i, 'description', e.target.value, 'baggageArray')} required />
-//                 </div>
-//               ))}
-//               <button type="button" onClick={() => addDetailRow('baggageArray')}>+ Baggage Item</button>
-//             </div>
-//           )}
-
-//           <button type="submit">{editingId ? 'Save' : 'Add Airline'}</button>
-//         </form>
-
-//         {/* Airlines Table */}
-//         <table className="airlines-table">
-//           <thead>
-//             <tr><th>Short</th><th>Logo</th><th>Mono</th><th>Baggage</th><th>Created</th><th>Actions</th></tr>
-//           </thead>
-//           <tbody>
-//             {airlines.map(a => (
-//               <tr key={a._id}>
-//                 <td>{a.shortName}</td>
-//                 <td><img src={a.logoPicture} alt="" /></td>
-//                 <td><img src={a.monogramPicture} alt="" /></td>
-//                 <td>{a.baggage ? 'Yes' : ''}</td>
-//                 <td>{new Date(a.createdAt).toLocaleDateString()}</td>
-//                 <td>
-//                   <button onClick={() => startEdit(a)}>Edit</button><button onClick={() => handleDelete(a._id)}>Delete</button>
-//                 </td>
-//               </tr>
-//             ))}
-//           </tbody>
-//         </table>
-//       </div>
-//     </>
-//   );
-// };
-
-// export default AirlinesPage;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Navbar from "../../components/navbar/adminnavbar";
 import { getToken } from "../../utils/auth";
 import axios from 'axios';
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./airlines.scss";
 
 
@@ -938,7 +717,8 @@ const AirportPage = () => {
     const pageSize = 20;
 
 
-    const fetchLocations = async () => {
+   
+    const fetchLocations = useCallback(async () => {
         try {
             const response = await axios.get('/api/airline/search', {
                 params: {
@@ -957,13 +737,14 @@ const AirportPage = () => {
             setCurrentPage(1);
             setTotalPages(1);
         }
-    };
+    }, [searchName, currentPage, pageSize]);
+
 
     useEffect(() => {
 
         fetchLocations();
 
-    }, [currentPage, searchName])
+    }, [fetchLocations])
 
 
 

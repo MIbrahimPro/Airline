@@ -48,7 +48,7 @@ export default function About() {
             .finally(() => {
                 endLoading();
             });
-    }, []);
+    }, [startLoading, endLoading, setGlobalError]);
 
     return (
         <>

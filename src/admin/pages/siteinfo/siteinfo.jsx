@@ -27,7 +27,7 @@ const SiteInfoPage = () => {
     })
       .then(r => r.json())
       .then(data => { setInfo(data); setForm(data); });
-  }, []);
+  }, [token]);
 
   const handle = e => {
     const { name, value } = e.target;

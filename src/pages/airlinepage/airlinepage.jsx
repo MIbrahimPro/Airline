@@ -31,7 +31,7 @@ export default function AirlinesPage() {
 			.finally(() => {
 				endLoading();
 			});
-	}, []);
+	}, [startLoading, endLoading, setGlobalError]);
 
 
 
