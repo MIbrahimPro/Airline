@@ -1,14 +1,14 @@
 // src/contexts/GlobalLoaderContext.jsx
 import React, { createContext, useContext, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+// import { useNavigate, useLocation } from 'react-router-dom';
 
 const GlobalStatusContext = createContext();
 
 export const GlobalStatusProvider = ({ children }) => {
   const [loadingCount, setLoadingCount] = useState(0);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
-  const location = useLocation();
+//   const navigate = useNavigate();
+//   const location = useLocation();
 
   // Functions to control loading:
   const startLoading = () => {
@@ -20,9 +20,9 @@ export const GlobalStatusProvider = ({ children }) => {
 
   // For setting error, store the current location as previous path and navigate to /error.
   const setGlobalError = (errorMsg) => {
-    setError(errorMsg);
+    console.log(errorMsg);
     // Pass current location as previous route in state.
-    navigate('/error', { state: { prevPath: location.pathname } });
+    // navigate('/error', { state: { prevPath: location.pathname } });
   };
 
   const clearError = () => setError(null);
