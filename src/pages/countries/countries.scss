@@ -67,6 +67,11 @@
                 margin-top: 10px;
                 color: #333;
                 line-height: 1.5; // Improved readability for longer text
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 4;
+                /* Number of lines to show */
+                -webkit-box-orient: vertical;
             }
 
             .fly-btn {
