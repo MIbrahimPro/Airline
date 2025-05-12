@@ -177,6 +177,11 @@
                 line-height: 1.4;
                 margin: 0;
                 opacity: 0.9;
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 4;
+                /* Number of lines to show */
+                -webkit-box-orient: vertical;
             }
 
             .fly-btn {
@@ -246,6 +251,11 @@
                 font-size: 14px;
                 line-height: 1.5;
                 opacity: 0.8;
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 4;
+                /* Number of lines to show */
+                -webkit-box-orient: vertical;
             }
 
             .fly-btn {
