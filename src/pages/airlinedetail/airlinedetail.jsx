@@ -109,7 +109,7 @@ export default function AirlineDetail() {
                 if (Array.isArray(res.data)) {
                     const others = res.data.filter((item) => item._id !== id);
                     const shuffled = others.sort(() => 0.5 - Math.random());
-                    setSuggestions(shuffled.slice(0, 3));
+                    setSuggestions(shuffled.slice(0, 4));
                 }
             })
             .catch((err) => {
