@@ -1,0 +1,30 @@
+.Bloating-Whatsaap{
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+
+    background-color: #25D366;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 20000;
+
+    img{
+        object-fit: contain;
+        width: 65%;
+        height: 65%;
+
+    }
+
+
+    
+    @media (max-width: 1024px) {
+        bottom: 100px;
+    }
+
+}

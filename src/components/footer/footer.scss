@@ -1,7 +1,7 @@
 @import '../../App.scss';
 
 .footer {
-    background: $d-blue; 
+    background: $d-blue;
     color: #fff;
     padding: 50px 20px;
     padding-bottom: 100px;
@@ -13,7 +13,7 @@
         transition: color 0.2s ease;
 
         &:hover {
-            color: $l-blue; 
+            color: $l-blue;
         }
     }
 
@@ -82,10 +82,21 @@
                 font-size: 0.95rem;
                 font-weight: 600;
                 line-height: 1.4;
-                a{
+
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 7px;
+                
+                img{
+                    height: 15px;
+                }
+
+                a {
                     color: #fff;
                     text-decoration: none;
-                    &:hover{
+
+                    &:hover {
                         text-decoration: underline;
                     }
                 }
@@ -132,12 +143,16 @@
             }
 
         }
-        .footer-contact{
-            h4,p{
+
+        .footer-contact {
+
+            h4,
+            p {
                 text-align: left;
             }
         }
-        .footer-payment{
+
+        .footer-payment {
             text-align: left;
         }
     }

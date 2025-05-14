@@ -85,10 +85,11 @@ export default function Footer() {
 
                 <div className="footer-contact">
                     <h4> Contact Us</h4>
-                    <p> Phone:    <a href={`tel:${contactPhone}`}                               >{contactPhone}</a> </p>
-                    <p> Email:    <a href={`mailto:${contactEmail}`}                            >{contactEmail}</a> </p>
-                    <p> Address:  <a href={mapURL} target='blank'                                             >{addressText} </a> </p>
-                    <p> WhatsApp: <a href={`https://wa.me/${contactWA.replace(/[\s+]/g, '')}`}  >{contactWA}   </a> </p>
+                    
+                    <p><img src='./icons/call_w.svg'      alt='Phone:'    ></img>     <a href={`tel:${contactPhone}`}                               >{contactPhone}</a> </p>
+                    <p><img src='./icons/email_w.svg'     alt='Email:'    ></img>     <a href={`mailto:${contactEmail}`}                            >{contactEmail}</a> </p>
+                    <p><img src='./icons/location_w.svg'  alt='Address:'  ></img>     <a href={mapURL} target='blank'                               >{addressText} </a> </p>
+                    <p><img src='./icons/wa_W.svg'      alt='WhatsApp:' ></img>     <a href={`https://wa.me/${contactWA.replace(/[\s+]/g, '')}`}  >{contactWA}   </a> </p>
                 </div>
 
                 <div className="footer-payment">
