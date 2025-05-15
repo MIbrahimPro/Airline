@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 
 import Navbar from "../../components/navbar/navbar"
@@ -18,6 +18,7 @@ import './searchResults.scss';
 
 export default function SearchResultsPage() {
 
+    const navigate = useNavigate();
 
     const [notification, setNotification] = useState(null);
     const [showPopup, setShowPopup] = useState(false);
@@ -171,6 +172,22 @@ export default function SearchResultsPage() {
                 </aside>
 
                 <main className="results-main">
+
+                    <div className='Pay-later-card'>
+                        <div className="pl-icon">
+                            <img src="./icons/paylater.svg" alt="Pay Later Icon" />
+                        </div>
+                        <div className="pl-content">
+                            <h3>Book Now - Pay Later</h3>
+                            <p>You can book now but pay later through our services</p>
+                        </div>
+                        <button
+                            className="pl-more-info-btn"
+                            onClick={() => navigate('/paylater')}
+                        >
+                            More Info
+                        </button>
+                    </div>
 
                     <div className="desktop-search-form">
                         <SearchForm inline onSubmit={handleSearchSubmit} />

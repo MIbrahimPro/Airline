@@ -80,6 +80,10 @@ export default function Footer() {
                             <img src="../icons/right_arrow.svg" alt="" />
                             <a href="/privacy">Privacy Policy</a>
                         </li>
+                        <li>
+                            <img src="../icons/right_arrow.svg" alt="" />
+                            <a href="/paylater">Book-now Pay-Later</a>
+                        </li>
                     </ul>
                 </div>
 

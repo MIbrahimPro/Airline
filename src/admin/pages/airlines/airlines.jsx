@@ -35,6 +35,8 @@ function EditAirlinePopup({ airline, onClose, onSaved }) {
     const [monogramFile, setMonogramFile] = useState(null);
     const [logoPreview, setLogoPreview] = useState(airline.logoPicture);
     const [monogramPreview, setMonogramPreview] = useState(airline.monogramPicture);
+    const [logoimageSize, setLogoImageSize] = useState('');
+    const [monogramimageSize, setMonogramImageSize] = useState('');
     const [saving, setSaving] = useState(false);
     const [error, setError] = useState(null);
 
@@ -100,7 +102,17 @@ function EditAirlinePopup({ airline, onClose, onSaved }) {
         if (file) {
             setLogoFile(file);
             setLogoPreview(URL.createObjectURL(file));
+            const fileSizeInBytes = file.size;
+            const fileSizeInKilobytes = (fileSizeInBytes / 1024).toFixed(2);
+            const fileSizeInMegabytes = (fileSizeInBytes / (1024 * 1024)).toFixed(2);
+
+            if (fileSizeInMegabytes >= 1) {
+                setLogoImageSize(`${fileSizeInMegabytes} MB`);
+            } else {
+                setLogoImageSize(`${fileSizeInKilobytes} KB`);
+            }
         }
+
     };
 
     const onMonogramChange = e => {
@@ -108,6 +120,15 @@ function EditAirlinePopup({ airline, onClose, onSaved }) {
         if (file) {
             setMonogramFile(file);
             setMonogramPreview(URL.createObjectURL(file));
+            const fileSizeInBytes = file.size;
+            const fileSizeInKilobytes = (fileSizeInBytes / 1024).toFixed(2);
+            const fileSizeInMegabytes = (fileSizeInBytes / (1024 * 1024)).toFixed(2);
+
+            if (fileSizeInMegabytes >= 1) {
+                setMonogramImageSize(`${fileSizeInMegabytes} MB`);
+            } else {
+                setMonogramImageSize(`${fileSizeInKilobytes} KB`);
+            }
         }
     };
 
@@ -209,7 +230,10 @@ function EditAirlinePopup({ airline, onClose, onSaved }) {
             onSaved(res.data);
             onClose();
         } catch (err) {
-            setError(err.response?.data?.error || err.message);
+            if((err.response?.data?.error || err.message) === "Request failed with status code 413"){
+                setError('Image file is too large.')
+            }
+            setError(err.response?.data?.error || err.message)
         } finally {
             setSaving(false);
         }
@@ -231,21 +255,23 @@ function EditAirlinePopup({ airline, onClose, onSaved }) {
                         />
                     </label>
                     <label>
-                        Logo Picture *
+                        Logo Picture * (max 5mb)
                         <input type="file" accept="image/*" onChange={onLogoChange} />
                     </label>
                     {logoPreview && (
                         <div className="image-preview">
                             <img src={logoPreview} alt="Logo Preview" />
+                            <p>Size: {logoimageSize}</p>
                         </div>
                     )}
                     <label>
-                        Monogram Picture *
+                        Monogram Picture * (max 5mb)
                         <input type="file" accept="image/*" onChange={onMonogramChange} />
                     </label>
                     {monogramPreview && (
                         <div className="image-preview">
                             <img src={monogramPreview} alt="Monogram Preview" />
+                            <p>Size: {monogramimageSize}</p>
                         </div>
                     )}
                     <div className="details-section">
@@ -366,6 +392,8 @@ function AddAirlinePopup({ onClose, onAdded }) {
     const [monogramFile, setMonogramFile] = useState(null);
     const [logoPreview, setLogoPreview] = useState('');
     const [monogramPreview, setMonogramPreview] = useState('');
+    const [logoimageSize, setLogoImageSize] = useState('');
+    const [monogramimageSize, setMonogramImageSize] = useState('');
     const [saving, setSaving] = useState(false);
     const [error, setError] = useState(null);
 
@@ -426,6 +454,15 @@ function AddAirlinePopup({ onClose, onAdded }) {
         if (file) {
             setLogoFile(file);
             setLogoPreview(URL.createObjectURL(file));
+            const fileSizeInBytes = file.size;
+            const fileSizeInKilobytes = (fileSizeInBytes / 1024).toFixed(2);
+            const fileSizeInMegabytes = (fileSizeInBytes / (1024 * 1024)).toFixed(2);
+
+            if (fileSizeInMegabytes >= 1) {
+                setLogoImageSize(`${fileSizeInMegabytes} MB`);
+            } else {
+                setLogoImageSize(`${fileSizeInKilobytes} KB`);
+            }
         }
     };
 
@@ -434,6 +471,15 @@ function AddAirlinePopup({ onClose, onAdded }) {
         if (file) {
             setMonogramFile(file);
             setMonogramPreview(URL.createObjectURL(file));
+            const fileSizeInBytes = file.size;
+            const fileSizeInKilobytes = (fileSizeInBytes / 1024).toFixed(2);
+            const fileSizeInMegabytes = (fileSizeInBytes / (1024 * 1024)).toFixed(2);
+
+            if (fileSizeInMegabytes >= 1) {
+                setMonogramImageSize(`${fileSizeInMegabytes} MB`);
+            } else {
+                setMonogramImageSize(`${fileSizeInKilobytes} KB`);
+            }
         }
     };
 
@@ -540,7 +586,10 @@ function AddAirlinePopup({ onClose, onAdded }) {
             onAdded(res.data);
             onClose();
         } catch (err) {
-            setError(err.response?.data?.error || err.message);
+            if((err.response?.data?.error || err.message) === "Request failed with status code 413"){
+                setError('Image file is too large.')
+            }
+            setError(err.response?.data?.error || err.message)
         } finally {
             setSaving(false);
         }
@@ -562,21 +611,23 @@ function AddAirlinePopup({ onClose, onAdded }) {
                         />
                     </label>
                     <label>
-                        Logo Picture *
+                        Logo Picture * (max 10mb)
                         <input type="file" accept="image/*" onChange={onLogoChange} required />
                     </label>
                     {logoPreview && (
                         <div className="image-preview">
                             <img src={logoPreview} alt="Logo Preview" />
+                            <p>Size: {logoimageSize}</p>
                         </div>
                     )}
                     <label>
-                        Monogram Picture *
+                        Monogram Picture * (max 10mb)
                         <input type="file" accept="image/*" onChange={onMonogramChange} required />
                     </label>
                     {monogramPreview && (
                         <div className="image-preview">
                             <img src={monogramPreview} alt="Monogram Preview" />
+                            <p>Size: {monogramimageSize}</p>
                         </div>
                     )}
                     <div className="details-section">
@@ -717,7 +768,7 @@ const AirportPage = () => {
     const pageSize = 20;
 
 
-   
+
     const fetchLocations = useCallback(async () => {
         try {
             const response = await axios.get('/api/airline/search', {

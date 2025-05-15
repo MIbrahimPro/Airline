@@ -72,6 +72,29 @@ const FlightCard = ({
         setForm(f => ({ ...f, [name]: v }));
     };
 
+    const handlecall = () => {
+
+        axios
+            .get('/api/siteinfo/public/contact')
+            .then((response) => {
+                const phoneNumber = response.data.contactPhone;
+                if (phoneNumber) {
+                    window.location.href = `tel:${phoneNumber}`;
+                } else {
+                    console.error('Phone number is undefined or empty.');
+                    alert('Phone number is not available.');
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                alert('Failed to retrieve phone number.');
+            })
+
+
+
+
+    }
+
     const handleSubmit = async e => {
         e.preventDefault();
         setloadingsubmit(true)
@@ -216,14 +239,19 @@ const FlightCard = ({
                             <label>Extra Details</label>
                             <textarea name="details" value={form.details} onChange={handleChange} rows="3" />
 
-                            <button type="submit" className="submit-btn">
-                                {loadingsubmit ? (
-                                    <>Submitting...</>
-                                ) : (
-                                    <>Submit Booking</>
-                                )}
-                            </button>
+                            <div className='sc-btn'>
+                                <button type="submit" className="submit-btn">
+                                    {loadingsubmit ? (
+                                        <>Submitting...</>
+                                    ) : (
+                                        <>Submit Booking</>
+                                    )}
+                                </button>
 
+                                <button onClick={handlecall} type='button' className='submit-btn'>
+                                    Call Now
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>

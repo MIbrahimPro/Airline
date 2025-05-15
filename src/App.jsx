@@ -35,17 +35,19 @@ import PrivacyPolicyEditor from './admin/pages/privacy/privacyadmin';
 import FAQEditor from './admin/pages/FAQ/FAQadmin';
 import BookingAdmin from './admin/pages/booking-admin/booking-admin';
 import Whatsaap from './components/whatsaap/whatsaap';
+import PayLaterAdmin from './admin/pages/paylater-admin/paylater-admin';
+import Paylater from './pages/paylater/paylater';
 
 function App() {
     return (
         <div className="App">
             <Router>
 
-                <Whatsaap />
 
                 <GlobalStatusProvider>
                     <GlobalLoader />
 
+                    <Whatsaap />
                     <Routes>
 
                         <Route path="/contact" element={<ContactUs />} />
@@ -58,6 +60,7 @@ function App() {
                         <Route path="/deals" element={<DealsPage />} />
                         <Route path="/countries/:regionId" element={<CountriesPage />} />
                         <Route path="/about" element={<AboutPage />} />
+                        <Route path="/paylater" element={<Paylater />} />
                         <Route path="/error" element={<ErrorPage />} />
 
                         <Route path="/admin/*" element={<ProtectedRoute />}>
@@ -72,6 +75,7 @@ function App() {
                             <Route path="contact" element={<ContactsPageAdmin />} />
                             <Route path="quotes" element={<QuotesPage />} />
                             <Route path="FAQ" element={<FAQEditor />} />
+                            <Route path="lateradmin" element={<PayLaterAdmin />} />
                             <Route path="privacy" element={<PrivacyPolicyEditor />} />
                             <Route path="flight" element={<FlightsPage />} />
                             <Route path="flight/:id" element={<FlightDetails />} />

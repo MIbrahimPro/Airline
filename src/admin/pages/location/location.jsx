@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback  } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Navbar from "../../components/navbar/adminnavbar";
 import { getToken } from "../../utils/auth";
 import axios from 'axios';
@@ -37,6 +37,7 @@ function EditLocationPopup({ loc, onClose, onSaved }) {
     const [countries, setCountries] = useState([])
     const [imageFile, setImageFile] = useState(null)
     const [preview, setPreview] = useState(loc?.image || '')
+    const [imageSize, setImageSize] = useState('');
     const [saving, setSaving] = useState(false)
     const [error, setError] = useState(null)
 
@@ -75,6 +76,16 @@ function EditLocationPopup({ loc, onClose, onSaved }) {
         if (!file) return
         setImageFile(file)
         setPreview(URL.createObjectURL(file))
+
+        const fileSizeInBytes = file.size;
+        const fileSizeInKilobytes = (fileSizeInBytes / 1024).toFixed(2);
+        const fileSizeInMegabytes = (fileSizeInBytes / (1024 * 1024)).toFixed(2);
+
+        if (fileSizeInMegabytes >= 1) {
+            setImageSize(`${fileSizeInMegabytes} MB`);
+        } else {
+            setImageSize(`${fileSizeInKilobytes} KB`);
+        }
     }
 
     const handleSubmit = async e => {
@@ -124,6 +135,9 @@ function EditLocationPopup({ loc, onClose, onSaved }) {
             const updated = { ...res.data, locationName: res.data.name }
             onSaved(updated)
         } catch (err) {
+            if((err.response?.data?.error || err.message) === "Request failed with status code 413"){
+                setError('Image file is too large.')
+            }
             setError(err.response?.data?.error || err.message)
         } finally {
             setSaving(false)
@@ -210,12 +224,13 @@ function EditLocationPopup({ loc, onClose, onSaved }) {
                         )}
 
                         <label>
-                            Image
+                            Image (max 10mb)
                             <input type="file" accept="image/*" onChange={onImageChange} />
                         </label>
 
                         <div className="image-preview">
                             <img src={preview} alt="preview" />
+                            <p>Size: {imageSize}</p>
                         </div>
 
                         <div className="popup-actions">
@@ -248,6 +263,7 @@ function AddLocationPopup({ onClose, onAdded }) {
     const [countries, setCountries] = useState([])
     const [imageFile, setImageFile] = useState(null)
     const [preview, setPreview] = useState('')
+    const [imageSize, setImageSize] = useState('');
     const [saving, setSaving] = useState(false)
     const [error, setError] = useState(null)
 
@@ -266,11 +282,23 @@ function AddLocationPopup({ onClose, onAdded }) {
     }
 
     const onImageChange = e => {
-        const file = e.target.files[0]
-        if (!file) return
-        setImageFile(file)
-        setPreview(URL.createObjectURL(file))
-    }
+        const file = e.target.files[0];
+        if (!file) return;
+
+        setImageFile(file);
+        setPreview(URL.createObjectURL(file));
+
+        // Calculate and set the image size
+        const fileSizeInBytes = file.size;
+        const fileSizeInKilobytes = (fileSizeInBytes / 1024).toFixed(2);
+        const fileSizeInMegabytes = (fileSizeInBytes / (1024 * 1024)).toFixed(2);
+
+        if (fileSizeInMegabytes >= 1) {
+            setImageSize(`${fileSizeInMegabytes} MB`);
+        } else {
+            setImageSize(`${fileSizeInKilobytes} KB`);
+        }
+    };
 
     const handleSubmit = async e => {
         e.preventDefault()
@@ -335,6 +363,9 @@ function AddLocationPopup({ onClose, onAdded }) {
 
             onAdded({ ...res.data, locationName: res.data.name })
         } catch (err) {
+            if((err.response?.data?.error || err.message) === "Request failed with status code 413"){
+                setError('Image file is too large.')
+            }
             setError(err.response?.data?.error || err.message)
         } finally {
             setSaving(false)
@@ -416,13 +447,14 @@ function AddLocationPopup({ onClose, onAdded }) {
                         )}
 
                         <label>
-                            Image *
+                            Image * (max 10mb)
                             <input type="file" accept="image/*" onChange={onImageChange} required />
                         </label>
 
                         {preview && (
                             <div className="image-preview">
                                 <img src={preview} alt="preview" />
+                                <p>Size: {imageSize}</p>
                             </div>
                         )}
 

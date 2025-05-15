@@ -20,6 +20,12 @@ const SiteInfoPage = () => {
     navigate('/admin/privacy');
   };
 
+  const handlePaylater = () => {
+    navigate('/admin/lateradmin');
+  };
+
+  
+
 
   useEffect(() => {
     fetch("/api/siteinfo/admin/all", {
@@ -89,6 +95,7 @@ const SiteInfoPage = () => {
         <div className="buttons">
           <button onClick={handleNavigateFAQ}>EDIT FAQ</button>
           <button onClick={handleNavigatePrivacy}>EDIT Privacy Policy</button>
+          <button onClick={handlePaylater}>EDIT Paylater</button>
         </div>
       </div>
     </>

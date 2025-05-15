@@ -7,11 +7,16 @@ const AdminLogin = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
+
+    const [attempts, setAttempts] = useState(0);
+
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
         setError("");
+        setSuccess("");
 
         try {
             const res = await fetch("/api/auth/login", {
@@ -29,9 +34,48 @@ const AdminLogin = () => {
             localStorage.setItem("adminToken", data.token);
             navigate("/admin/dashboard");
         } catch (err) {
+            setAttempts(prev => prev + 1);
             setError(err.message);
         }
     };
+
+    const handleForgot = async (e) => {
+        e.preventDefault();
+        setError("");
+        setSuccess("");
+
+        if (!window.confirm("Are you sure you want to reset your password?")) {
+            return;
+        }
+
+
+        try {
+            const res = await fetch("/api/siteinfo/forgot", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+            });
+
+
+
+            const data = await res.json();
+
+
+            if (!res.ok) {
+                throw new Error(data.message || "Password Reset Failed");
+            }
+
+            setSuccess(data.message)
+
+
+        } catch (err) {
+            setError(err.message);
+        }
+
+    }
+
+
+
+
 
     return (
         <>
@@ -55,7 +99,16 @@ const AdminLogin = () => {
                     />
                     <button type="submit">Login</button>
                     {error && <p className="error">{error}</p>}
-                    <button className="backhome" onClick={()=>{navigate("/home");}}>Back to client Side</button>
+
+                    {attempts > 0 && (
+                        <p onClick={handleForgot} className="forgot">
+                            Forgot Password?
+                        </p>
+                    )}
+
+
+                    {success && <p className="success">{success}</p>}
+                    <button className="backhome" onClick={() => { navigate("/home"); }}>Back to client Side</button>
                 </form>
             </div>
         </>

@@ -407,16 +407,27 @@
             }
         }
 
-        .submit-btn {
-            margin-top: 8px;
-            padding: 10px;
-            background: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            cursor: pointer;
+        .sc-btn {
+            display: flex;
+            width: 100%;
+            height: fit-content;
+
+            justify-content: space-between;
+            gap: 5px;
+
+            .submit-btn {
+                margin-top: 8px;
+                padding: 10px;
+                background: #007bff;
+                flex-grow: 1;
+                color: #fff;
+                border: none;
+                border-radius: 8px;
+                font-size: 1rem;
+                cursor: pointer;
+            }
         }
+
     }
 }
 
