@@ -51,6 +51,7 @@ const FlightCard = ({
     price,
     depart,
     ret,
+    stops: initialStops = 0, 
 }) => {
     const [notification, setNotification] = useState(null);
     const [showModal, setShowModal] = useState(false);
@@ -100,7 +101,8 @@ const FlightCard = ({
                 setEditForm({
                     toDuration: flight.toDuration || { hours: 0, minutes: 0 },
                     fromDuration: flight.fromDuration || { hours: 0, minutes: 0 }, // Default if not round-trip
-                    prices: flight.prices,
+                    prices: flight.prices, 
+                    stops: flight.stops !== undefined ? flight.stops : 0 
                 });
             } catch (err) {
                 console.error('Error fetching flight details:', err);
@@ -115,6 +117,13 @@ const FlightCard = ({
         setShowModal(false);
         setModalType(null);
         setNotification(null);
+    };
+
+    const handleStopChange = (e) => {
+        setEditForm((prev) => ({
+            ...prev,
+            stops: Number(e.target.value),
+        }));
     };
 
     const handleDurationChange = (e, durationType) => {
@@ -152,6 +161,7 @@ const FlightCard = ({
                 toDuration: editForm.toDuration,
                 fromDuration: type === 'round-trip' ? editForm.fromDuration : undefined,
                 prices: editForm.prices,
+                stops: editForm.stops,
             };
             await axios.put(`/api/flight/${id}`, updates, {
                 headers: { Authorization: `Bearer ${token}` }
@@ -208,6 +218,7 @@ const FlightCard = ({
                                 <div className="middle">
                                     <div className="duration">{flightTime}</div>
                                     <div className="date">{depart.split('-').reverse().join('/')}</div>
+                                    {initialStops > 0 && <div className="stops">{initialStops} Stop{initialStops > 1 ? 's' : ''}</div>}
                                 </div>
                                 <div className="dashed-line" />
                                 <div className="segment">
@@ -328,6 +339,20 @@ const FlightCard = ({
                                         </>
                                     )}
                                 </div>
+
+                                <div className='stop-input'>
+                                    <label>
+                                        Stops:
+                                        <input
+                                            type="number"
+                                            name="stops"
+                                            min="0"
+                                            value={editForm.stops}
+                                            onChange={handleStopChange}
+                                        />
+                                    </label>
+                                </div>
+
                                 <table className="modal-table">
                                     <thead>
                                         <tr>
@@ -1321,6 +1346,8 @@ function SearchResultsPage() {
                                         original={f.originalPrice}
                                         saving={f.discount}
                                         price={f.finalPrice}
+
+                                        stops={f.stops}
 
                                         adults={adults}
                                         children={children}
