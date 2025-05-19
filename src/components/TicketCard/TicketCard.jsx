@@ -26,6 +26,8 @@ const FlightCard = ({
     saving,
     price,
 
+    stops,
+
     depart,
     ret,
 
@@ -140,8 +142,17 @@ const FlightCard = ({
             <div className="flight-card">
 
                 <div className="top-badges">
+
+                    {stops != null && (
+                        <div className={`stops ${stops === 0 ? 'direct' : stops === 1 ? 'single-stop' : 'multi-stops'}`}>
+                            {stops === 0 ? "direct flight" : `${stops} stop${stops > 1 ? 's' : ''}`}
+                        </div>
+                    )}
+                    
                     {recommended && <div className="badge recommended">Recommended</div>}
+
                     {saving > 0 && <div className="badge saving">Save £{saving.toFixed(2)}</div>}
+
                 </div>
 
                 <div className="main">

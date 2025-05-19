@@ -138,6 +138,13 @@ export default function Navbar({ selectedPage = null }) {
             {open && <div className="dropdown-overlay" onClick={toggleOpen} />}
 
 
+
+            <a className='navbar nav-logo' href='/home'>
+                <div className='nav-row logo-row'>
+                        <img src='./logo_b.png' alt='logo' className='nav-logo-img' />
+                </div>                
+            </a>
+
             <nav className={`navbar ${open ? 'expanded' : ''}`}>
 
 
@@ -184,7 +191,6 @@ export default function Navbar({ selectedPage = null }) {
 
 
             <a href={`tel:${contactPhone}`} className='navbar nav-number'>
-                {/* <p>{contactnumber}</p> */}
                 <div className='nav-row'>
                     <div className='link'>
                         <img src='./icons/call.svg' alt='call' className='icon' />

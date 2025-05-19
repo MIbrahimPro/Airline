@@ -14,7 +14,8 @@
     }
 }
 
-/* Navbar Base */
+
+
 .navbar {
     position: fixed;
     top: 20px;
@@ -140,6 +141,21 @@
 
 }
 
+.nav-logo{
+    left: 30px;
+    right: auto;
+    top: 20px;
+    transform: translate(0%);
+    text-decoration: none;
+
+    .logo-row{
+        height: 60px;
+        .nav-logo-img{
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+}
 
 .nav-number {
     right: 30px;

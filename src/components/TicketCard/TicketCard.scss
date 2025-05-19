@@ -46,9 +46,10 @@
 
     .top-badges {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: center;
         width: 100%;
+        gap: 6px;
 
         .badge {
             background: $bl-blue;
@@ -58,8 +59,11 @@
             border-radius: 4px;
             width: fit-content;
 
-            &.saving {
+            &.recommended {
                 margin-left: auto;
+            }
+
+            &.saving {
                 display: flex;
                 justify-content: flex-end;
                 align-items: center;
@@ -71,6 +75,42 @@
                 }
             }
         }
+
+        $l-direct-color: #008000;
+        $bl-direct-color: #ECFDF5;
+
+        $l-single-stop-color: #a0522d;
+        $bl-single-stop-color: #FFFBE6;
+
+        $l-multi-stops-color: #b22222;
+        $bl-multi-stops-color: #FEF2F2;
+
+        .stops {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: normal;
+            text-transform: capitalize;
+            margin-right: 8px;
+        }
+
+        .stops.direct {
+            background-color: $bl-direct-color;
+            color: $l-direct-color;
+        }
+
+        .stops.single-stop {
+            background-color: $bl-single-stop-color;
+            color: $l-single-stop-color;
+        }
+
+        .stops.multi-stops {
+            background-color: $bl-multi-stops-color;
+            color: $l-multi-stops-color;
+        }
+
+
     }
 
     .main {

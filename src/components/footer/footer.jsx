@@ -58,7 +58,7 @@ export default function Footer() {
 
 
                 <div className="footer-brand">
-                    <img src="../logow.svg" alt="Brand Logo" className="brand-logo" />
+                    <img src="../logo.png" alt="Brand Logo" className="brand-logo" />
                     <p className="brand-description">
                         {aboutInfo}
                     </p>
@@ -111,7 +111,7 @@ export default function Footer() {
 
 
             <div className="footer-bottom">
-                <p>&copy; {new Date().getFullYear()} YourBrand. All Rights Reserved.</p>
+                <p>&copy; {new Date().getFullYear()} Flyva. All Rights Reserved.</p>
             </div>
         </footer>
     );
