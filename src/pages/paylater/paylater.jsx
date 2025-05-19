@@ -95,13 +95,12 @@ function Paylater() {
                                         <p className={`pl-item-text ${expandedItems[item.subheading] ? 'expanded' : ''}`}>
                                             {item.text}
                                         </p>
-
-                                        <a
+                                        <button
                                             className="read-more-button"
                                             onClick={() => toggleExpand(item.subheading)}
                                         >
                                             {expandedItems[item.subheading] ? 'Read less' : 'Read more'}
-                                        </a>
+                                        </button>
                                     </div>
                                 </div>
 

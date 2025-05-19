@@ -83,6 +83,9 @@
                         cursor: pointer;
                         font-size: 0.8em;
                         margin-top: 8px;
+                        border: none;
+                        margin: 0%;
+                        background-color: transparent;
 
                         &:hover {
                             color: $d-blue;
