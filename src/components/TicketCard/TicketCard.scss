@@ -371,7 +371,7 @@
     position: fixed;
     inset: 0;
     backdrop-filter: blur(3px);
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -379,10 +379,9 @@
 }
 
 .booking-modal {
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(7px);
     border-radius: 12px;
-    padding: 24px;
     width: 90%;
     max-width: 600px;
     position: relative;
@@ -390,34 +389,53 @@
 
 
     max-height: 85vh;
-    overflow-y: scroll;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+    overflow-y: auto;
+    scrollbar-width: 3px;
+    // -ms-overflow-style: none;
+    // &::-webkit-scrollbar {
+    // display: none;
+    // }
 
-    &::-webkit-scrollbar {
-        display: none;
-    }
+    .md-header {
+        flex: 0 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        position: sticky;
+        top: 0;
+        background-color: #ffffff55;
+        backdrop-filter: blur(10px);
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        z-index: 2;
 
-    .modal-close {
-        position: absolute;
-        top: 12px;
-        right: 12px;
-        background: transparent;
-        border: none;
-        font-size: 1.5rem;
-        cursor: pointer;
-    }
 
-    h2 {
-        margin-top: 0;
-        margin-bottom: 16px;
-        text-align: center;
+
+        .md-close {
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        h2 {
+            margin-top: 0;
+            text-align: center;
+        }
     }
 
     form {
         display: flex;
         flex-direction: column;
         gap: 12px;
+
+
+        .bd-fields {
+            padding: 0 16px;
+            padding-top: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
 
         label {
             font-weight: 600;
@@ -448,9 +466,23 @@
         }
 
         .sc-btn {
+
+            flex: 0 0 auto;
+            position: sticky;
+            bottom: 0;
+
+            background-color: #ffffff55;
+            backdrop-filter: blur(10px);
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+
             display: flex;
+            flex-direction: column;
             width: 100%;
             height: fit-content;
+
+            padding: 12px 16px;
+            margin-top: 16px;
 
             justify-content: space-between;
             gap: 5px;
@@ -458,13 +490,19 @@
             .submit-btn {
                 margin-top: 8px;
                 padding: 10px;
-                background: #007bff;
+                background: $m-blue;
                 flex-grow: 1;
                 color: #fff;
                 border: none;
                 border-radius: 8px;
                 font-size: 1rem;
                 cursor: pointer;
+                transition: all 0.2s ease-out;
+
+                &:hover {
+                    background: $l-blue;
+                }
+
             }
         }
 

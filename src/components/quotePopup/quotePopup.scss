@@ -47,11 +47,13 @@
         }
 
         .qp-body {
-            padding: 16px;
+
             max-height: 70vh;
             overflow-y: auto;
+            position: relative;
 
             .qp-fields {
+                padding: 16px;
                 display: flex;
                 flex-direction: column;
                 gap: 12px;
@@ -93,10 +95,22 @@
             }
 
             .qp-footer {
-                margin-top: 16px;
+                padding: 16px;
+                // margin-top: 16px;
+                background-color: #ffffff55;
+                backdrop-filter: blur(7px);
+                width: 100%;
+
+                border-bottom-left-radius: 16px;
+                border-bottom-right-radius: 16px;
+
+
                 display: flex;
                 flex-direction: column;
                 gap: 8px;
+                position: sticky;
+                bottom: 0%;
+
 
                 .qp-error {
                     color: red;
