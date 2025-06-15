@@ -1,0 +1,87 @@
+/* src/pages/aboutusadmin.scss */
+$font-stack: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+$primary: #2c3e50;
+$accent: #e67e22;
+$light: #fdfbfb;
+$bg: #ffffff;
+$radius: 8px;
+$spacing: 16px;
+
+.aboutus-admin {
+    font-family: $font-stack;
+    background: $bg;
+    color: $primary;
+    padding: $spacing;
+
+    .back-btn {
+        background: $accent;
+        border-radius: $radius;
+        color: $light;
+        padding: 0.5em 1em;
+        margin-bottom: $spacing;
+    }
+
+    .sectionItem {
+        background: $light;
+        border: 1px solid $primary;
+        border-radius: $radius;
+        margin-bottom: $spacing;
+        padding: $spacing;
+
+        h3 {
+            margin-top: 0;
+            color: $primary;
+        }
+        p {
+            margin: 0.5em 0;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            margin-top: 0.5em;
+            padding: 0.5em;
+            border: 1px solid darken($primary, 20%);
+            border-radius: $radius / 2;
+            font-family: $font-stack;
+        }
+
+        .actions {
+            margin-top: $spacing / 2;
+            button {
+                margin-right: $spacing / 2;
+            }
+        }
+    }
+
+    .newSection {
+        border-top: 2px solid $primary;
+        padding-top: $spacing;
+        margin-top: $spacing;
+
+        h3 {
+            margin: 0 0 0.5em 0;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            margin-top: 0.5em;
+            padding: 0.5em;
+            border: 1px solid darken($primary, 20%);
+            border-radius: $radius / 2;
+            font-family: $font-stack;
+        }
+
+        .addSection {
+            display: block;
+            margin-top: $spacing;
+            background: $accent;
+            color: $light;
+            padding: 0.75em 1.5em;
+            border: none;
+            border-radius: $radius / 2;
+            cursor: pointer;
+        }
+    }
+}
